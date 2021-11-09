@@ -1,0 +1,5224 @@
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500&display=swap");
+@import url("https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css");
+$material-icons-font-path: "~material-icons/iconfont/";
+@import "~material-icons/iconfont/material-icons.scss";
+
+$font_family: GJ_N, "Noto Sans TC", sans-serif;
+$color_header_bg: #000;
+$color_page_bg: #17161c;
+$color_other_bg: #131217;
+$color_border: #636363;
+$color_btn_bg: #2a2a30;
+$color_btn_hover_bg: #585858;
+$color_menu_hover: #000;
+$color_text: #b5b4b9;
+$color_text_hover: #fff;
+$color_text_err: #f65b5b;
+$color_text_login_title: #222227;
+$color_white: #fff;
+$color_model_hover: #313138;
+$color_dialog_bg: #313138;
+$color_dialog_border: #404148;
+$color_keyin_bg: #222227;
+$color_light_blue: #16ddff;
+$color_next_step: #18adf5;
+$color_menu_bg: #0b0a0d;
+$color_menu_txt: #05f5ff;
+$color_menu_select: #2a2a30;
+$color_lbl_bg: #212127;
+$color_edit_bg: #222227;
+$color_guide_bg: rgba(0, 0, 0, 0.5);
+$color_filter_bg: #27272a;
+$color_null: rgba(0, 0, 0, 0);
+$color_lecture_yellow: #fbbb29;
+$color_exam_blue: #2ca6dc;
+$color_exam_tool: #404043;
+$color_select_text: #999999;
+$color_model_bg: rgba(0, 0, 0, 0.65);
+
+$font_weight_light: 300;
+$font_weight_regular: 400;
+$font_weight_medium: 500;
+$width_min_header: 1050px;
+$width_min_right: 739px;
+
+@font-face {
+    font-family: GJ_N;
+    src: url("~@/assets/font/GenJyuuGothic-Normal.woff2") format("woff2");
+}
+
+/***********************
+    scroll bar
+************************/
+.scrollBar {
+    /* width */
+    ::-webkit-scrollbar {
+        width: 18px;
+    }
+
+    /* Track */
+    ::-webkit-scrollbar-track {
+        background: $color_dialog_bg;
+        margin: 0 0;
+    }
+
+    /* Handle */
+    ::-webkit-scrollbar-thumb {
+        background: $color_dialog_border;
+        border: $color_dialog_border 2.5px solid;
+    }
+}
+
+body {
+    min-width: $width_min_header;
+    background: #fff;
+    color: $color_text;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 28px;
+    font-family: $font_family;
+    padding: 0px;
+    margin: 0px;
+}
+
+.btn,
+.btnNoBg,
+.btnWithIcon {
+    position: relative;
+    width: auto;
+    height: 40px;
+    line-height: 40px;
+    font-family: $font_family;
+    font-size: 15px;
+    color: white;
+    background: $color_btn_bg;
+    padding: 0 19px;
+    margin-right: 10px;
+    border: 1px solid $color_border;
+    border-radius: 2px;
+    box-sizing: border-box;
+
+    &:hover {
+        cursor: pointer;
+        opacity: 0.8;
+    }
+}
+
+.btnNoBg {
+    background: $color_null;
+}
+
+.btnWithIcon {
+    text-indent: 1em;
+    background-color: $color_null;
+    background-position: 7px center;
+    background-size: 20px 20px;
+    background-repeat: no-repeat;
+}
+
+.iconEdit {
+    background-image: url("~@/assets/img/SURREALM/Backend/StudentManager/icon_edit.png");
+}
+
+.iconAdd {
+    background-image: url("~@/assets/img/SURREALM/Backend/StudentManager/icon_add.png");
+}
+
+.iconRemove {
+    background-image: url("~@/assets/img/SURREALM/Backend/StudentManager/icon_remove.png");
+}
+
+.iconTag {
+    background-image: url("~@/assets/img/SURREALM/Backend/StudentManager/icon_tag.png");
+}
+
+.iconDel {
+    background-image: url("~@/assets/img/SURREALM/Backend/StudentManager/icon_del.png");
+}
+
+.clickable {
+    &:hover {
+        cursor: pointer !important;
+    }
+}
+
+.btnInformation {
+    position: relative;
+    float: right;
+    width: 32px;
+    height: 32px;
+    margin-top: 25.5px;
+    margin-right: 40px;
+    padding: 0;
+    background-color: rgba(0, 0, 0, 0);
+    background-image: url("~@/assets/img/SURREALM/Backend/Help/btn_help.png");
+    border-radius: 16px;
+    border: 2px solid white;
+
+    &:hover {
+        cursor: pointer;
+        background-color: $color_btn_hover_bg;
+    }
+
+    &:focus {
+        outline: 0px;
+    }
+}
+
+.pnlUploadArea {
+    position: relative;
+    display: inline-block;
+    height: 40px;
+    line-height: 40px;
+
+    label {
+        display: block;
+    }
+
+    .fuClass {
+        position: absolute;
+        width: 100%;
+        height: 40px;
+        top: 0;
+        left: 0;
+        opacity: 0;
+        &:hover {
+            cursor: pointer;
+        }
+    }
+}
+
+.loginContainer {
+    position: relative;
+    width: 377px;
+    height: 581px;
+    margin: calc(50vh - 290px) auto 0;
+    padding: 20px 0 34px;
+    background: #ffffff;
+    border-radius: 11px;
+    z-index: 10;
+    box-sizing: border-box;
+
+    .logoImg,
+    .imgForgetPW {
+        position: relative;
+        width: 137px;
+        height: auto;
+        margin: 0 auto;
+        display: block;
+    }
+    .logoArea {
+        border-radius: 11px 11px 0 0;
+        width: 100%;
+        margin: -20px 0 57px;
+        background: #000;
+        .logoSURREALM {
+            position: relative;
+            width: 221px;
+            height: auto;
+            margin: 0 auto;
+            padding: 30px 0;
+            display: block;
+        }
+    }
+
+    .lblSiginTitle,
+    .lblSiginSubTitle {
+        position: relative;
+        display: block;
+        width: 100%;
+        height: 30px;
+        line-height: 30px;
+        font-family: $font_family;
+        font-size: 24px;
+        font-weight: bold;
+        color: $color_text_login_title;
+        text-align: center;
+        margin: 9px 0 12px;
+    }
+
+    .lblSiginSubTitle {
+        margin: 0 0 27px;
+        font-size: 16px;
+        font-weight: bold;
+        height: 42px;
+        line-height: 21px;
+        padding: 0 42px;
+        margin-top: 107px;
+        box-sizing: border-box;
+        letter-spacing: 1.8px;
+    }
+
+    .lblSuccessAndMail {
+        display: block;
+        width: 100%;
+        text-align: center;
+        font-family: $font_family;
+        font-size: 16px;
+        font-weight: $font_weight_medium;
+        color: $color_text_login_title;
+        margin-top: 113px;
+        padding: 0 20px;
+        box-sizing: border-box;
+    }
+
+    .formWrapping {
+        position: relative;
+        width: 296px;
+        height: auto;
+        margin: 20px auto 0;
+        font-size: 14px;
+        color: #363636;
+    }
+
+    .loginKeyin,
+    .loginKeyinErrBorder {
+        position: relative;
+        display: block;
+        margin-left: 0px;
+        width: 100%;
+        height: 35px;
+        line-height: 30px;
+        font-family: $font_family;
+        font-size: 14px;
+        padding-left: 15px;
+        box-sizing: border-box;
+        background: #ffffff;
+        border: 1px solid $color_border;
+        border-radius: 2px;
+        &:focus {
+            outline: 0px;
+        }
+    }
+
+    .loginKeyinErrBorder {
+        border: 1px solid $color_text_err;
+    }
+
+    .loginKeyinErr {
+        width: 100%;
+        height: 25px;
+        line-height: 25px;
+        display: block;
+        text-align: right;
+        font-family: $font_family;
+        font-size: 14px;
+        color: $color_text_err;
+    }
+
+    .btnConfirm,
+    .btnSURREALMLogin,
+    .btnOpenIDLogin {
+        position: absolute;
+        bottom: 107px;
+        left: 112.5px;
+        width: 153px;
+        height: 40px;
+        line-height: 30px;
+        display: block;
+        background: $color_other_bg;
+        text-align: center;
+        font-size: 16px;
+        color: #ffffff;
+        border-radius: 4px;
+        border: 0px;
+        cursor: pointer;
+        font-family: $font_family;
+
+        &:hover {
+            background: $color_model_hover;
+        }
+
+        &:focus {
+            outline: 0px;
+        }
+    }
+
+    .btnSURREALMLogin {
+        width: 170px;
+        left: 103.5px;
+        bottom: 78.8px;
+        border-radius: 4px;
+        font-size: 14px;
+        font-weight: 300;
+    }
+    .btnOpenIDLogin {
+        width: 80px;
+        height: 40px;
+        left: 256px;
+        bottom: 78.8px;
+        border-radius: 4px;
+        font-size: 14px;
+        font-weight: 300;
+    }
+
+    .btnSURREALMForgetPw {
+        position: absolute;
+        top: 83px;
+        right: 0px;
+        font-family: $font_family;
+        color: $color_text;
+        font-size: 12px;
+        padding: 0;
+        border: 0px;
+        background: $color_null;
+
+        &:hover {
+            cursor: pointer;
+            opacity: 0.6;
+        }
+    }
+
+    .lblNoAcc,
+    .btnRegister,
+    .btnContactUs {
+        position: absolute;
+        bottom: 41px;
+        left: 113.5px;
+        font-family: $font_family;
+        color: $color_text;
+        font-size: 12px;
+        line-height: 12px;
+    }
+
+    .btnRegister,
+    .btnContactUs {
+        left: 230px;
+        color: $color_dialog_bg;
+        background: white;
+        border: 0px;
+        padding: 0;
+        &:hover {
+            cursor: pointer;
+            opacity: 0.6;
+        }
+    }
+
+    .btnContactUs {
+        left: 210px;
+    }
+
+    .btnforgetPW {
+        position: absolute;
+        bottom: 32.5px;
+        left: 0;
+        width: 100%;
+        height: 20px;
+        line-height: 20px;
+        display: block;
+        background: #ffffff;
+        text-align: center;
+        font-size: 14px;
+        color: $color_dialog_bg;
+        border: 0px;
+        cursor: pointer;
+        font-family: $font_family;
+
+        &:hover {
+            color: $color_text;
+        }
+
+        &:focus {
+            outline: 0px;
+        }
+    }
+
+    .txtbForgetPwEmail {
+        display: block;
+        width: 296px;
+        height: 38px;
+        line-height: 38px;
+        font-family: $font_family;
+        font-size: 14px;
+        color: $color_text_login_title;
+        margin: 60px auto 0;
+        text-indent: 38px;
+        background-image: url("~@/assets/img/SURREALM/Account/icon_email.png");
+        background-position: 11px center;
+        background-size: 18px 18px;
+        background-repeat: no-repeat;
+        border: 1px solid $color_border;
+        border-radius: 2px;
+
+        &:focus {
+            text-indent: 11px;
+            background: $color_null;
+        }
+    }
+
+    .lblLoginErr {
+        display: block;
+        width: 100%;
+        text-align: center;
+        padding-top: 2px;
+        margin-bottom: -10px;
+        color: red;
+    }
+}
+
+.loginBackgroundM {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    z-index: 1;
+    background-image: url("~@/assets/img/SURREALM/Account/Signin_bg.png");
+    background-size: 100% auto;
+}
+
+.SurrealmHeader {
+    position: fixed;
+    width: 100%;
+    height: 90px;
+    top: 0px;
+    background: $color_header_bg;
+    box-sizing: border-box;
+    border-bottom: 1px solid #303030;
+    z-index: 900;
+    border-bottom: 1px solid $color_light_blue;
+    .headerCenter {
+        position: relative;
+        width: 96%;
+        min-width: $width_min_header;
+        height: 90px;
+        margin: 0 auto;
+
+        .headerLogout {
+            position: relative;
+            display: block;
+            float: right;
+            width: auto;
+            height: 40px;
+            line-height: 38px;
+            padding: 0 18px;
+            font-size: 14px;
+            font-family: $font_family;
+            text-align: center;
+            font-weight: $font_weight_light;
+            color: $color_white;
+            background: $color_header_bg;
+            border: 1px solid $color_border;
+            border-radius: 2px;
+            margin-top: 25px;
+            box-sizing: border-box;
+
+            &:hover {
+                background: $color_btn_hover_bg;
+                cursor: pointer;
+            }
+        }
+
+        .pnlUserInfo {
+            position: relative;
+            height: auto;
+            float: right;
+            margin-top: 25px;
+            margin-right: 20px;
+
+            .lblUser {
+                position: relative;
+                display: block;
+                height: 40px;
+                line-height: 40px;
+                text-indent: 48px;
+                color: $color_white;
+                padding-right: 20px;
+
+                &:before {
+                    content: " ";
+                    display: block;
+                    position: absolute;
+                    left: 0;
+                    top: 0;
+                    width: 100%;
+                    height: 100%;
+                    background-image: url("~@/assets/img/SURREALM/Backend/icon_user.png");
+                    background-position: 15px 10px;
+                    background-repeat: no-repeat;
+                }
+            }
+
+            .lblToolsMyInfo {
+                color: $color_text;
+                background-color: $color_keyin_bg;
+                display: none;
+                font-weight: $font_weight_light;
+
+                @extend .lblUser;
+                &:before {
+                    opacity: 0.7;
+                }
+            }
+
+            &:hover {
+                .lblToolsMyInfo {
+                    display: block;
+
+                    &:hover {
+                        color: $color_text_hover;
+                        cursor: pointer;
+
+                        &:before {
+                            opacity: 1;
+                        }
+                    }
+                }
+            }
+        }
+
+        .btnSetting {
+            position: relative;
+            float: right;
+            height: 28px;
+            font-family: $font_family;
+            font-size: 18px;
+            color: #9d9d9d;
+            padding: 0;
+            margin: 29px 0 0 0;
+            background: rgba(0, 0, 0, 0.01);
+            border: 0px;
+
+            &:hover {
+                color: #fff;
+                cursor: pointer;
+            }
+        }
+    }
+
+    .headerLogoArea {
+        position: relative;
+        display: block;
+        float: left;
+        margin-right: 69px;
+    }
+
+    .headerLogoImg {
+        width: 46px;
+        height: auto;
+        margin-top: 22px;
+        display: block;
+        float: left;
+        margin-right: 19px;
+    }
+
+    .headerLogoTxt {
+        font-size: 20px;
+        color: #ffffff;
+        line-height: 90px;
+        display: block;
+        float: left;
+        font-family: $font_family;
+        letter-spacing: 0.8px;
+    }
+}
+
+.SurrealmMenu {
+    position: relative;
+    display: block;
+    width: 211px;
+    height: calc(100vh - 90px);
+    // height: 100%;
+    // min-height: calc(100vh - 90px);
+    float: left;
+    background: $color_menu_bg;
+    z-index: 899;
+    border-right: 3px solid black;
+    box-sizing: border-box;
+    overflow: auto;
+
+    /* width */
+    &::-webkit-scrollbar {
+        width: 0px;
+    }
+
+    /* Track */
+    &::-webkit-scrollbar-track {
+        background: $color_dialog_bg;
+        margin: 0 0;
+    }
+
+    /* Handle */
+    &::-webkit-scrollbar-thumb {
+        background: $color_dialog_border;
+        border: $color_dialog_border 2.5px solid;
+    }
+
+    .imgAvatar {
+        width: 100%;
+        height: auto;
+    }
+
+    .pnlMenuSelect,
+    .pnlMenuUnSelect {
+        position: relative;
+        width: 100%;
+        height: 40px;
+        line-height: 40px;
+        background: $color_menu_select;
+        margin-bottom: 10px;
+
+        &:hover {
+            background: $color_menu_hover;
+            cursor: pointer;
+        }
+
+        .imgIcon {
+            position: relative;
+            width: 33px;
+            height: auto;
+            float: left;
+            margin: 3px 6px 3px 18px;
+        }
+
+        .lblMenu {
+            position: relative;
+            float: left;
+            color: $color_menu_txt;
+            font-family: $font_family;
+            font-size: 16px;
+            font-weight: $font_weight_light;
+        }
+    }
+    .pnlMenuUnSelect {
+        background: $color_menu_bg;
+        &:hover {
+            .lblMenu {
+                color: $color_text_hover;
+            }
+
+            .imgIcon {
+                -webkit-filter: brightness(0) invert(1);
+                -moz-filter: brightness(0) invert(1);
+                -ms-filter: brightness(0) invert(1);
+                -o-filter: brightness(0) invert(1);
+                filter: brightness(0) invert(1);
+            }
+        }
+
+        .lblMenu {
+            color: $color_text;
+        }
+
+        .imgIcon {
+            -webkit-filter: grayscale(100%);
+            -moz-filter: grayscale(100%);
+            -ms-filter: grayscale(100%);
+            -o-filter: grayscale(100%);
+            filter: grayscale(100%);
+        }
+    }
+
+    .pnlMenuBoxSelect,
+    .pnlMenuBoxUnSelect {
+        @extend .pnlMenuSelect;
+        height: auto;
+        background: $color_menu_bg;
+
+        &:hover {
+            background: $color_menu_bg;
+        }
+
+        .imgIcon {
+            -webkit-filter: grayscale(100%);
+            -moz-filter: grayscale(100%);
+            -ms-filter: grayscale(100%);
+            -o-filter: grayscale(100%);
+            filter: grayscale(100%);
+        }
+
+        .lblMenu {
+            color: $color_text;
+        }
+
+        .pnlSubMenu {
+            position: relative;
+            width: 100%;
+            height: auto;
+            display: block;
+
+            .pnlSubMenuSelect,
+            .pnlSubMenuUnSelect {
+                height: 40px;
+                background: $color_menu_select;
+
+                .imgSubMenu {
+                    position: relative;
+                    width: 23px;
+                    height: auto;
+                    margin-left: 43px;
+                    margin-right: 6px;
+                    top: 5px;
+                }
+
+                .lblSubMenu {
+                    color: $color_menu_txt;
+                    font-size: 16px;
+                    font-family: $font_family;
+                    letter-spacing: 1px;
+                    font-weight: $font_weight_light;
+                }
+            }
+
+            .pnlSubMenuUnSelect {
+                background: $color_menu_bg;
+                .imgSubMenu {
+                    -webkit-filter: brightness(0) invert(1);
+                    -moz-filter: brightness(0) invert(1);
+                    -ms-filter: brightness(0) invert(1);
+                    -o-filter: brightness(0) invert(1);
+                    filter: brightness(0) invert(1);
+                }
+
+                &:hover {
+                    cursor: pointer;
+                    .imgSubMenu {
+                        cursor: pointer;
+                        opacity: 1;
+                    }
+                    .lblSubMenu {
+                        color: $color_text_hover;
+                        cursor: pointer;
+                    }
+                }
+
+                .imgSubMenu {
+                    opacity: 0.6;
+                }
+
+                .lblSubMenu {
+                    color: $color_text;
+                }
+            }
+        }
+    }
+    .pnlMenuBoxUnSelect {
+        @extend .pnlMenuUnSelect;
+        background: $color_menu_bg;
+
+        &:hover {
+            background: $color_menu_hover;
+
+            .pnlSubMenu {
+                display: block;
+            }
+        }
+
+        .pnlSubMenu {
+            display: none;
+        }
+    }
+
+    .hrMenu {
+        border-color: $color_menu_select;
+        padding: 0;
+        margin: 15px 0 20px;
+    }
+}
+
+.guideArea {
+    position: relative;
+    height: calc(100vh - 90px);
+    background-image: url("~@/assets/img/SURREALM/Backend/guide_bg.png");
+
+    .step1Area {
+        display: block;
+        width: 100%;
+        height: calc(100vh - 90px);
+        box-sizing: border-box;
+        padding-top: calc(50vh - 45px - 120px);
+        background-color: $color_guide_bg;
+
+        .welcomeTitle {
+            font-family: $font_family;
+            line-height: 80px;
+            font-size: 60px;
+            font-weight: bold;
+            color: white;
+            text-align: center;
+            letter-spacing: 1.5px;
+        }
+
+        .btnNextStep {
+            display: block;
+            width: 166px;
+            height: 40px;
+            line-height: 40px;
+            background: $color_next_step;
+            border-radius: 4px;
+            border: 0px;
+            font-family: $font_family;
+            font-size: 16px;
+            color: white;
+            margin: 10% auto 0;
+
+            &:hover {
+                opacity: 0.8;
+                cursor: pointer;
+            }
+        }
+    }
+
+    .step2Area,
+    .step3Area {
+        display: block;
+        width: 100%;
+        height: calc(100vh - 90px);
+        box-sizing: border-box;
+        padding-top: calc(50vh - 45px - 280px);
+        background-color: $color_guide_bg;
+    }
+
+    .keyinTitle {
+        position: relative;
+        font-family: $font_family;
+        line-height: 80px;
+        font-size: 60px;
+        font-weight: bold;
+        color: white;
+        text-align: center;
+        letter-spacing: 1.5px;
+
+        .miniTitle {
+            line-height: 0px;
+            font-size: 14px;
+            margin-left: 21px;
+        }
+    }
+
+    .keyinArea {
+        position: relative;
+        width: 490px;
+        height: auto;
+        margin: 80px auto 0;
+
+        .title,
+        .content {
+            float: left;
+            width: 100px;
+            height: 38px;
+            line-height: 38px;
+            font-family: $font_family;
+            font-size: 20px;
+            text-align: right;
+            color: white;
+            margin-bottom: 30px;
+        }
+
+        .content {
+            width: 290px;
+            margin: 0 0 32px 10px;
+            border: 0px;
+            padding: 0;
+            font-size: 14px;
+            color: $color_text_login_title;
+            text-indent: 1em;
+            text-align: left;
+
+            &:focus {
+                outline: 0px;
+            }
+        }
+
+        .date {
+            float: left;
+            width: 290px;
+            height: 38px;
+            line-height: 38px;
+            margin: 0 0 32px 10px;
+            border: 0px;
+            padding: 0;
+            font-size: 14px;
+            font-family: $font_family;
+            color: $color_text_login_title;
+            text-indent: 1em;
+            text-align: left;
+
+            &:focus {
+                outline: 0px;
+            }
+
+            input {
+                width: 100%;
+                height: 38px;
+                line-height: 38px;
+                font-family: $font_family;
+                font-size: 14px;
+                border: 0;
+                border-radius: 2px;
+                //text-align: center;
+                padding: 0 0 0 1em;
+                box-sizing: border-box;
+                margin-left: -14px;
+            }
+        }
+
+        .toolArea {
+            margin-top: 60px;
+
+            .btnChangeStep {
+                display: block;
+                float: left;
+                width: 166px;
+                height: 40px;
+                line-height: 40px;
+                background: $color_next_step;
+                border-radius: 4px;
+                border: 0px;
+                font-family: $font_family;
+                font-size: 16px;
+                color: white;
+
+                &:hover {
+                    opacity: 0.8;
+                    cursor: pointer;
+                }
+
+                &:nth-child(2n) {
+                    margin: 0 69px 0 10px;
+                }
+                &:nth-child(2n + 1) {
+                    margin: 0 10px 0 69px;
+                }
+            }
+        }
+
+        .NameHint {
+            position: absolute;
+            top: 37px;
+            left: 109px;
+            font-family: $font_family;
+            font-size: 14px;
+            color: white;
+        }
+    }
+
+    .step4Area {
+        display: block;
+        width: 100%;
+        height: calc(100vh - 90px);
+        box-sizing: border-box;
+        padding-top: calc(50vh - 45px - 120px);
+        background-color: $color_guide_bg;
+
+        .finishTitle {
+            font-family: $font_family;
+            line-height: 80px;
+            font-size: 60px;
+            font-weight: bold;
+            color: white;
+            text-align: center;
+            letter-spacing: 1.5px;
+        }
+
+        .finishContent {
+            font-family: $font_family;
+            line-height: 120px;
+            font-size: 15px;
+            color: white;
+            text-align: center;
+            letter-spacing: 1.5px;
+        }
+
+        .btnStartUse {
+            display: block;
+            width: 166px;
+            height: 40px;
+            line-height: 40px;
+            background: $color_next_step;
+            border-radius: 4px;
+            border: 0px;
+            font-family: $font_family;
+            font-size: 16px;
+            color: white;
+            margin: 40px auto 0;
+
+            &:hover {
+                opacity: 0.8;
+                cursor: pointer;
+            }
+        }
+    }
+}
+
+.pnlPageContent {
+    position: relative;
+    display: block;
+    width: calc(100% - 211px - 37px - 37px);
+    min-width: $width_min_right;
+    height: calc(100vh - 90px - 23px);
+    float: left;
+    background: $color_page_bg;
+    padding: 23px 37px 0;
+
+    .searchTitle {
+        position: relative;
+        float: left;
+        width: 81px;
+        height: 40px;
+        line-height: 40px;
+        font-family: $font_family;
+        font-size: 14px;
+        color: white;
+        text-align: center;
+        margin-bottom: 34px;
+    }
+
+    .searchDate {
+        float: left;
+        width: 162px;
+        height: 40px;
+        line-height: 40px;
+        border: 1px solid $color_dialog_border;
+        padding: 0;
+        box-sizing: border-box;
+        margin-bottom: 34px;
+
+        input {
+            width: 100%;
+            height: 34px;
+            line-height: 34px;
+            font-family: $font_family;
+            font-size: 14px;
+            color: white;
+            border: 0;
+            border-radius: 2px;
+            box-sizing: border-box;
+            background: $color_null;
+            text-align: center;
+        }
+
+        .mx-icon-calendar,
+        .mx-icon-clear {
+            -webkit-filter: brightness(0) invert(1);
+            -moz-filter: brightness(0) invert(1);
+            -ms-filter: brightness(0) invert(1);
+            -o-filter: brightness(0) invert(1);
+            filter: brightness(0) invert(1);
+        }
+    }
+
+    .btnSearch {
+        margin-left: 12px;
+        margin-bottom: 34px;
+    }
+
+    .pnlTitleArea {
+        position: relative;
+        width: 100%;
+        min-width: $width_min_right;
+        height: 90px;
+        line-height: 90px;
+        border-bottom: 1px solid $color_dialog_border;
+        box-sizing: border-box;
+
+        .imgCustomTitle {
+            position: relative;
+            display: block;
+            float: left;
+            width: 50px;
+            height: 50px;
+            margin: 20px 8px 0px 0px;
+        }
+
+        .lblTitle {
+            position: relative;
+            display: block;
+            float: left;
+            line-height: 90px;
+            font-family: $font_family;
+            font-size: 24px;
+            color: $color_menu_txt;
+            margin-right: 30px;
+        }
+    }
+
+    .accountInfo {
+        height: calc(100vh - 90px - 23px - 90px);
+        padding-top: 45px;
+        box-sizing: border-box;
+        overflow: auto;
+
+        .infoItem {
+            position: relative;
+            display: block;
+            float: left;
+            width: 400px;
+            margin: 0 0 45px 25px;
+
+            .title,
+            .lblContent,
+            .editContent {
+                position: relative;
+                display: block;
+                float: left;
+                width: 90px;
+                height: 38px;
+                line-height: 38px;
+                margin: 0 10px 0;
+                font-family: $font_family;
+                font-size: 20px;
+                color: white;
+                font-weight: bold;
+                text-align: right;
+            }
+
+            .lblContent,
+            .editContent {
+                width: 290px;
+                font-size: 16px;
+                font-weight: normal;
+                border: 0;
+                border-radius: 2px;
+                box-sizing: border-box;
+                background: $color_lbl_bg;
+                text-indent: 1em;
+                margin: 0;
+                text-align: left;
+
+                input {
+                    position: relative;
+                    top: -2px;
+                    width: 100%;
+                    height: 35px;
+                    line-height: 35px;
+                    font-family: $font_family;
+                    font-size: 14px;
+                    color: white;
+                    border: 0;
+                    border-radius: 2px;
+                    padding: 0 0 0 1em;
+                    box-sizing: border-box;
+                    margin-left: -16px;
+                    margin-top: 0px;
+                    background: $color_lbl_bg;
+                }
+            }
+
+            .editContent {
+                border: 1px solid $color_border;
+                background: $color_edit_bg;
+                input {
+                    background: $color_edit_bg;
+                }
+            }
+
+            input::-webkit-outer-spin-button,
+            input::-webkit-inner-spin-button {
+                -webkit-appearance: none;
+            }
+            input[type="number"] {
+                -moz-appearance: textfield;
+            }
+        }
+
+        .toolArea {
+            position: relative;
+            width: 160px;
+            float: right;
+            margin-right: 21%;
+        }
+
+        /* Change Autocomplete styles in Chrome*/
+        input:-webkit-autofill,
+        input:-webkit-autofill:hover,
+        input:-webkit-autofill:focus,
+        textarea:-webkit-autofill,
+        textarea:-webkit-autofill:hover,
+        textarea:-webkit-autofill:focus,
+        select:-webkit-autofill,
+        select:-webkit-autofill:hover,
+        select:-webkit-autofill:focus {
+            border: 0;
+            -webkit-text-fill-color: white;
+            -webkit-box-shadow: 0 0 0px 1000px #000 inset;
+            transition: background-color 5000s ease-in-out 0s;
+        }
+    }
+
+    .home {
+        position: relative;
+        height: calc(100vh - 90px - 23px);
+        overflow: auto;
+
+        .homeHr {
+            position: relative;
+            border-color: $color_dialog_border;
+        }
+
+        .SubTitle {
+            font-family: $font_family;
+            font-size: 25px;
+            line-height: 28px;
+            color: white;
+            margin-top: 31px;
+        }
+
+        .noLectureHint {
+            line-height: 100px;
+            font-family: $font_family;
+            font-size: 18px;
+            color: white;
+            text-indent: 3em;
+        }
+    }
+
+    .lectureManager {
+        position: relative;
+        height: calc(100vh - 90px - 23px - 90px);
+        padding-top: 13px;
+        box-sizing: border-box;
+        overflow: auto;
+
+        .title {
+            font-family: $font_family;
+            font-size: 25px;
+            color: white;
+        }
+
+        .noLectureHint {
+            line-height: 100px;
+            font-family: $font_family;
+            font-size: 18px;
+            color: white;
+            text-indent: 3em;
+        }
+
+        .HrSplit {
+            width: 88%;
+            border: 0;
+            border-bottom: #404148 1px solid;
+            margin: 20px 0;
+        }
+
+        .previewLeft {
+            position: relative;
+            float: left;
+            width: 540px;
+            margin-right: 40px;
+
+            img {
+                width: 100%;
+            }
+
+            .lectureTitle {
+                font-family: $font_family;
+                font-size: 24px;
+                color: white;
+                margin-bottom: 30px;
+            }
+
+            .lectureDes {
+                font-family: $font_family;
+                font-size: 20px;
+                color: white;
+            }
+        }
+
+        .previewRight {
+            position: relative;
+            float: left;
+            width: 680px;
+
+            .infoItem {
+                position: relative;
+                width: 100%;
+                min-height: 80px;
+                border-bottom: 1px solid $color_dialog_border;
+
+                &:last-child {
+                    border-bottom: 0px;
+                }
+
+                .infoTitle {
+                    font-family: $font_family;
+                    font-size: 16px;
+                    color: white;
+                    line-height: 80px;
+                }
+
+                .infoContent {
+                    font-family: $font_family;
+                    font-size: 20px;
+                    color: $color_lecture_yellow;
+                    line-height: 80px;
+                    margin-left: 24px;
+                }
+
+                .studentItems {
+                    float: right;
+                    width: 600px;
+                    padding-top: 30px;
+
+                    .item {
+                        position: relative;
+                        display: inline-block;
+                        width: 110px;
+                        height: 34px;
+                        line-height: 34px;
+                        font-family: $font_family;
+                        font-size: 14px;
+                        color: $color_lecture_yellow;
+                        border-radius: 4px;
+                        border: 0;
+                        box-sizing: border-box;
+                        margin-right: 4.5px;
+                        margin-bottom: 6px;
+                        text-align: center;
+                        background-image: url("~@/assets/img/SURREALM/Backend/LectureManager/student_filter.png");
+                        background-position: center center;
+                        background-size: 110px 34px;
+                        background-repeat: no-repeat;
+                        overflow: hidden;
+                    }
+
+                    .itemAttend,
+                    .itemUnAttend {
+                        position: relative;
+                        display: inline-block;
+                        width: 110px;
+                        height: 34px;
+                        line-height: 34px;
+                        font-family: $font_family;
+                        font-size: 14px;
+                        color: $color_lecture_yellow;
+                        border-radius: 4px;
+                        border: 1px solid $color_lecture_yellow;
+                        box-sizing: border-box;
+                        margin-right: 4.5px;
+                        margin-bottom: 6px;
+                        text-align: center;
+                        overflow: hidden;
+                    }
+
+                    .itemUnAttend {
+                        color: $color_border;
+                        border: 1px solid $color_border;
+                    }
+                }
+            }
+        }
+    }
+
+    .lectureHistory {
+        position: relative;
+        height: calc(100vh - 90px - 23px - 90px);
+        padding-top: 29px;
+        box-sizing: border-box;
+        overflow: auto;
+
+        .usedSize {
+            margin-left: 271px;
+            font-family: $font_family;
+            font-size: 16px;
+            color: white;
+        }
+
+        .infoTitle {
+            width: 1113px;
+
+            .infoDate,
+            .infoTime,
+            .infoName,
+            .infoClientName,
+            .infoTeacherName,
+            .infoAttend,
+            .infoVideo,
+            .infoRestart,
+            .infoRecord {
+                position: relative;
+                float: left;
+                width: 156px;
+                height: 41px;
+                line-height: 41px;
+                background: $color_lbl_bg;
+                border: 1px solid $color_dialog_border;
+                box-sizing: border-box;
+                font-family: $font_family;
+                font-size: 16px;
+                color: white;
+                text-align: center;
+            }
+
+            .infoTime {
+                width: 102px;
+            }
+            .infoName {
+                width: 298px;
+            }
+
+            .infoClientName {
+                width: 242px;
+            }
+
+            .infoTeacherName {
+                width: 181px;
+            }
+
+            .infoAttend {
+                width: 181px;
+            }
+
+            .infoVideo {
+                width: 125px;
+            }
+            .infoRestart {
+                width: 125px;
+            }
+            .infoRecord {
+                width: 125px;
+            }
+
+            &::after {
+                display: block;
+                content: " ";
+                clear: both;
+            }
+        }
+
+        .infoArea {
+            position: relative;
+            width: 1113px;
+            height: calc(100vh - 380px);
+            background: $color_menu_bg;
+            border-radius: 5px;
+            overflow: auto;
+
+            .infoItem {
+                position: relative;
+                width: 100%;
+                height: 63px;
+                line-height: 63px;
+                border-bottom: 1px solid $color_border;
+
+                &:hover {
+                    cursor: pointer;
+                    opacity: 0.75;
+                }
+
+                .infoDate,
+                .infoTime,
+                .infoName,
+                .infoClientName,
+                .infoTeacherName,
+                .infoAttend,
+                .infoVideo,
+                .infoRestart,
+                .infoRecord {
+                    position: relative;
+                    float: left;
+                    width: 156px;
+                    height: 63px;
+                    line-height: 63px;
+                    font-family: $font_family;
+                    font-size: 16px;
+                    color: white;
+                    text-align: center;
+                    overflow: hidden;
+                    padding: 0 20px;
+                    box-sizing: border-box;
+                }
+
+                .infoTime {
+                    width: 102px;
+                }
+                .infoName {
+                    width: 298px;
+                    text-decoration: underline;
+                }
+
+                .infoClientName {
+                    width: 242px;
+                    text-decoration: underline;
+                }
+                .infoTeacherName {
+                    width: 181px;
+                }
+                .infoAttend {
+                    width: 181px;
+                }
+                .infoVideo {
+                    width: 125px;
+                    img {
+                        position: relative;
+                        top: 9px;
+                    }
+                }
+                .infoRestart {
+                    width: 125px;
+                    img {
+                        position: relative;
+                        top: 9px;
+                    }
+                }
+                .infoRecord {
+                    width: calc(100% - 987px);
+                    img {
+                        position: relative;
+                        top: 9px;
+                    }
+                }
+            }
+        }
+
+        .lectureDetail {
+            position: relative;
+            width: 800px;
+
+            .dataItem {
+                position: relative;
+                width: 100%;
+                min-height: 80px;
+                border-bottom: 1px solid $color_dialog_border;
+
+                &:last-child {
+                    border-bottom: 0px;
+                }
+
+                .dataTitle {
+                    display: inline-block;
+                    width: 120px;
+                    font-family: $font_family;
+                    font-size: 16px;
+                    color: white;
+                    line-height: 80px;
+                }
+
+                .dataContent {
+                    font-family: $font_family;
+                    font-size: 20px;
+                    color: $color_lecture_yellow;
+                    line-height: 80px;
+                    margin-left: 24px;
+                }
+
+                .studentItems {
+                    float: right;
+                    width: 600px;
+                    padding-top: 30px;
+
+                    .itemAttend,
+                    .itemUnAttend {
+                        position: relative;
+                        display: inline-block;
+                        width: 110px;
+                        height: 34px;
+                        line-height: 34px;
+                        font-family: $font_family;
+                        font-size: 14px;
+                        color: $color_lecture_yellow;
+                        border-radius: 4px;
+                        border: 1px solid $color_lecture_yellow;
+                        box-sizing: border-box;
+                        margin-right: 4.5px;
+                        margin-bottom: 6px;
+                        text-align: center;
+                        overflow: hidden;
+                    }
+
+                    .itemUnAttend {
+                        color: $color_border;
+                        border: 1px solid $color_border;
+                    }
+                }
+            }
+        }
+    }
+
+    .filesPage {
+        padding-top: 30px;
+
+        .uploadArea {
+            position: relative;
+            width: 680px;
+            .stepHint {
+                font-family: $font_family;
+                font-size: 14px;
+                color: white;
+            }
+            .stepLine {
+                position: relative;
+                top: -5px;
+                display: inline-block;
+                width: 62px;
+                height: 0;
+                line-height: 0;
+                border-bottom: 1px solid white;
+                margin: 0 70px;
+            }
+
+            .editLink,
+            .editName {
+                position: relative;
+                width: 256px;
+                height: 36px;
+                line-height: 36px;
+                padding: 0;
+                border: 1px solid $color_border;
+                text-indent: 1em;
+                color: $color_border;
+                background: $color_edit_bg;
+                font-family: $font_family;
+                font-size: 14px;
+                color: white;
+                margin-top: 12px;
+                &:focus {
+                    outline: 0px;
+                }
+            }
+
+            .editName {
+                width: 234px;
+                margin-left: 63px;
+            }
+
+            .btnUpload {
+                height: 36px;
+                line-height: 36px;
+                font-size: 14px;
+                color: $color_menu_txt;
+                border: 1px solid $color_menu_txt;
+                margin-left: 50px;
+                margin-right: 0px;
+            }
+        }
+
+        .fileArea {
+            position: relative;
+            max-width: 1093px;
+            width: 100%;
+            margin: 22px 0 0;
+
+            .titleName,
+            .titleDate,
+            .titleDel {
+                position: relative;
+                float: left;
+                width: 259px;
+                height: 41px;
+                line-height: 41px;
+                text-align: center;
+                border: 1px solid $color_dialog_border;
+                font-family: $font_family;
+                font-size: 14px;
+                color: white;
+                box-sizing: border-box;
+                background: $color_lbl_bg;
+            }
+            .titleName {
+                width: calc(100% - 259px - 134px);
+            }
+            .titleDel {
+                width: 134px;
+            }
+
+            .scrollArea {
+                width: 100%;
+                height: calc(100vh - 390px);
+                overflow: auto;
+                background: $color_menu_bg;
+
+                /* width */
+                &::-webkit-scrollbar {
+                    width: 10px;
+                }
+
+                /* Track */
+                &::-webkit-scrollbar-track {
+                    background: $color_menu_bg;
+                    margin: 0 0;
+                }
+
+                /* Handle */
+                &::-webkit-scrollbar-thumb {
+                    background: $color_dialog_border;
+                    border: $color_dialog_border 2.5px solid;
+                }
+
+                .titleName,
+                .titleDate,
+                .titleDel {
+                    position: relative;
+                    float: left;
+                    width: 259px;
+                    height: 41px;
+                    line-height: 41px;
+                    text-align: center;
+                    border: 0;
+                    border-bottom: 1px solid $color_dialog_border;
+                    font-family: $font_family;
+                    font-size: 14px;
+                    color: white;
+                    background: $color_null;
+                    box-sizing: border-box;
+                }
+                .titleName {
+                    width: calc(100% - 259px - 134px);
+                }
+                .titleDel {
+                    width: 134px;
+                    background-image: url("~@/assets/img/SURREALM/Backend/LectureManager/icon_delete.png");
+                    background-position: center center;
+                    background-size: 20px 20px;
+                    background-repeat: no-repeat;
+
+                    &:hover {
+                        cursor: pointer;
+                        opacity: 0.75;
+                    }
+                }
+            }
+        }
+    }
+
+    .systemsPage {
+        padding-top: 33px;
+
+        .logArea {
+            position: relative;
+            width: 100%;
+            max-height: 1040px;
+            margin: 0;
+
+            .logMsg,
+            .logDateTime,
+            .logMark {
+                position: relative;
+                float: left;
+                width: 200px;
+                height: 41px;
+                line-height: 41px;
+                text-align: center;
+                border: 1px solid $color_dialog_border;
+                font-family: $font_family;
+                font-size: 16px;
+                color: white;
+                box-sizing: border-box;
+                background: $color_lbl_bg;
+            }
+
+            .logMsg {
+                width: calc(100% - 188px);
+            }
+
+            .logDateTime {
+                width: 188px;
+            }
+
+            .scrollArea {
+                width: 100%;
+                height: calc(100vh - 362px);
+                overflow: auto;
+                background: $color_null;
+
+                /* width */
+                &::-webkit-scrollbar {
+                    width: 10px;
+                }
+
+                /* Track */
+                &::-webkit-scrollbar-track {
+                    background: $color_null;
+                    margin: 0 0;
+                }
+
+                /* Handle */
+                &::-webkit-scrollbar-thumb {
+                    background: $color_dialog_border;
+                    border: $color_dialog_border 2.5px solid;
+                }
+
+                .selectItem,
+                .unselectItem {
+                    position: relative;
+                    width: 100%;
+                    height: auto;
+                    overflow: hidden;
+
+                    &:nth-child(2n) {
+                        background: $color_lbl_bg;
+                    }
+
+                    &:nth-child(2n + 1) {
+                        background: $color_null;
+                    }
+
+                    .logMsg,
+                    .logDateTime,
+                    .logMark {
+                        width: 200px;
+                        height: 46px;
+                        line-height: 46px;
+                        text-align: left;
+                        background: $color_null;
+                        border: 0px;
+                        border-bottom: 1px solid $color_dialog_border;
+
+                        &:hover {
+                            cursor: pointer;
+                        }
+                    }
+
+                    .logMsg {
+                        width: calc(100% - 188px - 200px);
+                    }
+
+                    .logMark {
+                        width: 200px;
+                        background-image: url("~@/assets/img/SURREALM/Backend/Systems/icon_unfold.png");
+                        background-position: 60px center;
+                        background-size: 23px 23px;
+                        background-repeat: no-repeat;
+                        box-sizing: border-box;
+                        padding-left: 12px;
+                        font-family: $font_family;
+                        color: $color_text_err;
+                    }
+                    .logDateTime {
+                        text-align: center;
+                        width: 188px;
+                    }
+
+                    .subItem {
+                        .logMsg,
+                        .logDateTime,
+                        .logMark {
+                            width: 228px;
+                            background: $color_null;
+                            overflow: hidden;
+                            text-overflow: ellipsis;
+                            white-space: nowrap;
+
+                            &:hover {
+                                cursor: auto;
+                            }
+                        }
+
+                        .logMsg {
+                            width: calc(100% - 228px - 188px);
+                        }
+
+                        .logMark {
+                            width: 228px;
+                        }
+
+                        .logDateTime {
+                            width: 188px;
+                        }
+                    }
+                }
+
+                .unselectItem {
+                    height: 46px;
+                    .logMark {
+                        background-image: url("~@/assets/img/SURREALM/Backend/Systems/icon_collapse.png");
+                    }
+                }
+            }
+        }
+    }
+
+    .studentManager {
+        position: relative;
+        height: calc(100vh - 90px - 23px - 90px);
+        padding-top: 13px;
+        box-sizing: border-box;
+        overflow: auto;
+
+        .toolArea {
+            margin-bottom: 10px;
+
+            &::after {
+                display: block;
+                content: " ";
+                clear: both;
+            }
+
+            .toolTitle {
+                position: relative;
+                display: inline-block;
+                font-family: $font_family;
+                font-size: 16px;
+                color: white;
+                margin-right: 23px;
+            }
+
+            .studentTag {
+                display: inline-block;
+                width: 150px;
+                height: 40px;
+                line-height: 40px;
+                font-family: $font_family;
+                font-size: 15px;
+                color: white;
+                text-indent: 1em;
+                border: 1px solid $color_border;
+                border-radius: 2px;
+                box-sizing: border-box;
+                background: $color_edit_bg;
+                margin-right: 10px;
+
+                &:focus {
+                    outline: 0px;
+                }
+            }
+
+            .studentKeyword {
+                width: 173px;
+                height: 38px;
+                line-height: 38px;
+                padding: 0;
+                border: 1px solid $color_border;
+                text-align: left;
+                text-indent: 1em;
+                color: $color_border;
+                font-family: $font_family;
+                font-size: 16px;
+                color: white;
+                margin-right: 10px;
+                background-color: $color_edit_bg;
+                background-image: url("~@/assets/img/SURREALM/Backend/LectureManager/icon_search.png");
+                background-position: 93% center;
+                background-size: 23px 23px;
+                background-repeat: no-repeat;
+
+                &:focus {
+                    background: $color_edit_bg;
+                    outline: 0px;
+                }
+            }
+        }
+
+        .studentArea {
+            position: relative;
+            width: 1325px;
+            height: 490px;
+            overflow: auto;
+            border-radius: 5px;
+            background: $color_edit_bg;
+            margin-top: 15px;
+            padding: 25px 0 250px 16px;
+            box-sizing: border-box;
+        }
+    }
+}
+
+.pnlDialogFull {
+    position: absolute;
+    width: 100%;
+    height: 100vh;
+    top: 0px;
+    left: 0px;
+    z-index: 999;
+
+    .pnlDialogGray {
+        position: fixed;
+        display: block;
+        width: 100%;
+        height: 100vh;
+        top: 0px;
+        left: 0px;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 99;
+
+        .pnlDialogChangePW {
+            position: relative;
+            width: 476px;
+            height: 286px;
+            margin: calc(50vh - 143px) auto 0;
+            display: block;
+            background: $color_btn_bg;
+
+            .pnlTitle {
+                position: relative;
+                width: 100%;
+                height: 60px;
+                line-height: 60px;
+                font-family: $font_family;
+                font-size: 20px;
+                color: $color_menu_txt;
+                text-align: center;
+                background: $color_dialog_bg;
+                border: 1px $color_dialog_border solid;
+                border-radius: 2px 2px 0 0;
+                box-sizing: border-box;
+
+                .btnDialogXX {
+                    position: absolute;
+                    width: 23px;
+                    height: 23px;
+                    padding: 18px;
+                    top: 0px;
+                    right: 0px;
+
+                    &:hover {
+                        cursor: pointer;
+                        opacity: 0.5;
+                    }
+
+                    &:focus {
+                        outline: 0px;
+                    }
+                }
+            }
+
+            .pnlContent {
+                position: relative;
+                width: 100%;
+                height: 226px;
+                background: $color_dialog_bg;
+                border: 1px $color_dialog_border solid;
+                border-top: 0;
+                padding: 17px 15px;
+                box-sizing: border-box;
+
+                .keyinTitle {
+                    position: relative;
+                    float: left;
+                    width: 82px;
+                    height: 40px;
+                    line-height: 40px;
+                    margin: 0 10px 8px 0;
+                    padding: 0;
+                    text-align: right;
+                    color: white;
+                }
+
+                .keyinContent {
+                    position: relative;
+                    float: left;
+                    width: 351px;
+                    height: 40px;
+                    line-height: 40px;
+                    margin: 0 0 8px;
+                    padding: 0;
+                    border: 0;
+                    text-align: center;
+                    color: $color_border;
+                    background: $color_edit_bg;
+                }
+
+                .toolArea {
+                    float: right;
+                    margin-top: 8px;
+                    margin-right: -8px;
+                }
+            }
+        }
+
+        .pnlDialogAddLecture {
+            position: relative;
+            width: 741px;
+            height: 550px;
+            margin: calc(50vh - 275px) auto 0;
+            display: block;
+            background: $color_btn_bg;
+
+            .pnlTitle {
+                position: relative;
+                width: 100%;
+                height: 70px;
+                line-height: 70px;
+                font-family: $font_family;
+                font-size: 35px;
+                color: $color_menu_txt;
+                text-align: center;
+                background: $color_dialog_bg;
+                border: 1px $color_dialog_border solid;
+                border-radius: 2px 2px 0 0;
+                box-sizing: border-box;
+
+                .btnDialogXX {
+                    position: absolute;
+                    width: 23px;
+                    height: 23px;
+                    padding: 23.5px;
+                    top: 0px;
+                    right: 0px;
+
+                    &:hover {
+                        cursor: pointer;
+                        opacity: 0.5;
+                    }
+
+                    &:focus {
+                        outline: 0px;
+                    }
+                }
+            }
+
+            .pnlContent {
+                position: relative;
+                width: 100%;
+                height: 479px;
+                background: $color_dialog_bg;
+                border: 1px $color_dialog_border solid;
+                border-top: 0;
+                padding: 17px 15px;
+                box-sizing: border-box;
+
+                .step1 {
+                    padding-left: 84px;
+                    padding-right: 127px;
+                    padding-top: 30px;
+
+                    .keyinTitle,
+                    .keyinSubTitle {
+                        position: relative;
+                        float: left;
+                        width: 110px;
+                        height: 36px;
+                        line-height: 36px;
+                        font-family: $font_family;
+                        font-size: 14px;
+                        color: white;
+                        text-align: center;
+                        margin-bottom: 12px;
+                    }
+                    .keyinContent,
+                    .keyinSubContent {
+                        position: relative;
+                        float: left;
+                        width: 388px;
+                        margin-bottom: 12px;
+                    }
+
+                    .keyinSubContent {
+                        width: 139px;
+                    }
+
+                    .lectureName {
+                        width: 100%;
+                        height: 36px;
+                        line-height: 36px;
+                        padding: 0;
+                        border: 0;
+                        text-align: center;
+                        color: $color_border;
+                        background: $color_edit_bg;
+                        font-family: $font_family;
+                        font-size: 16px;
+                        color: white;
+                        &:focus {
+                            outline: 0px;
+                        }
+                    }
+
+                    .lectureDate,
+                    .lectureTime {
+                        float: left;
+                        width: 100%;
+                        height: 38px;
+                        line-height: 38px;
+                        border: 0px;
+                        padding: 0;
+
+                        input {
+                            width: 100%;
+                            height: 38px;
+                            line-height: 38px;
+                            font-family: $font_family;
+                            font-size: 14px;
+                            color: white;
+                            border: 0;
+                            border-radius: 2px;
+                            box-sizing: border-box;
+                            background: $color_edit_bg;
+                            text-align: center;
+                        }
+
+                        .mx-icon-calendar,
+                        .mx-icon-clear {
+                            -webkit-filter: brightness(0) invert(1);
+                            -moz-filter: brightness(0) invert(1);
+                            -ms-filter: brightness(0) invert(1);
+                            -o-filter: brightness(0) invert(1);
+                            filter: brightness(0) invert(1);
+                        }
+                    }
+
+                    .lectureTime {
+                        width: 139px;
+                        margin-right: 15px;
+                    }
+
+                    .lectureType {
+                        float: left;
+                        width: 250px;
+                        height: 38px;
+                        line-height: 38px;
+                        font-family: $font_family;
+                        font-size: 14px;
+                        color: white;
+                        border: 0;
+                        border-radius: 2px;
+                        box-sizing: border-box;
+                        background: $color_edit_bg;
+                        text-indent: 1em;
+                    }
+
+                    .peopleMax {
+                        float: left;
+                        width: auto;
+                        height: 38px;
+                        line-height: 38px;
+                        font-family: $font_family;
+                        font-size: 14px;
+                        color: white;
+                        margin-left: 15px;
+                    }
+
+                    .lectureAuth {
+                        line-height: 38px;
+                        input[type="radio"] {
+                            display: none;
+                        }
+
+                        input[type="radio"] + label {
+                            color: #f2f2f2;
+                            font-family: Arial, sans-serif;
+                            margin-right: 30px;
+                        }
+
+                        input[type="radio"] + label span {
+                            display: inline-block;
+                            width: 27px;
+                            height: 27px;
+                            margin: -2px 5px 0 0;
+                            vertical-align: middle;
+                            background-image: url("~@/assets/img/SURREALM/Backend/LectureManager/auth_off.png");
+                            background-position: center center;
+                            background-size: 25px 25px;
+                            background-repeat: no-repeat;
+                            cursor: pointer;
+                        }
+
+                        input[type="radio"]:checked + label span {
+                            background-image: url("~@/assets/img/SURREALM/Backend/LectureManager/auth_on.png");
+                        }
+                    }
+
+                    .lectureDes {
+                        width: 100%;
+                        height: 146px;
+                        line-height: 30px;
+                        padding: 5px 15px;
+                        border: 0;
+                        color: $color_border;
+                        background: $color_edit_bg;
+                        font-family: $font_family;
+                        font-size: 16px;
+                        color: white;
+                        resize: none;
+                        box-sizing: border-box;
+                        &:focus {
+                            outline: 0px;
+                        }
+
+                        /* width */
+                        &::-webkit-scrollbar {
+                            width: 18px;
+                        }
+
+                        /* Track */
+                        &::-webkit-scrollbar-track {
+                            background: $color_edit_bg;
+                            margin: 0 0;
+                        }
+
+                        /* Handle */
+                        &::-webkit-scrollbar-thumb {
+                            background: $color_dialog_border;
+                            border: $color_dialog_border 2.5px solid;
+                        }
+                    }
+                }
+
+                .step1_2 {
+                    .SelectModelTitle {
+                        position: relative;
+                        display: block;
+                        width: 100%;
+                        font-family: $font_family;
+                        font-size: 14px;
+                        color: white;
+                        letter-spacing: 0.8px;
+                        text-align: center;
+                        margin-bottom: 30px;
+                    }
+
+                    .modelArea {
+                        position: relative;
+                        width: 390px;
+                        margin: 0 auto;
+
+                        .btnSelectModel {
+                            position: relative;
+                            float: left;
+                            width: 122px;
+                            height: 122px;
+                            line-height: 155px;
+                            margin: 4px 3px;
+                            padding: 0;
+                            font-family: $font_family;
+                            font-size: 12px;
+                            color: $color_select_text;
+                            letter-spacing: 0.8px;
+                            border: 1px solid $color_border;
+                            border-radius: 3px;
+                            background-color: $color_keyin_bg;
+                            background-image: url("~@/assets/img/SURREALM/Backend/LectureManager/icon_add_model.png");
+                            background-position: center 35%;
+                            background-size: 45px 45px;
+                            background-repeat: no-repeat;
+                            box-sizing: border-box;
+
+                            &:hover {
+                                cursor: pointer;
+                                opacity: 0.75;
+                            }
+                        }
+
+                        .selectModel {
+                            position: relative;
+                            float: left;
+                            width: 122px;
+                            height: 122px;
+                            margin: 4px 3px;
+                            padding: 0;
+                            border: 1px solid $color_border;
+                            border-radius: 3px;
+                            background-color: $color_keyin_bg;
+                            box-sizing: border-box;
+                            overflow: hidden;
+
+                            img {
+                                width: 100%;
+                                height: auto;
+                                border: 1px solid $color_border;
+                                border-radius: 3px;
+                                overflow: hidden;
+                                box-sizing: border-box;
+                                background-color: $color_btn_bg;
+                            }
+
+                            label {
+                                position: absolute;
+                                display: block;
+                                bottom: 0;
+                                left: 0;
+                                width: 100%;
+                                height: 40px;
+                                line-height: 18px;
+                                font-family: $font_family;
+                                font-size: 13px;
+                                color: $color_text;
+                                text-align: center;
+                                box-sizing: border-box;
+                                padding: 1px 5px;
+                                background-color: $color_model_bg;
+                                border: 1px solid $color_border;
+                                border-top: 0;
+                                overflow: hidden;
+                            }
+
+                            button {
+                                position: absolute;
+                                top: 0;
+                                left: 0;
+                                width: 100%;
+                                height: 100%;
+                                background: black;
+                                font-family: $font_family;
+                                font-size: 14px;
+                                color: white;
+                                letter-spacing: 0.8px;
+                                border: 1px solid $color_border;
+                                border-radius: 3px;
+                                display: none;
+                            }
+
+                            &:hover {
+                                label {
+                                    display: none;
+                                }
+                                button {
+                                    display: block;
+                                    cursor: pointer;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                .step2 {
+                    padding-left: 39px;
+                    padding-right: 30px;
+                    padding-top: 0px;
+
+                    .keyinTitle {
+                        position: relative;
+                        float: left;
+                        width: auto;
+                        height: 36px;
+                        line-height: 36px;
+                        font-family: $font_family;
+                        font-size: 14px;
+                        color: white;
+                        margin-bottom: 12px;
+                        margin-right: 17px;
+                    }
+
+                    .studentTag {
+                        float: left;
+                        width: 150px;
+                        height: 36px;
+                        line-height: 36px;
+                        font-family: $font_family;
+                        font-size: 15px;
+                        color: white;
+                        border: 0;
+                        border-radius: 2px;
+                        box-sizing: border-box;
+                        background: $color_edit_bg;
+                        text-indent: 1em;
+                    }
+
+                    .studentKeyword {
+                        width: 173px;
+                        height: 36px;
+                        line-height: 36px;
+                        padding: 0;
+                        border: 0;
+                        text-align: left;
+                        text-indent: 1em;
+                        color: $color_border;
+                        font-family: $font_family;
+                        font-size: 16px;
+                        color: white;
+                        margin-left: 12px;
+                        background-color: $color_edit_bg;
+                        background-image: url("~@/assets/img/SURREALM/Backend/LectureManager/icon_search.png");
+                        background-position: 93% center;
+                        background-size: 23px 23px;
+                        background-repeat: no-repeat;
+
+                        &:focus {
+                            background: $color_edit_bg;
+                            outline: 0px;
+                        }
+                    }
+
+                    .selectedNumber {
+                        position: absolute;
+                        top: 83px;
+                        left: 480px;
+                        font-family: $font_family;
+                        font-size: 14px;
+                        color: white;
+                    }
+
+                    .fliterArea,
+                    .selectedArea {
+                        position: relative;
+                        float: left;
+                        width: 415px;
+                        height: 280px;
+                        background: $color_filter_bg;
+                        overflow: auto;
+                        box-sizing: border-box;
+                        padding: 7px;
+
+                        /* width */
+                        &::-webkit-scrollbar {
+                            width: 10px;
+                        }
+
+                        /* Track */
+                        &::-webkit-scrollbar-track {
+                            background: $color_filter_bg;
+                            margin: 0 0;
+                        }
+
+                        /* Handle */
+                        &::-webkit-scrollbar-thumb {
+                            background: $color_dialog_border;
+                            border: $color_dialog_border 2.5px solid;
+                        }
+
+                        .btnFilterStudent,
+                        .btnSelectedStudent {
+                            position: relative;
+                            float: left;
+                            width: 90px;
+                            height: 28px;
+                            border-radius: 2px;
+                            border: 0;
+                            background-color: $color_null;
+                            background-image: url("~@/assets/img/SURREALM/Backend/LectureManager/student_filter.png");
+                            background-position: center center;
+                            background-size: 90px 28px;
+                            background-repeat: no-repeat;
+                            margin: 2.5px;
+                            &:hover {
+                                cursor: pointer;
+
+                                .hoverNickName {
+                                    display: block;
+                                }
+                            }
+
+                            label {
+                                position: relative;
+                                display: inline-block;
+                                width: 70px;
+                                height: 28px;
+                                font-family: $font_family;
+                                font-size: 12px;
+                                color: white;
+                                text-align: left;
+                                text-indent: 0.5em;
+                                overflow: hidden;
+
+                                &:hover {
+                                    cursor: pointer;
+                                }
+                            }
+
+                            img {
+                                position: absolute;
+                                top: 8px;
+                                right: 8px;
+                                width: 12px;
+                            }
+
+                            .hoverNickName {
+                                position: absolute;
+                                display: none;
+                                width: 60px;
+                                min-height: 20px;
+                                height: auto;
+                                line-height: 20px;
+                                top: 28px;
+                                left: 0;
+                                text-indent: 0;
+                                padding: 4px 5px;
+                                background-color: $color_header_bg;
+                                z-index: 10;
+                                border-radius: 5px;
+                                font-family: $font_family;
+                                font-size: 12px;
+                                color: white;
+                            }
+                        }
+
+                        .btnSelectedStudent {
+                            background-image: url("~@/assets/img/SURREALM/Backend/LectureManager/student_select.png");
+                        }
+                    }
+
+                    .selectedArea {
+                        float: right;
+                        width: 215px;
+                    }
+                }
+
+                .step3 {
+                    .uploadArea {
+                        position: relative;
+                        width: 540px;
+                        margin: 0 auto;
+                        .stepHint {
+                            font-family: $font_family;
+                            font-size: 14px;
+                            color: white;
+                        }
+                        .stepLine {
+                            position: relative;
+                            top: -5px;
+                            display: inline-block;
+                            width: 62px;
+                            height: 0;
+                            line-height: 0;
+                            border-bottom: 1px solid white;
+                            margin: 0 27px;
+                        }
+
+                        .editLink,
+                        .editName {
+                            position: relative;
+                            width: 195px;
+                            height: 36px;
+                            line-height: 36px;
+                            padding: 0;
+                            border: 0;
+                            text-indent: 1em;
+                            color: $color_border;
+                            background: $color_edit_bg;
+                            font-family: $font_family;
+                            font-size: 14px;
+                            color: white;
+                            margin-top: 12px;
+                            &:focus {
+                                outline: 0px;
+                            }
+                        }
+
+                        .editName {
+                            width: 150px;
+                            margin-left: 44px;
+                        }
+
+                        .btnUpload {
+                            height: 36px;
+                            line-height: 36px;
+                            font-size: 14px;
+                            color: $color_menu_txt;
+                            border: 1px solid $color_menu_txt;
+                            margin-left: 44px;
+                        }
+                    }
+
+                    .fileArea {
+                        position: relative;
+                        width: 631px;
+                        margin: 22px auto 0;
+
+                        .titleName,
+                        .titleDate,
+                        .titleDel {
+                            position: relative;
+                            float: left;
+                            width: 376px;
+                            height: 41px;
+                            line-height: 41px;
+                            text-align: center;
+                            border: 1px solid $color_dialog_border;
+                            font-family: $font_family;
+                            font-size: 14px;
+                            color: white;
+                            box-sizing: border-box;
+                        }
+                        .titleDate {
+                            width: 139px;
+                        }
+                        .titleDel {
+                            width: 116px;
+                        }
+
+                        .scrollArea {
+                            width: 100%;
+                            height: 232px;
+                            overflow: auto;
+                            background: $color_lbl_bg;
+
+                            /* width */
+                            &::-webkit-scrollbar {
+                                width: 10px;
+                            }
+
+                            /* Track */
+                            &::-webkit-scrollbar-track {
+                                background: $color_lbl_bg;
+                                margin: 0 0;
+                            }
+
+                            /* Handle */
+                            &::-webkit-scrollbar-thumb {
+                                background: $color_dialog_border;
+                                border: $color_dialog_border 2.5px solid;
+                            }
+
+                            .titleName,
+                            .titleDate,
+                            .titleDel {
+                                position: relative;
+                                float: left;
+                                width: 376px;
+                                height: 41px;
+                                line-height: 41px;
+                                text-align: center;
+                                border: 0;
+                                border-bottom: 1px solid $color_dialog_border;
+                                font-family: $font_family;
+                                font-size: 14px;
+                                color: white;
+                                box-sizing: border-box;
+                            }
+                            .titleDate {
+                                width: 139px;
+                            }
+                            .titleDel {
+                                width: calc(100% - 515px);
+                                background-color: $color_null;
+                                background-image: url("~@/assets/img/SURREALM/Backend/LectureManager/icon_delete.png");
+                                background-position: center center;
+                                background-size: 23px 23px;
+                                background-repeat: no-repeat;
+
+                                &:hover {
+                                    cursor: pointer;
+                                    opacity: 0.75;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                .step4 {
+                    .cropperArea {
+                        .title {
+                            position: relative;
+                            display: block;
+                            width: 100%;
+                            text-align: center;
+                            font-family: $font_family;
+                            font-size: 14px;
+                            color: white;
+                            margin: 0 0 20px;
+                        }
+
+                        input[type="file"] {
+                            display: none;
+                        }
+
+                        .cropperView {
+                            max-height: 250px;
+                            margin-bottom: 15px;
+                        }
+
+                        .croppedImage img {
+                            position: relative;
+                            display: block;
+                            width: 60%;
+                            margin: 0 auto 15px;
+                        }
+
+                        .toolArea {
+                            position: relative;
+                            display: block;
+                            width: 200px;
+                            margin: 0 auto;
+                            text-align: center;
+
+                            .btn:last-child {
+                                margin: 0;
+                            }
+                        }
+                    }
+                }
+
+                .step5 {
+                    padding: 0 64px;
+                    .title {
+                        position: relative;
+                        display: block;
+                        font-family: $font_family;
+                        font-size: 14px;
+                        color: white;
+                        text-align: center;
+                        margin: 12px 0 62px;
+                    }
+
+                    img {
+                        position: relative;
+                        float: left;
+                        width: 284px;
+                        height: auto;
+                    }
+
+                    .lectureArea {
+                        position: relative;
+                        float: left;
+                        width: 275px;
+                        margin-left: 22px;
+
+                        .lectureTitle {
+                            position: relative;
+                            display: block;
+                            min-height: 40px;
+                            line-height: 35px;
+                            font-family: $font_family;
+                            font-size: 20px;
+                            color: white;
+                            border-bottom: 1px solid $color_dialog_border;
+                        }
+
+                        .infoItem {
+                            position: relative;
+                            display: block;
+                            height: 30px;
+                            line-height: 30px;
+                            border-bottom: 1px solid $color_dialog_border;
+
+                            .infoTitle,
+                            .infoContent {
+                                position: relative;
+                                height: 30px;
+                                line-height: 30px;
+                                font-family: $font_family;
+                                font-size: 12px;
+                                color: white;
+                                margin-right: 20px;
+                            }
+
+                            .infoContent {
+                                font-size: 14px;
+                                margin-right: 0px;
+                            }
+                        }
+
+                        .content {
+                            height: 30px;
+                            font-size: 14px;
+                        }
+                    }
+                }
+
+                .btnNextStep,
+                .btnPreStep {
+                    position: absolute;
+                    display: block;
+                    bottom: 25px;
+                    right: 144px;
+                    width: 166px;
+                    height: 40px;
+                    line-height: 40px;
+                    background: $color_next_step;
+                    border-radius: 4px;
+                    border: 0px;
+                    font-family: $font_family;
+                    font-size: 16px;
+                    color: white;
+
+                    &:hover {
+                        opacity: 0.8;
+                        cursor: pointer;
+                    }
+                }
+
+                .btnPreStep {
+                    right: auto;
+                    left: 144px;
+                }
+            }
+        }
+
+        .pnlDialogLectureCode {
+            position: relative;
+            width: 306px;
+            height: 164px;
+            margin: calc(50vh - 82px) auto 0;
+            display: block;
+            background: $color_btn_bg;
+
+            .pnlTitle {
+                position: relative;
+                width: 100%;
+                height: 60px;
+                line-height: 60px;
+                font-family: $font_family;
+                font-size: 20px;
+                color: $color_menu_txt;
+                text-align: center;
+                background: $color_dialog_bg;
+                border: 1px $color_dialog_border solid;
+                border-radius: 2px 2px 0 0;
+                box-sizing: border-box;
+
+                .btnDialogXX {
+                    position: absolute;
+                    width: 23px;
+                    height: 23px;
+                    padding: 18px;
+                    top: 0px;
+                    right: 0px;
+
+                    &:hover {
+                        cursor: pointer;
+                        opacity: 0.5;
+                    }
+
+                    &:focus {
+                        outline: 0px;
+                    }
+                }
+            }
+
+            .pnlContent {
+                position: relative;
+                width: 100%;
+                height: 104px;
+                background: $color_dialog_bg;
+                border: 1px $color_dialog_border solid;
+                border-top: 0;
+                padding: 17px 15px;
+                box-sizing: border-box;
+
+                .lectureCodeArea {
+                    position: relative;
+                    width: 263px;
+                    height: 36px;
+                    margin: 0 auto;
+
+                    .txtCode,
+                    .txtCodeFake {
+                        position: absolute;
+                        top: 0;
+                        left: 0;
+                        width: 188px;
+                        height: 36px;
+                        line-height: 36px;
+                        font-family: $font_family;
+                        font-size: 16px;
+                        color: white;
+                        background: $color_lbl_bg;
+                        text-indent: 1em;
+                        border: 0;
+                        z-index: 1;
+                    }
+
+                    .txtCodeFake {
+                        z-index: 2;
+                    }
+
+                    .btnCopy {
+                        position: absolute;
+                        top: 0;
+                        right: 0;
+                        width: 71px;
+                        height: 36px;
+                        border: 1px solid $color_border;
+                        border-radius: 2px;
+                        font-family: $font_family;
+                        font-size: 15px;
+                        color: white;
+                        background: $color_null;
+                        text-align: center;
+                        box-sizing: border-box;
+
+                        &:hover {
+                            cursor: pointer;
+                            opacity: 0.75;
+                        }
+                    }
+                }
+            }
+        }
+
+        .pnlDialogAddStudent {
+            position: relative;
+            width: 476px;
+            height: 254px;
+            margin: calc(50vh - 127px) auto 0;
+            display: block;
+            background: $color_btn_bg;
+
+            .pnlTitle {
+                position: relative;
+                width: 100%;
+                height: 60px;
+                line-height: 60px;
+                font-family: $font_family;
+                font-size: 20px;
+                color: $color_menu_txt;
+                text-align: center;
+                background: $color_dialog_bg;
+                border: 1px $color_dialog_border solid;
+                border-radius: 2px 2px 0 0;
+                box-sizing: border-box;
+
+                .btnDialogXX {
+                    position: absolute;
+                    width: 23px;
+                    height: 23px;
+                    padding: 18px;
+                    top: 0px;
+                    right: 0px;
+
+                    &:hover {
+                        cursor: pointer;
+                        opacity: 0.5;
+                    }
+
+                    &:focus {
+                        outline: 0px;
+                    }
+                }
+            }
+
+            .pnlContent {
+                position: relative;
+                width: 100%;
+                height: 194px;
+                background: $color_dialog_bg;
+                border: 1px $color_dialog_border solid;
+                border-top: 0;
+                padding: 17px 15px;
+                box-sizing: border-box;
+
+                .keyinTitle {
+                    position: relative;
+                    float: left;
+                    width: 82px;
+                    height: 40px;
+                    line-height: 40px;
+                    margin: 0 10px 8px 0;
+                    padding: 0;
+                    text-align: right;
+                    color: white;
+                }
+
+                .keyinContent {
+                    position: relative;
+                    float: left;
+                    width: 351px;
+                    height: 40px;
+                    line-height: 40px;
+                    margin: 0 0 8px;
+                    padding: 0;
+                    border: 0;
+                    font-family: $font_family;
+                    font-size: 14px;
+                    color: white;
+                    text-align: center;
+                    background: $color_edit_bg;
+                }
+
+                .toolArea {
+                    float: right;
+                    margin-top: 8px;
+                    margin-right: -8px;
+                }
+            }
+        }
+
+        .pnlDialogEditStudent {
+            position: relative;
+            width: 476px;
+            height: 284px;
+            margin: calc(50vh - 127px) auto 0;
+            display: block;
+            background: $color_btn_bg;
+
+            .pnlTitle {
+                position: relative;
+                width: 100%;
+                height: 60px;
+                line-height: 60px;
+                font-family: $font_family;
+                font-size: 20px;
+                color: $color_menu_txt;
+                text-align: center;
+                background: $color_dialog_bg;
+                border: 1px $color_dialog_border solid;
+                border-radius: 2px 2px 0 0;
+                box-sizing: border-box;
+
+                .btnDialogXX {
+                    position: absolute;
+                    width: 23px;
+                    height: 23px;
+                    padding: 18px;
+                    top: 0px;
+                    right: 0px;
+
+                    &:hover {
+                        cursor: pointer;
+                        opacity: 0.5;
+                    }
+
+                    &:focus {
+                        outline: 0px;
+                    }
+                }
+            }
+
+            .pnlContent {
+                position: relative;
+                width: 100%;
+                height: 224px;
+                background: $color_dialog_bg;
+                border: 1px $color_dialog_border solid;
+                border-top: 0;
+                padding: 17px 15px;
+                box-sizing: border-box;
+
+                .keyinTitle {
+                    position: relative;
+                    float: left;
+                    width: 82px;
+                    height: 40px;
+                    line-height: 40px;
+                    margin: 0 10px 8px 0;
+                    padding: 0;
+                    text-align: right;
+                    color: white;
+                }
+
+                .keyinContent,
+                .labelContent {
+                    position: relative;
+                    float: left;
+                    width: 351px;
+                    height: 40px;
+                    line-height: 40px;
+                    margin: 0 0 8px;
+                    padding: 0;
+                    border: 0;
+                    font-family: $font_family;
+                    font-size: 14px;
+                    color: white;
+                    text-align: center;
+                    background: $color_edit_bg;
+                }
+
+                .labelContent {
+                    background: $color_null;
+                }
+
+                .toolArea {
+                    float: right;
+                    margin-top: 8px;
+                    margin-right: -8px;
+                }
+            }
+        }
+
+        .pnlDialogTagManager {
+            position: relative;
+            width: 306px;
+            min-height: 164px;
+            margin: calc(50vh - 127px) auto 0;
+            display: block;
+            background: $color_btn_bg;
+
+            .pnlTitle {
+                position: relative;
+                width: 100%;
+                height: 60px;
+                line-height: 60px;
+                font-family: $font_family;
+                font-size: 20px;
+                color: $color_menu_txt;
+                text-align: center;
+                background: $color_dialog_bg;
+                border: 1px $color_dialog_border solid;
+                border-radius: 2px 2px 0 0;
+                box-sizing: border-box;
+
+                .btnDialogXX {
+                    position: absolute;
+                    width: 23px;
+                    height: 23px;
+                    padding: 18px;
+                    top: 0px;
+                    right: 0px;
+
+                    &:hover {
+                        cursor: pointer;
+                        opacity: 0.5;
+                    }
+
+                    &:focus {
+                        outline: 0px;
+                    }
+                }
+            }
+
+            .pnlContent {
+                position: relative;
+                width: 100%;
+                min-height: 104px;
+                background: $color_dialog_bg;
+                border: 1px $color_dialog_border solid;
+                border-top: 0;
+                padding: 14px 22px;
+                box-sizing: border-box;
+
+                .tagKeyword {
+                    position: relative;
+                    width: 100%;
+                    height: 36px;
+                    font-family: $font_family;
+                    font-size: 14px;
+                    color: white;
+                    text-indent: 1em;
+                    border-radius: 2px;
+                    border: 1px solid $color_border;
+                    background-color: $color_edit_bg;
+                    background-image: url("~@/assets/img/SURREALM/Backend/LectureManager/icon_search.png");
+                    background-position: 93% center;
+                    background-size: 23px 23px;
+                    background-repeat: no-repeat;
+                    box-sizing: border-box;
+
+                    &:focus {
+                        outline: 0px;
+                    }
+                }
+
+                .tagScrollArea {
+                    position: relative;
+                    display: block;
+                    width: 100%;
+                    max-height: 160px;
+                    overflow: auto;
+                    padding: 2px 0;
+                    margin: 3px 0;
+
+                    .tagSelect,
+                    .tagUnSelect {
+                        width: 100%;
+                        height: 30px;
+                        line-height: 30px;
+                        font-family: $font_family;
+                        font-size: 14px;
+                        color: white;
+                        text-align: left;
+                        text-indent: 31px;
+                        background-color: $color_null;
+                        background-image: url("~@/assets/img/SURREALM/Backend/LectureManager/auth_on.png");
+                        background-position: 0px center;
+                        background-size: 23px 23px;
+                        background-repeat: no-repeat;
+                        border: 0;
+
+                        &:hover {
+                            cursor: pointer;
+                        }
+
+                        &:focus {
+                            outline: 0px;
+                        }
+                    }
+
+                    .tagUnSelect {
+                        background-image: url("~@/assets/img/SURREALM/Backend/LectureManager/auth_off.png");
+                    }
+                }
+
+                .btnAddTag {
+                    font-family: $font_family;
+                    font-size: 14px;
+                    color: white;
+                    background: $color_null;
+                    border: 0;
+
+                    &:hover {
+                        cursor: pointer;
+                    }
+
+                    &:focus {
+                        outline: 0px;
+                    }
+                }
+            }
+        }
+
+        .pnlDialogTagEdit {
+            position: relative;
+            width: 306px;
+            min-height: 164px;
+            margin: calc(50vh - 127px) auto 0;
+            display: block;
+            background: $color_btn_bg;
+
+            .pnlTitle {
+                position: relative;
+                width: 100%;
+                height: 60px;
+                line-height: 60px;
+                font-family: $font_family;
+                font-size: 20px;
+                color: $color_menu_txt;
+                text-align: center;
+                background: $color_dialog_bg;
+                border: 1px $color_dialog_border solid;
+                border-radius: 2px 2px 0 0;
+                box-sizing: border-box;
+
+                .btnDialogXX {
+                    position: absolute;
+                    width: 23px;
+                    height: 23px;
+                    padding: 18px;
+                    top: 0px;
+                    right: 0px;
+
+                    &:hover {
+                        cursor: pointer;
+                        opacity: 0.5;
+                    }
+
+                    &:focus {
+                        outline: 0px;
+                    }
+                }
+            }
+
+            .pnlContent {
+                position: relative;
+                width: 100%;
+                min-height: 104px;
+                background: $color_dialog_bg;
+                border: 1px $color_dialog_border solid;
+                border-top: 0;
+                padding: 14px 22px;
+                box-sizing: border-box;
+
+                .btnAddTag {
+                    position: relative;
+                    display: block;
+                    float: left;
+                    width: 30px;
+                    height: 30px;
+                    background-color: $color_null;
+                    background-image: url("~@/assets/img/SURREALM/Backend/TagEdit/icon_add.png");
+                    background-position: center center;
+                    background-size: 24px 24px;
+                    background-repeat: no-repeat;
+                    border: 0;
+                    box-sizing: border-box;
+
+                    &:hover {
+                        cursor: pointer;
+                    }
+
+                    &:focus {
+                        outline: 0px;
+                    }
+                }
+
+                .newTagName {
+                    position: relative;
+                    width: calc(100% - 30px);
+                    height: 36px;
+                    font-family: $font_family;
+                    font-size: 14px;
+                    color: white;
+                    text-indent: 1em;
+                    border-radius: 2px;
+                    border: 1px solid $color_border;
+                    background-color: $color_edit_bg;
+                    box-sizing: border-box;
+
+                    &:focus {
+                        outline: 0px;
+                    }
+                }
+
+                .tagScrollArea {
+                    position: relative;
+                    display: block;
+                    width: 100%;
+                    max-height: 160px;
+                    overflow: auto;
+                    padding: 2px 0;
+                    margin: 3px 0;
+
+                    .tagItem {
+                        .btnStartEdit,
+                        .btnDoneEdit,
+                        .btnCancel,
+                        .btnDelTag {
+                            position: relative;
+                            display: block;
+                            float: left;
+                            width: 30px;
+                            height: 30px;
+                            background-color: $color_null;
+                            background-image: url("~@/assets/img/SURREALM/Backend/TagEdit/icon_edit.png");
+                            background-position: center center;
+                            background-size: 17px 15px;
+                            background-repeat: no-repeat;
+                            border: 0;
+                            box-sizing: border-box;
+
+                            &:hover {
+                                cursor: pointer;
+                            }
+
+                            &:focus {
+                                outline: 0px;
+                            }
+                        }
+                        .btnDoneEdit {
+                            background-image: url("~@/assets/img/SURREALM/Backend/TagEdit/icon_check.png");
+                        }
+
+                        .btnCancel {
+                            background-image: url("~@/assets/img/SURREALM/Backend/TagEdit/btn_close.png");
+                            background-size: 20px 20px;
+                        }
+
+                        .btnDelTag {
+                            background-image: url("~@/assets/img/SURREALM/Backend/TagEdit/icon_delete.png");
+                            background-size: 20px 20px;
+                        }
+                        .tagName,
+                        .tagNameEdit {
+                            position: relative;
+                            display: block;
+                            float: left;
+                            width: calc(100% - 60px);
+                            height: 30px;
+                            line-height: 30px;
+                            font-family: $font_family;
+                            font-size: 14px;
+                            color: white;
+                            border: 0;
+                            box-sizing: border-box;
+                            background: $color_null;
+
+                            &:focus {
+                                outline: 0px;
+                            }
+                        }
+
+                        .tagNameEdit {
+                            border-bottom: 1px solid $color_border;
+                        }
+                    }
+
+                    .tagSelect,
+                    .tagUnSelect {
+                        width: 100%;
+                        height: 30px;
+                        line-height: 30px;
+                        font-family: $font_family;
+                        font-size: 14px;
+                        color: white;
+                        text-align: left;
+                        text-indent: 31px;
+                        background-color: $color_null;
+                        background-image: url("~@/assets/img/SURREALM/Backend/LectureManager/auth_on.png");
+                        background-position: 0px center;
+                        background-size: 23px 23px;
+                        background-repeat: no-repeat;
+                        border: 0;
+
+                        &:hover {
+                            cursor: pointer;
+                        }
+
+                        &:focus {
+                            outline: 0px;
+                        }
+                    }
+
+                    .tagUnSelect {
+                        background-image: url("~@/assets/img/SURREALM/Backend/LectureManager/auth_off.png");
+                    }
+                }
+            }
+        }
+
+        .pnlDialogPost {
+            position: relative;
+            width: 619px;
+            height: 500px;
+            margin: calc(50vh - 250px) auto 0;
+            display: block;
+            background: $color_btn_bg;
+
+            .pnlTitle {
+                position: relative;
+                width: 100%;
+                height: 80px;
+                line-height: 80px;
+                font-family: $font_family;
+                font-size: 20px;
+                color: $color_menu_txt;
+                text-align: center;
+                background: $color_dialog_bg;
+                border: 1px $color_dialog_border solid;
+                border-radius: 2px 2px 0 0;
+                box-sizing: border-box;
+
+                .btnDialogXX {
+                    position: absolute;
+                    width: 23px;
+                    height: 23px;
+                    padding: 18px;
+                    top: 0px;
+                    right: 0px;
+
+                    &:hover {
+                        cursor: pointer;
+                        opacity: 0.5;
+                    }
+
+                    &:focus {
+                        outline: 0px;
+                    }
+                }
+            }
+
+            .pnlContent {
+                position: relative;
+                width: 100%;
+                height: 420px;
+                background: $color_dialog_bg;
+                border: 1px $color_dialog_border solid;
+                border-top: 0;
+                padding: 14px 22px;
+                box-sizing: border-box;
+
+                .subTitle {
+                    position: relative;
+                    display: block;
+                    font-family: $font_family;
+                    font-size: 16px;
+                    font-weight: bold;
+                    color: white;
+                    margin-left: 20px;
+                    margin-bottom: 13px;
+                }
+
+                .PostContent {
+                    position: relative;
+                    display: block;
+                    width: 540px;
+                    height: 281px;
+                    margin: 0 auto;
+                    font-family: $font_family;
+                    font-size: 16px;
+                    color: white;
+                    border-radius: 2px;
+                    border: 0;
+                    background: $color_text_login_title;
+                    padding: 12px;
+                    box-sizing: border-box;
+                    resize: none;
+
+                    &:focus {
+                        outline: 0;
+                    }
+
+                    /* width */
+                    &::-webkit-scrollbar {
+                        width: 10px;
+                    }
+
+                    /* Track */
+                    &::-webkit-scrollbar-track {
+                        background: $color_text_login_title;
+                        margin: 0 0;
+                    }
+
+                    /* Handle */
+                    &::-webkit-scrollbar-thumb {
+                        background: $color_menu_bg;
+                        border: $color_menu_bg 2.5px solid;
+                    }
+                }
+
+                .toolArea {
+                    float: right;
+                    margin-top: 20px;
+                    margin-right: 5px;
+                }
+            }
+        }
+
+        .pnlDialogMsg {
+            position: relative;
+            width: 476px;
+            min-height: 254px;
+            margin: calc(50vh - 127px) auto 0;
+            display: block;
+            background: $color_btn_bg;
+
+            .pnlTitle {
+                position: relative;
+                width: 100%;
+                height: 60px;
+                line-height: 60px;
+                font-family: $font_family;
+                font-size: 20px;
+                color: $color_menu_txt;
+                text-align: center;
+                background: $color_dialog_bg;
+                border: 1px $color_dialog_border solid;
+                border-radius: 2px 2px 0 0;
+                box-sizing: border-box;
+
+                .btnDialogXX {
+                    position: absolute;
+                    width: 23px;
+                    height: 23px;
+                    padding: 18px;
+                    top: 0px;
+                    right: 0px;
+
+                    &:hover {
+                        cursor: pointer;
+                        opacity: 0.5;
+                    }
+
+                    &:focus {
+                        outline: 0px;
+                    }
+                }
+            }
+
+            .pnlContent {
+                position: relative;
+                width: 100%;
+                min-height: 194px;
+                background: $color_dialog_bg;
+                border: 1px $color_dialog_border solid;
+                border-top: 0;
+                padding: 17px 15px;
+                box-sizing: border-box;
+
+                .msg {
+                    position: relative;
+                    display: block;
+                    width: 100%;
+                    line-height: 20px;
+                    font-family: $font_family;
+                    font-size: 16px;
+                    color: white;
+                    text-align: center;
+                    margin: 45px 0;
+                    padding: 0 20px;
+                    box-sizing: border-box;
+                }
+
+                .toolArea {
+                    position: relative;
+                    width: 100%;
+                    margin: 0 auto;
+                    text-align: center;
+
+                    .btnNoBg {
+                        margin: 0 5px;
+                    }
+                }
+            }
+        }
+
+        .pnlDialogExam {
+            position: relative;
+            width: 759px;
+            height: 546px;
+            margin: calc(50vh - 273px) auto 0;
+            display: block;
+            background: $color_btn_bg;
+
+            .pnlTitle {
+                position: relative;
+                width: 100%;
+                height: 79px;
+                line-height: 79px;
+                font-family: $font_family;
+                font-size: 20px;
+                color: $color_menu_txt;
+                text-align: center;
+                background: $color_dialog_bg;
+                border: 1px $color_dialog_border solid;
+                border-radius: 2px 2px 0 0;
+                box-sizing: border-box;
+
+                .btnDialogXX {
+                    position: absolute;
+                    width: 23px;
+                    height: 23px;
+                    padding: 18px;
+                    top: 0px;
+                    right: 0px;
+
+                    &:hover {
+                        cursor: pointer;
+                        opacity: 0.5;
+                    }
+
+                    &:focus {
+                        outline: 0px;
+                    }
+                }
+            }
+
+            .pnlContent {
+                position: relative;
+                width: 100%;
+                height: 467px;
+                background: $color_dialog_bg;
+                border: 1px $color_dialog_border solid;
+                border-top: 0;
+                padding: 17px 15px;
+                box-sizing: border-box;
+
+                .pnlScrollArea {
+                    position: relative;
+                    width: 640px;
+                    height: 345px;
+                    margin: 0 auto 0;
+                    padding: 0 42px;
+                    box-sizing: border-box;
+                    overflow: auto;
+
+                    .ExamItem {
+                        position: relative;
+                        display: block;
+                        float: left;
+                        width: 251px;
+                        height: 78px;
+
+                        &:first-child {
+                            margin-right: calc(100% - 502px);
+                        }
+
+                        .lblTItle {
+                            display: block;
+                            width: 100%;
+                            font-family: $font_family;
+                            font-size: 14px;
+                            color: white;
+                            margin-bottom: 12px;
+                        }
+
+                        .ExamTime,
+                        .TotalTime {
+                            width: 100%;
+                            height: 38px;
+                            line-height: 38px;
+                            font-family: $font_family;
+                            font-size: 16px;
+                            color: white;
+                            border: 0;
+                            border-radius: 2px;
+                            box-sizing: border-box;
+                            background: $color_text_login_title;
+                            text-indent: 1em;
+                        }
+
+                        .TotalTime {
+                            background: $color_dialog_border;
+                        }
+                    }
+
+                    .mainTitle {
+                        height: 20px;
+                        line-height: 20px;
+                        font-family: $font_family;
+                        font-size: 14px;
+                        color: white;
+                        margin-top: 29px;
+                    }
+                }
+
+                .ExamAddQustion {
+                    font-family: $font_family;
+                    font-size: 14px;
+                    color: $color_exam_blue;
+                    background: $color_null;
+                    border: 0;
+                    margin-left: 112px;
+                    background-image: url("~@/assets/img/SURREALM/Backend/Exam/icon_add.png");
+                    background-position: 0px center;
+                    background-size: 20px 20px;
+                    background-repeat: no-repeat;
+                    background-color: $color_null;
+                    text-indent: 1em;
+
+                    &:hover {
+                        cursor: pointer;
+                    }
+
+                    &:focus {
+                        outline: 0;
+                    }
+                }
+
+                .ScrollTop {
+                    position: relative;
+                    float: right;
+                    width: 21px;
+                    height: 21px;
+                    line-height: 12px;
+                    text-align: center;
+                    color: white;
+                    border: 0;
+                    border-radius: 3px;
+                    margin-right: 75px;
+                    background-image: url("~@/assets/img/SURREALM/Backend/Exam/icon_top.png");
+                    background-position: center center;
+                    background-size: 21px 21px;
+                    background-repeat: no-repeat;
+                    background-color: $color_null;
+
+                    &:hover {
+                        cursor: pointer;
+                    }
+
+                    &:focus {
+                        outline: 0;
+                    }
+                }
+
+                .toolArea {
+                    position: relative;
+                    width: 200px;
+                    text-align: center;
+                    margin-top: 10px;
+                    margin-left: 450px;
+
+                    .btnNoBg {
+                        margin: 0 5px;
+                    }
+                }
+            }
+        }
+
+        .pnlDialogModels {
+            position: relative;
+            width: 482px;
+            height: 237px;
+            margin: calc(50vh - 118px) auto 0;
+            display: block;
+            background: $color_btn_bg;
+            border: 1px solid $color_border;
+            border-radius: 3px;
+            box-sizing: border-box;
+            padding: 13.5px 0 0 7.5px;
+            overflow: auto;
+
+            /* width */
+            &::-webkit-scrollbar {
+                width: 6px;
+            }
+
+            /* Track */
+            &::-webkit-scrollbar-track {
+                background: $color_null;
+                margin: 0 0;
+            }
+
+            /* Handle */
+            &::-webkit-scrollbar-thumb {
+                background: $color_dialog_border;
+                border: $color_dialog_border 2.5px solid;
+            }
+
+            .AnswerItem {
+                position: relative;
+                float: left;
+                width: 88px;
+                height: 65px;
+                line-height: 0;
+                margin: 0 4.5px 8px 0;
+
+                img {
+                    width: 100%;
+                    height: 50px;
+                    border: 1px solid $color_border;
+                    border-radius: 3px;
+                    overflow: hidden;
+                    box-sizing: border-box;
+                }
+
+                label {
+                    display: block;
+                    width: 100%;
+                    height: 15px;
+                    line-height: 15px;
+                    font-family: $font_family;
+                    font-size: 12px;
+                    color: #999999;
+                    overflow: hidden;
+                }
+
+                button {
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    border: 0;
+                    background: $color_null;
+
+                    &:hover {
+                        cursor: pointer;
+                    }
+                }
+            }
+        }
+
+        .pnlDialogVideoList {
+            position: relative;
+            width: 1100px;
+            height: 519px;
+            margin: calc(50vh - 260px) auto 0;
+            display: block;
+            background: $color_btn_bg;
+
+            .pnlTitle {
+                position: relative;
+                width: 100%;
+                height: 69px;
+                line-height: 69px;
+                font-family: $font_family;
+                font-size: 20px;
+                color: $color_menu_txt;
+                text-align: center;
+                background: $color_dialog_bg;
+                border: 1px $color_dialog_border solid;
+                border-radius: 2px 2px 0 0;
+                box-sizing: border-box;
+
+                .btnDialogXX {
+                    position: absolute;
+                    width: 23px;
+                    height: 23px;
+                    padding: 18px;
+                    top: 0px;
+                    right: 0px;
+
+                    &:hover {
+                        cursor: pointer;
+                        opacity: 0.5;
+                    }
+
+                    &:focus {
+                        outline: 0px;
+                    }
+                }
+            }
+
+            .pnlContent {
+                position: relative;
+                width: 100%;
+                height: 450px;
+                background: $color_dialog_bg;
+                border: 1px $color_dialog_border solid;
+                border-top: 0;
+                padding: 43px 0 0 43px;
+                box-sizing: border-box;
+                overflow: auto;
+
+                .pnlUploadArea {
+                    position: relative;
+                    float: left;
+                    width: 220px;
+                    height: 120px;
+                    border-radius: 3px;
+                    border: 3px solid #cccccc;
+                    background-image: url("~@/assets/img/SURREALM/Backend/LectureManager/icon_add_video.png");
+                    background-position: center 16px;
+                    background-size: 58px 58px;
+                    background-repeat: no-repeat;
+                    background-color: $color_null;
+
+                    &:hover {
+                        opacity: 0.6;
+                    }
+
+                    label {
+                        position: absolute;
+                        display: block;
+                        bottom: 8px;
+                        left: 0;
+                        width: 100%;
+                        font-family: $font_family;
+                        font-size: 18px;
+                        color: $color_text;
+                        text-align: center;
+                    }
+
+                    .fuClass {
+                        position: absolute;
+                        width: 100%;
+                        height: 100%;
+                        top: 0;
+                        left: 0;
+                        opacity: 0;
+                        &:hover {
+                            cursor: pointer;
+                        }
+                    }
+                }
+
+                .VideoItem {
+                    position: relative;
+                    float: left;
+                    width: 229px;
+                    height: 185px;
+                    line-height: 23px;
+                    margin-right: 31px;
+                    overflow: hidden;
+
+                    img {
+                        width: 100%;
+                    }
+
+                    label {
+                        display: block;
+                        width: 100%;
+                        font-family: $font_family;
+                        font-size: 16px;
+                        color: white;
+                        text-align: center;
+                    }
+
+                    &:hover {
+                        cursor: pointer;
+                        .tools {
+                            display: block;
+                        }
+                    }
+
+                    &:nth-child(4n) {
+                        margin-right: 0px;
+                    }
+
+                    .tools {
+                        display: none;
+                        position: absolute;
+                        top: 86px;
+                        left: 0%;
+                        width: 100%;
+                        height: 41px;
+                        background-color: rgba(0, 0, 0, 0.6);
+
+                        .imgTools {
+                            display: inline-block;
+                            width: 28px;
+                            height: 28px;
+                            background-color: $color_null;
+                            border: 0;
+                            margin-top: 6px;
+                            margin-left: 26px;
+
+                            &:first-child {
+                                margin-left: 48px;
+                            }
+
+                            &:hover {
+                                cursor: pointer;
+                                opacity: 0.6;
+                            }
+                        }
+                    }
+                }
+
+                .NoVideo {
+                    font-family: $font_family;
+                    font-size: 16px;
+                    color: white;
+                    line-height: 100px;
+                    text-align: center;
+                    clear: both;
+                }
+                
+                /* width */
+                &::-webkit-scrollbar {
+                    width: 10px;
+                }
+
+                /* Track */
+                &::-webkit-scrollbar-track {
+                    background: $color_dialog_bg;
+                    margin: 0 0;
+                }
+
+                /* Handle */
+                &::-webkit-scrollbar-thumb {
+                    background: $color_dialog_border;
+                    border: $color_dialog_border 2.5px solid;
+                }
+            }
+
+            .pnlVideo {
+                position: relative;
+                width: 100%;
+                height: 650px;
+                background: $color_dialog_bg;
+                border: 1px $color_dialog_border solid;
+                border-top: 0;
+                padding: 14px 22px;
+                box-sizing: border-box;
+            }
+        }
+
+        .pnlDialogVideo {
+            position: relative;
+            width: 1100px;
+            height: 480;
+            margin: calc(50vh - 250px) auto 0;
+            display: block;
+            background: $color_btn_bg;
+
+            .VideoArea {
+                float: left;
+                width: 854px;
+                height: 100%;
+                background: black;
+                overflow: hidden;
+            }
+
+            .TagArea {
+                float: left;
+                width: 246px;
+                height: 100%;
+
+                .pnlTitle {
+                    position: relative;
+                    width: 100%;
+                    height: 60px;
+                    line-height: 60px;
+                    font-family: $font_family;
+                    font-size: 16px;
+                    color: white;
+                    background: $color_dialog_bg;
+                    padding-left: 18px;
+                    border: 1px $color_dialog_border solid;
+                    border-radius: 2px 2px 0 0;
+                    box-sizing: border-box;
+
+                    .btnDialogXX {
+                        position: absolute;
+                        width: 23px;
+                        height: 23px;
+                        padding: 18px;
+                        top: 0px;
+                        right: 0px;
+
+                        &:hover {
+                            cursor: pointer;
+                            opacity: 0.5;
+                        }
+
+                        &:focus {
+                            outline: 0px;
+                        }
+                    }
+                }
+
+                .addTag {
+                    width: 100%;
+                    height: 34px;
+                    font-family: $font_family;
+                    font-size: 16px;
+                    color: white;
+                    text-align: left;
+                    text-indent: 30px;
+                    background-image: url("~@/assets/img/SURREALM/Backend/LectureManager/icon_time.png");
+                    background-position: 11px center;
+                    background-size: 12px 18px;
+                    background-repeat: no-repeat;
+                    background-color: #2a2a2a;
+                    border: 0;
+
+                    &:hover {
+                        color: $color_menu_txt;
+                        background-image: url("~@/assets/img/SURREALM/Backend/LectureManager/icon_time_hover.png");
+                        cursor: pointer;
+                    }
+                }
+
+                .pnlContent,
+                .pnlContentStudent {
+                    position: relative;
+                    width: 100%;
+                    height: 306px;
+                    background: $color_dialog_bg;
+                    border: 1px $color_dialog_border solid;
+                    border-top: 0;
+                    padding: 8px 0px;
+                    box-sizing: border-box;
+                    overflow: auto;
+
+                    /* width */
+                    &::-webkit-scrollbar {
+                        width: 10px;
+                    }
+
+                    /* Track */
+                    &::-webkit-scrollbar-track {
+                        background: $color_dialog_bg;
+                        margin: 0 0;
+                    }
+
+                    /* Handle */
+                    &::-webkit-scrollbar-thumb {
+                        background: $color_dialog_border;
+                        border: $color_dialog_border 2.5px solid;
+                    }
+
+                    .tagItem {
+                        position: relative;
+                        width: 100%;
+                        height: 32px;
+                        line-height: 22px;
+                        font-family: $font_family;
+                        font-size: 16px;
+                        color: white;
+                        text-align: left;
+                        text-indent: 35px;
+                        margin-bottom: 8px;
+                        background-image: url("~@/assets/img/SURREALM/Backend/LectureManager/icon_time.png");
+                        background-position: 11px 4px;
+                        background-size: 12px 18px;
+                        background-repeat: no-repeat;
+                        background-color: $color_null;
+                        border: 0;
+                        border-bottom: 1px solid $color_border;
+
+                        label {
+                            cursor: pointer;
+                        }
+
+                        &:hover {
+                            color: $color_menu_txt;
+                            background-image: url("~@/assets/img/SURREALM/Backend/LectureManager/icon_time_hover.png");
+                            cursor: pointer;
+
+                            .tagHover {
+                                position: relative;
+                                display: block;
+                                top: 0px;
+                                left: 14px;
+                                width: 216px;
+                                height: 46px;
+                                line-height: 46px;
+                                background: #2a2a30;
+                                border-radius: 3px;
+                                border: 1px solid white;
+                                font-family: $font_family;
+                                font-size: 16px;
+                                color: white;
+                                text-align: center;
+                                text-indent: 0;
+                                z-index: 99;
+                            }
+                        }
+
+                        .tagEdit,
+                        .tagDelete {
+                            float: right;
+                            width: 20px;
+                            height: 20px;
+                            margin-right: 11px;
+                            background-image: url("~@/assets/img/SURREALM/Backend/LectureManager/icon_edit.png");
+                            background-position: center center;
+                            background-size: 20px 20px;
+                            background-color: $color_null;
+                            border: 0;
+
+                            &:hover {
+                                cursor: pointer;
+                            }
+                        }
+
+                        .tagDelete {
+                            background-image: url("~@/assets/img/SURREALM/Backend/LectureManager/icon_delete.png");
+                        }
+
+                        .tagHover {
+                            display: none;
+                        }
+                    }
+                }
+
+                .pnlTools {
+                    position: relative;
+                    width: 100%;
+                    height: 80px;
+                    background: $color_dialog_bg;
+
+                    .btnNoBg {
+                        margin-top: 22px;
+
+                        &:first-child {
+                            margin-left: 18px;
+                        }
+                    }
+                }
+
+                .pnlContentStudent {
+                    height: 420px;
+                    line-height: 0;
+                    padding: 0;
+
+                    .NoteArea {
+                        position: relative;
+                        width: 100%;
+                        height: 340px;
+                        line-height: 25px;
+                        font-family: $font_family;
+                        font-size: 14px;
+                        color: white;
+                        padding: 7px 12px;
+                        border: 0;
+                        resize: none;
+                        background-color: $color_null;
+                        color: white;
+                        box-sizing: border-box;
+
+                        /* width */
+                        &::-webkit-scrollbar {
+                            width: 10px;
+                        }
+
+                        /* Track */
+                        &::-webkit-scrollbar-track {
+                            background: $color_dialog_bg;
+                            margin: 0 0;
+                        }
+
+                        /* Handle */
+                        &::-webkit-scrollbar-thumb {
+                            background: $color_dialog_border;
+                            border: $color_dialog_border 2.5px solid;
+                        }
+                    }
+
+                    .pnlTools {
+                        padding-top: 15px;
+                        height: 60px;
+
+                        .btnNoBg {
+                            position: relative;
+                            display: block;
+                            margin: 0 auto 0;
+                        }
+                        box-sizing: border-box;
+                    }
+                }
+            }
+        }
+
+        .pnlDialogHint {
+            position: relative;
+            width: 741px;
+            height: 550px;
+            margin: calc(50vh - 275px) auto 0;
+            display: block;
+            background: $color_btn_bg;
+
+            .pnlTitle {
+                position: relative;
+                width: 100%;
+                height: 80px;
+                line-height: 80px;
+                font-family: $font_family;
+                font-size: 35px;
+                color: $color_menu_txt;
+                text-align: center;
+                background: $color_dialog_bg;
+                border: 1px $color_dialog_border solid;
+                border-radius: 2px 2px 0 0;
+                box-sizing: border-box;
+
+                .btnDialogXX {
+                    position: absolute;
+                    width: 23px;
+                    height: 23px;
+                    padding: 18px;
+                    top: 9px;
+                    right: 0px;
+
+                    &:hover {
+                        cursor: pointer;
+                        opacity: 0.5;
+                    }
+
+                    &:focus {
+                        outline: 0px;
+                    }
+                }
+            }
+
+            .pnlContent {
+                position: relative;
+                width: 100%;
+                height: 470px;
+                background: $color_dialog_bg;
+                border: 1px $color_dialog_border solid;
+                border-top: 0;
+                padding: 43px 0 0;
+                box-sizing: border-box;
+
+                .SubTitle {
+                    display: block;
+                    width: 100%;
+                    line-height: 15px;
+                    font-family: $font_family;
+                    font-size: 14px;
+                    text-align: center;
+                    color: white;
+                }
+
+                .HintImage {
+                    position: absolute;
+                    top: 66px;
+                    left: 0;
+                    width: 100%;
+                }
+
+                .DescLeft,
+                .DescRight {
+                    position: absolute;
+                    top: 336px;
+                    left: 60px;
+                    width: 280px;
+                    font-family: $font_family;
+                    font-size: 18px;
+                    text-align: center;
+                    color: white;
+                }
+
+                .DescRight {
+                    left: auto;
+                    right: 60px;
+                }
+
+                .ToStep2,
+                .ToStep1 {
+                    position: absolute;
+                    top: 179px;
+                    left: 0px;
+                    width: 30px;
+                    height: 30px;
+                    padding: 8px;
+
+                    &:hover {
+                        cursor: pointer;
+                        opacity: 0.75;
+                    }
+                }
+
+                .ToStep2 {
+                    left: auto;
+                    right: 0px;
+                    -webkit-transform: rotate(180deg);
+                    -moz-transform: rotate(180deg);
+                    -ms-transform: rotate(180deg);
+                    -o-transform: rotate(180deg);
+                    transform: rotate(180deg);
+                }
+
+                .PageNumber {
+                    position: absolute;
+                    bottom: 16px;
+                    left: 0px;
+                    display: block;
+                    width: 100%;
+                    line-height: 22px;
+                    font-family: $font_family;
+                    font-size: 20px;
+                    text-align: center;
+                    color: white;
+                }
+            }
+        }
+
+        .pnlDialogTeachingCool {
+            position: relative;
+            width: 616px;
+            height: 311px;
+            margin: calc(50vh - 160px) auto 0;
+            display: block;
+            background: $color_edit_bg;
+            border: 1px solid $color_border;
+            border-radius: 3px;
+            box-sizing: border-box;
+            overflow: auto;
+
+            .pnlTitle {
+                position: relative;
+                width: 100%;
+                height: 80px;
+
+                .btnDialogXX {
+                    position: absolute;
+                    width: 23px;
+                    height: 23px;
+                    padding: 18px;
+                    top: 10px;
+                    right: 0px;
+
+                    &:hover {
+                        cursor: pointer;
+                        opacity: 0.5;
+                    }
+
+                    &:focus {
+                        outline: 0px;
+                    }
+                }
+
+                .filterKeyIn {
+                    position: absolute;
+                    top: 20px;
+                    left: 34px;
+                    width: 144px;
+                    height: 36px;
+                    line-height: 36px;
+                    padding: 0;
+                    border: 1px solid $color_border;
+                    text-align: left;
+                    text-indent: 0.5em;
+                    font-family: $font_family;
+                    font-size: 14px;
+                    color: white;
+                    margin-right: 10px;
+                    background-color: $color_btn_bg;
+                    background-image: url("~@/assets/img/SURREALM/Backend/LectureManager/icon_search.png");
+                    background-position: 93% center;
+                    background-size: 23px 23px;
+                    background-repeat: no-repeat;
+
+                    &:focus {
+                        background: $color_btn_bg;
+                        outline: 0px;
+                    }
+                }
+            }
+
+            .pnlContent {
+                position: relative;
+                width: 100%;
+                height: 229px;
+                border: 1px $color_dialog_border solid;
+                border-top: 0;
+                padding: 0px 15px;
+                box-sizing: border-box;
+                overflow: auto;
+
+                /* width */
+                &::-webkit-scrollbar {
+                    width: 6px;
+                }
+
+                /* Track */
+                &::-webkit-scrollbar-track {
+                    background: $color_null;
+                    margin: 0 0;
+                }
+
+                /* Handle */
+                &::-webkit-scrollbar-thumb {
+                    background: $color_dialog_border;
+                    border: $color_dialog_border 2.5px solid;
+                }
+
+                .modelItem {
+                    position: relative;
+                    float: left;
+                    width: 150px;
+                    height: 190px;
+                    line-height: 0;
+                    margin: 0 18px 12px;
+
+                    img {
+                        width: 100%;
+                        height: 150px;
+                        border: 1px solid $color_border;
+                        border-radius: 3px;
+                        overflow: hidden;
+                        box-sizing: border-box;
+                        background-color: $color_btn_bg;
+                    }
+
+                    label {
+                        display: block;
+                        width: 100%;
+                        height: 34px;
+                        line-height: 17px;
+                        font-family: $font_family;
+                        font-size: 14px;
+                        color: #999999;
+                        margin-top: 4px;
+                        overflow: hidden;
+                    }
+
+                    button {
+                        position: absolute;
+                        top: 0;
+                        left: 0;
+                        width: 100%;
+                        height: 100%;
+                        border: 0;
+                        background: $color_null;
+
+                        &:hover {
+                            cursor: pointer;
+                        }
+                    }
+                }
+
+                .nullModel {
+                    text-indent: 0.5em;
+                    font-family: $font_family;
+                    font-size: 14px;
+                    color: white;
+                    margin-left: 12px;
+                }
+            }
+        }
+
+        .pnlDialogQA {
+            position: relative;
+            width: 471px;
+            height: auto;
+            margin: calc(50vh - 120px) auto 0;
+            display: block;
+            background: $color_edit_bg;
+            padding-top: 24px;
+            padding-bottom: 18px;
+            box-sizing: border-box;
+
+            .imgIcon {
+                position: relative;
+                display: block;
+                width: 33px;
+                height: 33px;
+                margin: 0 auto 27px;
+            }
+
+            .pnlMsgArea {
+                position: relative;
+                display: block;
+                width: 100%;
+                height: auto;
+                min-height: 45px;
+                padding: 0 40px;
+                text-align: center;
+                box-sizing: border-box;
+                font-family: $font_family;
+                font-weight: $font_weight_light;
+                font-size: 16px;
+                color: $color_white;
+                letter-spacing: 0.5px;
+                text-align: left;
+
+                .msgItems {
+                    line-height: 24px;
+                    margin-bottom: 8px;
+                }
+            }
+
+            .btnConfirm {
+                display: block;
+                margin: 26px auto 0;
+            }
+        }
+    }
+}
+
+.btnAddLecture {
+    position: relative;
+    width: 368px;
+    height: 210px;
+    border-radius: 15px;
+    border: 5px $color_lecture_yellow dashed;
+    background: $color_null;
+    background-image: url("~@/assets/img/SURREALM/Backend/Home/home_icon.png");
+    background-position: 23px center;
+    background-size: 152px 152px;
+    background-repeat: no-repeat;
+    font-family: $font_family;
+    font-size: 35px;
+    color: $color_lecture_yellow;
+    text-indent: 4.5em;
+    margin: 5% 0 4%;
+
+    &:hover {
+        cursor: pointer;
+        opacity: 0.75;
+    }
+}
+
+.lectureItem {
+    position: relative;
+    display: block;
+    float: left;
+    width: 209px;
+    height: 210px;
+    margin: 23px 25px 23px 0;
+
+    .pnlItemBg {
+        position: relative;
+        width: 100%;
+        height: 210px;
+        line-height: 0;
+        background: $color_lecture_yellow;
+        border-radius: 5px;
+        padding-top: 5px;
+        box-sizing: border-box;
+
+        .imgLecture {
+            position: relative;
+            width: 100%;
+        }
+
+        .lblLectureName {
+            position: relative;
+            display: block;
+            width: 168px;
+            height: 51px;
+            line-height: 24px;
+            font-family: $font_family;
+            font-size: 16px;
+            color: $color_model_hover;
+            overflow: hidden;
+            margin: 5px 18px 5px 8px;
+        }
+
+        .lblDate {
+            position: relative;
+            display: block;
+            width: 60px;
+            height: 24px;
+            line-height: 24px;
+            font-family: $font_family;
+            font-size: 16px;
+            color: $color_model_hover;
+            margin-left: 8px;
+            overflow: hidden;
+        }
+
+        .pnlItemHover {
+            position: absolute;
+            top: 170px;
+            right: 5px;
+            width: 42px;
+            height: 42px;
+
+            .imgHover {
+                position: absolute;
+                bottom: 3px;
+                right: 0px;
+                width: 42px;
+                height: 42px;
+                border-radius: 25px;
+            }
+
+            .pnlItemTools {
+                position: absolute;
+                display: none;
+                top: 41px;
+                right: -20px;
+                width: auto;
+                background: $color_dialog_bg;
+                border: 1px $color_white solid;
+                border-radius: 2px;
+                box-sizing: border-box;
+                z-index: 5;
+
+                .imgIconArrow {
+                    position: absolute;
+                    top: -11px;
+                    right: 30px;
+                }
+
+                .btnItemTools {
+                    position: relative;
+                    display: block;
+                    width: auto;
+                    height: 40px;
+                    line-height: 40px;
+                    font-family: $font_family;
+                    font-size: 14px;
+                    font-weight: 300;
+                    text-indent: 52px;
+                    color: $color_text_hover;
+                    background-image: url("~@/assets/img/SURREALM/Backend/LectureManager/icon_back.png");
+                    background-position: 23px 10px;
+                    background-repeat: no-repeat;
+                    background-size: 20px 20px;
+                    padding-right: 30px;
+                    opacity: 0.8;
+
+                    &:hover {
+                        opacity: 1;
+                        cursor: pointer;
+                    }
+                }
+
+                .imgIconCopy {
+                    background-image: url("~@/assets/img/SURREALM/Backend/LectureManager/icon_copy.png");
+                }
+
+                .imgIconEdit {
+                    background-image: url("~@/assets/img/SURREALM/Backend/LectureManager/icon_edit.png");
+                }
+
+                .imgIconDel {
+                    background-image: url("~@/assets/img/SURREALM/Backend/LectureManager/icon_delete.png");
+                }
+            }
+        }
+    }
+
+    &:hover {
+        .pnlItemBg {
+            cursor: pointer;
+            background: #ffcc57;
+
+            .lblLectureName {
+                cursor: pointer;
+            }
+
+            .pnlItemHover {
+                width: 100%;
+
+                &:hover {
+                    .imgHover {
+                        background: $color_lecture_yellow;
+                    }
+                    .pnlItemTools {
+                        display: block;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.studentItem {
+    position: relative;
+    display: inline-block;
+    width: 192px;
+    height: 60px;
+    margin-bottom: 8px;
+
+    .select,
+    .unselect {
+        position: relative;
+        width: 192px;
+        height: 60px;
+        line-height: 60px;
+        background-image: url("~@/assets/img/SURREALM/Backend/StudentManager/student_select.png");
+        background-position: center center;
+        background-size: 192x 60px;
+        background-repeat: no-repeat;
+
+        label {
+            position: relative;
+            display: block;
+            float: left;
+            width: 142px;
+            height: 60px;
+            line-height: 60px;
+            text-indent: 1em;
+            font-family: $font_family;
+            font-size: 20px;
+            color: $color_light_blue;
+            overflow: hidden;
+
+            &:hover {
+                cursor: pointer;
+            }
+        }
+
+        img {
+            position: relative;
+            display: block;
+            float: left;
+            width: 25px;
+            padding-left: 10px;
+            top: 17px;
+
+            &:hover {
+                cursor: pointer;
+                opacity: 0.75;
+            }
+        }
+    }
+
+    .unselect {
+        background-image: url("~@/assets/img/SURREALM/Backend/StudentManager/student_unselect.png");
+
+        label {
+            color: white;
+        }
+    }
+
+    .hoverArea {
+        display: none;
+        position: absolute;
+        top: 60px;
+        left: 5px;
+        width: 244px;
+        height: 200px;
+        background: $color_btn_bg;
+        border-radius: 5px;
+        border: 1px solid #e4e4e4;
+        z-index: 10;
+        padding: 20px 0 20px 15px;
+        box-sizing: border-box;
+        overflow: auto;
+
+        .title,
+        .content {
+            position: relative;
+            display: block;
+            float: left;
+            width: 52px;
+            height: 28px;
+            line-height: 28px;
+            font-family: $font_family;
+            font-size: 12px;
+            color: white;
+        }
+
+        .content {
+            width: 160px;
+            font-size: 14px;
+            text-align: center;
+            overflow: hidden;
+        }
+
+        .tagArea {
+            position: relative;
+            display: block;
+            float: left;
+            width: 170px;
+            height: auto;
+            margin-top: 5px;
+
+            .tagItem {
+                position: relative;
+                display: block;
+                float: left;
+                height: 22px;
+                line-height: 20px;
+                font-family: $font_family;
+                font-size: 12px;
+                color: white;
+                border-radius: 1px;
+                border: 2px solid $color_dialog_border;
+                padding: 0 8px;
+                box-sizing: border-box;
+                margin-right: 5px;
+                margin-bottom: 5px;
+            }
+        }
+
+        /* width */
+        &::-webkit-scrollbar {
+            width: 5px;
+        }
+
+        /* Track */
+        &::-webkit-scrollbar-track {
+            background: $color_dialog_bg;
+            margin: 0 0;
+        }
+
+        /* Handle */
+        &::-webkit-scrollbar-thumb {
+            background: $color_dialog_border;
+            border: $color_dialog_border 2.5px solid;
+        }
+    }
+
+    &:hover {
+        .hoverArea {
+            display: block;
+        }
+    }
+}
+
+.QuestionItem {
+    position: relative;
+    width: 100%;
+    height: 190px;
+    background: white;
+    margin: 15px 0;
+    background: $color_null;
+
+    .ExamNum {
+        position: relative;
+        width: 29px;
+        height: 190px;
+        float: left;
+        background: $color_exam_blue;
+        border-radius: 5px 0 0 5px;
+        line-height: 190px;
+        font-family: $font_family;
+        font-size: 12px;
+        color: white;
+        text-align: center;
+    }
+
+    .ExamContent {
+        position: relative;
+        width: calc(100% - 58px);
+        height: 190px;
+        float: left;
+        background: $color_text_login_title;
+        padding: 0 12px;
+        box-sizing: border-box;
+
+        .QuestionType {
+            margin-top: 12px;
+            line-height: 25px;
+            input[type="radio"] {
+                display: none;
+            }
+
+            input[type="radio"] + label {
+                color: #f2f2f2;
+                font-family: Arial, sans-serif;
+                margin-right: 30px;
+            }
+
+            input[type="radio"] + label span {
+                display: inline-block;
+                width: 17px;
+                height: 17px;
+                margin: -2px 5px 0 0;
+                vertical-align: middle;
+                background-image: url("~@/assets/img/SURREALM/Backend/LectureManager/auth_off.png");
+                background-position: center center;
+                background-size: 17px 17px;
+                background-repeat: no-repeat;
+                cursor: pointer;
+            }
+
+            input[type="radio"]:checked + label span {
+                background-image: url("~@/assets/img/SURREALM/Backend/LectureManager/auth_on.png");
+            }
+        }
+
+        .HrSplit {
+            border: 0;
+            border-bottom: $color_dialog_border 1px solid;
+        }
+
+        .QuestionTitle {
+            width: 100%;
+            font-family: $font_family;
+            font-size: 14px;
+            color: white;
+            background: $color_null;
+            border: 0;
+            resize: none;
+
+            &:focus {
+                outline: 0px;
+            }
+        }
+
+        .SelectAnswer,
+        .SelectedAnswer {
+            position: relative;
+            display: block;
+            float: left;
+            width: 81px;
+            height: 56px;
+            line-height: 80px;
+            font-family: $font_family;
+            font-size: 12px;
+            color: $color_select_text;
+            text-align: center;
+            background-color: $color_null;
+            background-image: url("~@/assets/img/SURREALM/Backend/Exam/icon_add_model.png");
+            background-position: center 15%;
+            background-size: 29px 29px;
+            background-repeat: no-repeat;
+            border: 1px solid $color_border;
+            border-radius: 3px;
+            box-sizing: border-box;
+            margin-right: 7px;
+            overflow: hidden;
+
+            &:hover {
+                cursor: pointer;
+                color: gray;
+                border: 1px solid gray;
+            }
+
+            &:focus {
+                outline: 0px;
+            }
+        }
+
+        .SelectedAnswer {
+            background: $color_null;
+
+            .ModelImage {
+                width: 100%;
+            }
+            .ModelName {
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                width: 100%;
+                height: 22px;
+                line-height: 22px;
+                font-family: $font_family;
+                font-size: 14px;
+                color: white;
+                text-align: center;
+                background: $color_guide_bg;
+            }
+
+            .DelAnswer {
+                position: absolute;
+                display: none;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                border: 0;
+                box-sizing: border-box;
+                background: $color_header_bg;
+                font-family: $font_family;
+                font-size: 14px;
+                color: white;
+
+                &:hover {
+                    cursor: pointer;
+                }
+            }
+
+            &:hover {
+                .DelAnswer {
+                    display: block;
+                }
+            }
+        }
+    }
+
+    .ExamTools {
+        position: relative;
+        width: 29px;
+        height: 190px;
+        float: left;
+        background: $color_exam_tool;
+        border-radius: 0 5px 5px 0;
+
+        .BtnCopy,
+        .BtnDel,
+        .BtnPhoto {
+            position: relative;
+            width: 29px;
+            height: 29px;
+            background-image: url("~@/assets/img/SURREALM/Backend/Exam/icon_copy.png");
+            background-position: center center;
+            background-size: 23px 23px;
+            background-repeat: no-repeat;
+            background-color: $color_null;
+            border: 0;
+
+            &:hover {
+                cursor: pointer;
+            }
+        }
+
+        .BtnDel {
+            background-image: url("~@/assets/img/SURREALM/Backend/Exam/icon_del.png");
+        }
+
+        .BtnPhoto {
+            background-image: url("~@/assets/img/SURREALM/Backend/Exam/icon_photo.png");
+        }
+    }
+}
