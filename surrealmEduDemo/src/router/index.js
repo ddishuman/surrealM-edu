@@ -145,16 +145,6 @@ const routes = [
     name: "TokenFailure",
     component: () => import("@/views/TokenFailure.vue"),
   },
-  {
-    path: "/SURREALM/OpenIDTest",
-    name: "OpenIDTest",
-    component: () => import("@/views/SURREALM/Account/OpenIDTest.vue"),
-  },
-  {
-    path: "/SURREALM/OpenIDRes",
-    name: "OpenIDRes",
-    component: () => import("@/views/SURREALM/Account/OpenIDRes.vue"),
-  },
 ];
 
 const router = new VueRouter({
@@ -181,7 +171,7 @@ router.beforeEach((to, from, next) => {
     else {
       if (to.path === "/SURREALM/Register" || to.path === "/SURREALM/RegisterDone" || to.path === "/SURREALM/Active" ||
         to.path === "/SURREALM/ForgetPW" || to.path === "/SURREALM/ForgetPWDone" || to.path === "/SURREALM/ResetPW" ||
-        to.path === "/SURREALM/ResetPWDone" || to.path === "/SURREALM/OpenIDTest" || to.path === "/SURREALM/OpenIDRes") {
+        to.path === "/SURREALM/ResetPWDone") {
         next();
       }
       else if (to.path !== "/SURREALM/Login") {

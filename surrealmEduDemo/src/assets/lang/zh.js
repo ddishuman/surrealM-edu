@@ -268,8 +268,6 @@ module.exports = {
       Time: "時數(分)",
       LectureName: "已結束課程名稱",
       Attend: "學生出席統計",
-      Video: "上傳影片",
-      AddVideo: "新增影片",
       ReStart: "再次開課",
       Record: "成績單",
       btnBack: "返回",
@@ -283,7 +281,6 @@ module.exports = {
       Attend: "有否出席",
       AttendTrue: "有",
       AttendFalse: "否",
-      Video: "課程影片",
     },
     Files: {
       PageName: "上課資料",
@@ -302,14 +299,10 @@ module.exports = {
       Teacher: {
         Create_Lecture: "您發布了課程",
         Modify_Lecture: "您已修改了課程",
-        Share_Video: "您已為此課程分享了一支影片",
-        Modify_Video: "您已修改了此課程的影片",
       },
       Student: {
         Create_Lecture: "您已受邀參加此課程",
         Modify_Lecture: "此課程有部分修改",
-        Share_Video: "老師已為此課程分享了一支影片",
-        Modify_Video: "此課程的影片有部分修改",
       }
     },
     StudentManager: {
@@ -399,10 +392,6 @@ module.exports = {
         AnswerErr: "第{Num}題為複選題, 複選題請選擇2~3個答案",
         AnswerEmpty: "第{Num}題未選擇任何答案",
       }
-    },
-    Video: {
-      Title: "時間戳記",
-      NoVideo: "此課程沒有任何影片"
     },
     Hint: {
       Title: "操作提示",

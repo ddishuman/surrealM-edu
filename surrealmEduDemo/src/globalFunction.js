@@ -107,8 +107,7 @@ exports.install = function (Vue) {
             { Text: '請選擇', Type: '', Value: 0 },
             { Text: '一般教室', Type: '100', Value: 30 },
             { Text: '專科教室－透視人體', Type: '1001', Value: 30 },
-            { Text: '專科教室－認識台灣趣', Type: '1002', Value: 30 },
-            { Text: '專科教室－教具酷', Type: '200', Value: 30 },
+            { Text: '專科教室－認識台灣趣', Type: '1002', Value: 30 }
         ];
         return data;
     }

@@ -34,7 +34,6 @@
           <div class="infoClientName">{{ $t('SURREALM.LectureHistory.LectureName') }}</div>
           <div class="infoTeacherName">{{ $t('SURREALM.LectureHistory.TeacherName') }}</div>
           <div class="infoAttend">{{ $t('SURREALM.ClientLectureHistory.Attend') }}</div>
-          <div class="infoVideo">{{ $t('SURREALM.ClientLectureHistory.Video') }}</div>
           <div class="infoRecord">{{ $t('SURREALM.LectureHistory.Record') }}</div>
         </div>
         <div class="infoArea">
@@ -44,9 +43,6 @@
             <div class="infoClientName" @click="IntoLecture(info.Serial)">{{ info.LectureName }}</div>
             <div class="infoTeacherName" @click="IntoLecture(info.Serial)">{{ info.TeacherName }}</div>
             <div class="infoAttend" v-html="AttendStatus(info.Attend)"></div>
-            <div class="infoVideo" @click="ShowDialogVideoList(info)">
-              <img src="@/assets/img/SURREALM/Backend/LectureManager/icon_video.png" />
-            </div>
             <div class="infoRecord" @click="DownLoadRecord(info.Serial)">
               <img src="@/assets/img/SURREALM/Backend/LectureManager/icon_download.png" />
             </div>
@@ -87,12 +83,6 @@
         </div>
       </div>
     </div>
-    <DialogVideoList
-      :show="dialogVideoList.show"
-      :serial="dialogVideoList.serial"
-      :lectureName="dialogVideoList.lectureName"
-      @close-dialog="CloseDialogVideoList"
-    ></DialogVideoList>
   </div>
 </template>
 
@@ -103,7 +93,6 @@ import Menu from '@/components/SURREALM/Client/Menu.vue';
 import TitleBar from '@/components/SURREALM/Backend/TitleBar.vue';
 import Datepicker from 'vue2-datepicker';
 import 'vue2-datepicker/index.css';
-import DialogVideoList from '@/components/SURREALM/Backend/DialogVideoList.vue';
 import { apiGetFinishLectureStudent, apiStudentGetRecord, apiGetFinishLectureDetailStudent } from '@/request.js';
 
 export default {
@@ -115,11 +104,6 @@ export default {
       },
       Lectures: [],
       LectureSelect: null,
-      dialogVideoList: {
-        show: false,
-        serial: null,
-        lectureName: '',
-      },
     };
   },
   mounted() {
@@ -177,16 +161,6 @@ export default {
     DownLoadRecord(Serial) {
       window.open(apiStudentGetRecord + `${localStorage.getItem('Account')}/${Serial}`);
     },
-    ShowDialogVideoList(LectureInfo) {
-      this.dialogVideoList.show = true;
-      this.dialogVideoList.serial = LectureInfo.Serial;
-      this.dialogVideoList.lectureName = LectureInfo.LectureName;
-    },
-    CloseDialogVideoList() {
-      this.dialogVideoList.show = false;
-      this.dialogVideoList.serial = null;
-      this.dialogVideoList.lectureName = '';
-    },
     BackList() {
       this.LectureSelect = null;
     },
@@ -200,7 +174,6 @@ export default {
     Menu,
     TitleBar,
     Datepicker,
-    DialogVideoList,
   },
 };
 </script>

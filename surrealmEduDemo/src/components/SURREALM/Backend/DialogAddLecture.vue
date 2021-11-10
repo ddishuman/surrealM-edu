@@ -85,21 +85,7 @@
               ></textarea>
             </div>
           </div>
-          <div class="step1_2" v-show="CurrentStep == 2">
-            <label class="SelectModelTitle" v-html="$t('SURREALM.LectureOwn.SelectModelTitle')"></label>
-            <div class="modelArea">
-              <div v-for="model in Lecture.Models" :key="model.Serial" class="selectModel">
-                <img :src="model.PhotoUrl" />
-                <label>{{ model.Name }}</label>
-                <button @click="RemoveModel(model)">{{ $t('SURREALM.LectureOwn.DelModel') }}</button>
-              </div>
-              <button v-for="x in CalcSelectModelNum" :key="`key${x}`" class="btnSelectModel" @click="ShowSelectModel">
-                {{ $t('SURREALM.LectureOwn.SelectModel') }}
-              </button>
-              <div style="clear: both"></div>
-            </div>
-          </div>
-          <div class="step2" v-show="CurrentStep == 3">
+          <div class="step2" v-show="CurrentStep == 2">
             <div class="keyinTitle">{{ $t('SURREALM.LectureOwn.TagFilter') }}</div>
             <select v-model="Student.Tag" class="studentTag" @change="GetStudent(Student.Tag)">
               <option v-for="option in TagOptions" :key="option.Serial" :value="option.Serial">
@@ -149,7 +135,7 @@
               </div>
             </div>
           </div>
-          <div class="step3" v-show="CurrentStep == 4">
+          <div class="step3" v-show="CurrentStep == 3">
             <div class="uploadArea">
               <label class="stepHint">{{ $t('SURREALM.LectureOwn.UpLinkStep1') }}</label>
               <label class="stepLine"></label>
@@ -183,10 +169,10 @@
               </div>
             </div>
           </div>
-          <div class="step4" v-show="CurrentStep == 5">
+          <div class="step4" v-show="CurrentStep == 4">
             <CropperView :defaultImage="DefaultImage" @set-image="SetImage" />
           </div>
-          <div class="step5" v-show="CurrentStep == 6">
+          <div class="step5" v-show="CurrentStep == 5">
             <label class="title">{{ $t('SURREALM.LectureOwn.LastStepTitle') }}</label>
             <img :src="Lecture.Image" />
             <div class="lectureArea">
@@ -239,13 +225,6 @@
       :opacity="loadingInfo.opacity"
       :background-color="loadingInfo.bgColor"
     ></Loading>
-
-    <DialogTeachingCoolSelect
-      :show="dialogSelectModel.show"
-      :option="dialogSelectModel.option"
-      @close-dialog="CloseSelectModel"
-      @add-answer="AddModel"
-    ></DialogTeachingCoolSelect>
   </div>
 </template>
 <script>
@@ -254,7 +233,6 @@ import Datepicker from 'vue2-datepicker';
 import 'vue2-datepicker/index.css';
 import CropperView from '@/components/SURREALM/Backend/CropperView.vue';
 import DialogMsg from '@/components/SURREALM/Backend/DialogMsg.vue';
-import DialogTeachingCoolSelect from '@/components/SURREALM/Backend/DialogTeachingCoolSelect.vue';
 import Loading from 'vue-loading-overlay';
 import 'vue-loading-overlay/dist/vue-loading.css';
 import {
@@ -265,7 +243,6 @@ import {
   apiDelLink,
   apiAddLecture,
   apiUpdateLecture,
-  apiGetTeachingCool,
 } from '@/request.js';
 
 export default {
@@ -289,10 +266,6 @@ export default {
         isLeftBtnShow: true,
         txtLeftBtn: '',
         txtRightBtn: '',
-      },
-      dialogSelectModel: {
-        show: false,
-        option: [],
       },
       ModelMaxNum: 6,
       CurrentStep: 1,
@@ -338,7 +311,6 @@ export default {
     this.GetStudent(this.Student.Tag);
     this.GetLinks();
     this.GetTags();
-    this.GetModels();
     this.TypeOptions = this.GetRoomType();
   },
   computed: {
@@ -416,12 +388,7 @@ export default {
       if (this.CurrentStep == 1) {
         let errMsg = this.CheckStep1Info();
         if (errMsg == '') {
-          if (this.Lecture.Type == '200') {
-            this.CurrentStep++;
-          } else {
-            this.CurrentStep = this.CurrentStep + 2;
-            this.Lecture.Models = [];
-          }
+          this.CurrentStep++;
         } else {
           this.$toasted.show(errMsg, {
             icon: 'warning',
@@ -441,25 +408,14 @@ export default {
           });
         }
       } else if (this.CurrentStep == 3) {
-        let errMsg = this.CheckStep3Info();
-        if (errMsg == '') {
-          this.CurrentStep++;
-        } else {
-          this.$toasted.show(errMsg, {
-            icon: 'warning',
-            position: 'bottom-center',
-            duration: 3500,
-          });
-        }
-      } else if (this.CurrentStep == 4) {
         if (this.Lecture.Image == '') {
           this.GetDefaultImage(this.GetDefaultImageCallback);
         } else {
           this.DefaultImage = this.Lecture.Image;
         }
         this.CurrentStep++;
-      } else if (this.CurrentStep == 5) {
-        let errMsg = this.CheckStep5Info();
+      } else if (this.CurrentStep == 4) {
+        let errMsg = this.CheckStep4Info();
         if (errMsg == '') {
           this.CurrentStep++;
         } else {
@@ -469,7 +425,7 @@ export default {
             duration: 3500,
           });
         }
-      } else if (this.CurrentStep == 6) {
+      } else if (this.CurrentStep == 5) {
         let data = {
           Student: this.Student.Select,
           Lecture: this.Lecture,
@@ -564,13 +520,6 @@ export default {
     },
     CheckStep2Info() {
       let errMsg = '';
-      if (this.Lecture.Models.length == 0) {
-        errMsg = this.$t('SURREALM.LectureOwn.Err.PlzSelectModel');
-      }
-      return errMsg;
-    },
-    CheckStep3Info() {
-      let errMsg = '';
       if (this.Student.Select.length == 0) {
         errMsg = this.$t('SURREALM.LectureOwn.Err.StudentLength');
       } else if (this.Student.Select.length > this.PeopleMax) {
@@ -578,7 +527,7 @@ export default {
       }
       return errMsg;
     },
-    CheckStep5Info() {
+    CheckStep4Info() {
       let errMsg = '';
       if (this.Lecture.Image == '') {
         errMsg = this.$t('SURREALM.LectureOwn.Err.NullImage');
@@ -602,57 +551,6 @@ export default {
           });
         }
       });
-    },
-    GetModels() {
-      apiGetTeachingCool().then((res) => {
-        if (res.data.Status == 'ok') {
-          this.dialogSelectModel.option = res.data.ModelList;
-        } else {
-          this.$toasted.show(this.$t('SURREALM.ApiErr') + res.data.Code, {
-            icon: 'warning',
-            position: 'bottom-center',
-            duration: 3500,
-          });
-        }
-      });
-
-      // this.dialogSelectModel.option = [
-      //   {
-      //     Serial: 1,
-      //     Name: '口腔與唾腺',
-      //     PhotoUrl: 'https://surreal-edu.s3-ap-northeast-1.amazonaws.com/server/biCh04_DigestiveSystem01_mouth.png',
-      //   },
-      //   {
-      //     Serial: 2,
-      //     Name: '胃、胰、肝與十二指腸',
-      //     PhotoUrl: 'https://surreal-edu.s3-ap-northeast-1.amazonaws.com/server/biCh04_DigestiveSystem03.png',
-      //   },
-      //   {
-      //     Serial: 3,
-      //     Name: '人體的消化管與消化腺',
-      //     PhotoUrl: 'https://surreal-edu.s3-ap-northeast-1.amazonaws.com/server/biCh04_DigestiveSystem.png',
-      //   },
-      //   {
-      //     Serial: 4,
-      //     Name: '模型4',
-      //     PhotoUrl: 'https://surreal-edu.s3-ap-northeast-1.amazonaws.com/server/biCh04_DigestiveSystem01_mouth.png',
-      //   },
-      //   {
-      //     Serial: 5,
-      //     Name: '模型5',
-      //     PhotoUrl: 'https://surreal-edu.s3-ap-northeast-1.amazonaws.com/server/biCh04_DigestiveSystem01_mouth.png',
-      //   },
-      //   {
-      //     Serial: 6,
-      //     Name: '模型6',
-      //     PhotoUrl: 'https://surreal-edu.s3-ap-northeast-1.amazonaws.com/server/biCh04_DigestiveSystem01_mouth.png',
-      //   },
-      //   {
-      //     Serial: 7,
-      //     Name: '模型7',
-      //     PhotoUrl: 'https://surreal-edu.s3-ap-northeast-1.amazonaws.com/server/biCh04_DigestiveSystem01_mouth.png',
-      //   },
-      // ];
     },
     GetStudent(tag) {
       //apiGetStudentByTag
@@ -815,38 +713,6 @@ export default {
       this.Lecture.Image = dataURL;
       this.DefaultImage = dataURL;
     },
-    ShowSelectModel() {
-      this.dialogSelectModel.show = true;
-    },
-    CloseSelectModel() {
-      this.dialogSelectModel.show = false;
-    },
-    AddModel(data) {
-      if (this.Lecture.Models.length < this.ModelMaxNum) {
-        let IndexOf = this.Lecture.Models.findIndex((obj) => obj.Serial == data.Serial);
-        if (IndexOf < 0) {
-          this.Lecture.Models.push(data);
-          this.CloseSelectModel();
-          this.$toasted.show(this.$t('SURREALM.LectureOwn.ModelAddDone', { Name: data.Name }), {
-            icon: 'check',
-            position: 'bottom-center',
-            duration: 3500,
-          });
-        } else {
-          this.$toasted.show(this.$t('SURREALM.LectureOwn.Err.ModelRepear'), {
-            icon: 'warning',
-            position: 'bottom-center',
-            duration: 3500,
-          });
-        }
-      } else {
-        this.$toasted.show(this.$t('SURREALM.LectureOwn.Err.ModelMaxLimit', { Num: this.ModelMaxNum }), {
-          icon: 'warning',
-          position: 'bottom-center',
-          duration: 3500,
-        });
-      }
-    },
     RemoveModel(Model) {
       let Index = this.Lecture.Models.findIndex((obj) => obj.Serial == Model.Serial);
       this.Lecture.Models.splice(Index, 1);
@@ -865,7 +731,6 @@ export default {
     CropperView,
     Loading,
     DialogMsg,
-    DialogTeachingCoolSelect,
   },
 };
 </script>

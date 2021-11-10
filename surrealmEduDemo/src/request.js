@@ -3,12 +3,6 @@ import axios from 'axios'
 // const apiServer = "http://192.168.1.174:5600/";
 // const webServer = "http://localhost:8080/";
 
-// const apiServer = "http://192.168.1.98:5600/";
-// const webServer = "http://192.168.1.98:8887/";
-
-// const apiServer = "http://3.112.174.149:5600/";
-// const webServer = "http://3.112.174.149:8888/";
-
 const apiServer = "https://surrealmedudemoapi.surreal.com.tw/";
 const webServer = "https://surrealmedudemo.surreal.com.tw/";
 
@@ -283,48 +277,6 @@ export const apiInsertExam = (serial, data) => modelRequest.post('/exam/' + seri
 })
 
 export const apiGetExam = (serial) => modelRequest.get('/exam/' + serial, {
-    headers: {
-        accessToken: localStorage.getItem('Token')
-    },
-})
-
-export const apiGetVideoList = (serial) => modelRequest.get('/videolist/' + serial, {
-    headers: {
-        accessToken: localStorage.getItem('Token')
-    },
-})
-
-export const apiGetTeachingCool = () => modelRequest.get('/teachingcool', {
-    headers: {
-        accessToken: localStorage.getItem('Token')
-    },
-})
-
-export const apiUploadVideo = (data) => modelRequest.post('/video', data, {
-    headers: {
-        accessToken: localStorage.getItem('Token')
-    },
-})
-
-export const apiShareVideo = (serial, data) => modelRequest.patch('/video/' + serial, data, {
-    headers: {
-        accessToken: localStorage.getItem('Token')
-    },
-})
-
-export const apiDeleteVideo = (serial) => modelRequest.delete('/video/' + serial, {
-    headers: {
-        accessToken: localStorage.getItem('Token')
-    },
-})
-
-export const apiGetVideoTags = (serial) => modelRequest.get('/video/' + serial, {
-    headers: {
-        accessToken: localStorage.getItem('Token')
-    },
-})
-
-export const apiUpdataVideoTags = (data) => modelRequest.post('/videotag', data, {
     headers: {
         accessToken: localStorage.getItem('Token')
     },

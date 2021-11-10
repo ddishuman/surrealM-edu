@@ -64,10 +64,10 @@
           <input
             id="school"
             type="text"
-            class="lblContent"
+            :class="KeyinStyle()"
             v-model.trim="info.School"
             :placeholder="isEditMode ? $t('SURREALM.Guide.Placeholder.School') : ''"
-            :disabled="true"
+            :disabled="!isEditMode"
           />
         </div>
         <div class="infoItem">
