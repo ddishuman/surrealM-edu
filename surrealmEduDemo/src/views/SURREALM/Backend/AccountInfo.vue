@@ -191,7 +191,9 @@ export default {
     },
     CheckInfo() {
       let errMsg = '';
-      if (this.info.Sex == '') {
+      if (this.info.Name == '') {
+        errMsg = this.$t('SURREALM.AccountInfo.Err.NameEmpty');
+      } else if (this.info.Sex == '') {
         errMsg = this.$t('SURREALM.AccountInfo.Err.SexEmpty');
       } else if (this.info.Birthday == null) {
         errMsg = this.$t('SURREALM.AccountInfo.Err.BirthdayEmpty');

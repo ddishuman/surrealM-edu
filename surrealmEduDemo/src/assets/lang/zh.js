@@ -123,7 +123,7 @@ module.exports = {
         NameEmpty: "請輸入姓名, 再點選下一頁",
         SexEmpty: "請選擇性別, 再點選下一頁",
         BirthdayEmpty: "請選擇生日, 再點選下一頁",
-        NicknameEmpty: "請填寫暱稱, 再點選下一頁",
+        NicknameEmpty: "請填寫顯示名稱, 再點選下一頁",
         SchoolEmpty: "請填寫學校, 再點選下一頁",
         SubjectEmpty: "請填寫科目, 再點選下一頁",
       }
@@ -152,9 +152,10 @@ module.exports = {
         Other: "其他",
       },
       Err: {
+        NameEmpty: "請填寫真實姓名, 再儲存",
         SexEmpty: "請選擇性別, 再儲存",
         BirthdayEmpty: "請選擇生日, 再儲存",
-        NicknameEmpty: "請填寫暱稱, 再儲存",
+        NicknameEmpty: "請填寫顯示名稱, 再儲存",
         SchoolEmpty: "請填寫學校, 再儲存",
         SubjectEmpty: "請填寫科目, 再儲存",
       }
