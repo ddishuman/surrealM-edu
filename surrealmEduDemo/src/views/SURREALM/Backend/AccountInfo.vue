@@ -23,6 +23,7 @@
             :class="KeyinStyle()"
             v-model.trim="info.Name"
             :placeholder="isEditMode ? $t('SURREALM.Guide.Placeholder.Name') : ''"
+            :disabled="!isEditMode"
           />
         </div>
         <div class="infoItem">
@@ -53,6 +54,7 @@
             :class="KeyinStyle()"
             v-model.trim="info.School"
             :placeholder="isEditMode ? $t('SURREALM.Guide.Placeholder.School') : ''"
+            :disabled="!isEditMode"
           />
         </div>
         <div class="infoItem">
