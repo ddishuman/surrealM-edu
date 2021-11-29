@@ -83,10 +83,10 @@ export default {
       if (this.Info.Name == '') {
         ErrMsg = this.$t('SURREALM.StudentManager.Placeholder.Name');
       }
-      else if(this.Info.NickName == '')
-      {
-        ErrMsg = this.$t('SURREALM.StudentManager.Placeholder.Nickname');
-      }
+      // else if(this.Info.NickName == '')
+      // {
+      //   ErrMsg = this.$t('SURREALM.StudentManager.Placeholder.Nickname');
+      // }
       return ErrMsg;
     },
     EditStudent() {
