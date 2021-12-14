@@ -238,6 +238,7 @@ module.exports = {
         NullImage: "請幫課程上傳一張圖片",
         StartTimeErr: "開始時間不得早於現在",
         EndTimeErr: "結束時間不得早於開始時間",
+        EndTimeErr2: "結束時間不得早於現在",
         NullModel: "找不到與 \"{keyin}\" 相關的模型",
         ModelMaxLimit: "模型數量已達上限 {Num} 個",
         ModelRepear: "模型不可重複",

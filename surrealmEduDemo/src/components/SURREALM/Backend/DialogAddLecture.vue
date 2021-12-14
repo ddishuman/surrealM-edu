@@ -493,27 +493,31 @@ export default {
         errMsg = this.$t('SURREALM.LectureOwn.Err.Des');
       }
 
-      if (this.Lecture.Time.length != 0 && this.Lecture.Time[0] != null) {
-        let LectureDate = new Date(this.Lecture.Date);
-        let hours = this.Lecture.Time[0].split(':')[0];
-        let minutes = this.Lecture.Time[0].split(':')[1];
-        LectureDate.setHours(hours);
-        LectureDate.setMinutes(minutes);
-        LectureDate.setSeconds(0);
-        LectureDate.setMilliseconds(0);
-        let CurrentDate = new Date();
-        CurrentDate.setSeconds(0);
-        CurrentDate.setMilliseconds(0);
-        if (LectureDate.getTime() < CurrentDate.getTime()) {
-          errMsg = this.$t('SURREALM.LectureOwn.Err.StartTimeErr');
-        }
-      }
+      // if (this.Lecture.Time.length != 0 && this.Lecture.Time[0] != null) {
+      //   let LectureDate = new Date(this.Lecture.Date);
+      //   let hours = this.Lecture.Time[0].split(':')[0];
+      //   let minutes = this.Lecture.Time[0].split(':')[1];
+      //   LectureDate.setHours(hours);
+      //   LectureDate.setMinutes(minutes);
+      //   LectureDate.setSeconds(0);
+      //   LectureDate.setMilliseconds(0);
+      //   let CurrentDate = new Date();
+      //   CurrentDate.setSeconds(0);
+      //   CurrentDate.setMilliseconds(0);
+      //   if (LectureDate.getTime() < CurrentDate.getTime()) {
+      //     errMsg = this.$t('SURREALM.LectureOwn.Err.StartTimeErr');
+      //   }
+      // }
 
       if (this.Lecture.Time.length != 0 && this.Lecture.Time[0] != null && this.Lecture.Time[1] != null) {
         let StartTime = new Date(`${this.Lecture.Date} ${this.Lecture.Time[0]}`);
         let EndTime = new Date(`${this.Lecture.Date} ${this.Lecture.Time[1]}`);
+        let CurrentDate = new Date();        
         if (StartTime.getTime() > EndTime.getTime()) {
           errMsg = this.$t('SURREALM.LectureOwn.Err.EndTimeErr');
+        }
+        else if (CurrentDate.getTime() > EndTime.getTime()) {
+          errMsg = this.$t('SURREALM.LectureOwn.Err.EndTimeErr2');
         }
       }
       return errMsg;
