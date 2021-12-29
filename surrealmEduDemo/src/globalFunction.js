@@ -116,4 +116,22 @@ exports.install = function (Vue) {
         return JSON.parse(JSON.stringify(Array));
     };
 
+    Vue.prototype.TokenEncode = function (Token) {
+        //Token ex: 2_Web_24f3fd27-96fe-4a96-ae64-4b827dea8cc5
+        //_轉@, serial*10, 換位子
+        //→ Web@24f3fd27-96fe-4a96-ae64-4b827dea8cc5@20
+        let TokenArray = Token.split("_");
+        let Serial = TokenArray[0] * 10;
+        let EncodeToken = TokenArray[1] + "@" + TokenArray[2] + "@" + Serial;
+        //console.log(`Token:${Token} , EncodeToken:${EncodeToken}`);
+        return EncodeToken;
+    };
+
+    Vue.prototype.TokenDecode = function (EncodeToken) {
+        let TokenArray = EncodeToken.split("@");
+        let Serial = TokenArray[2] / 10;
+        let OriToken = Serial + "_" + TokenArray[0] + "_" + TokenArray[1];
+        //console.log(`EncodeToken:${EncodeToken} , OriToken:${OriToken}`);
+        return OriToken;
+    };
 };

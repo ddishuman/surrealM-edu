@@ -55,7 +55,7 @@ export default new Vuex.Store({
             localStorage.setItem('Sex', resp.Data.Sex);
             localStorage.setItem('Subject', resp.Data.Subject);
             localStorage.setItem('Photo', resp.Data.Photo);
-            localStorage.setItem('Token', resp.Data.Token);
+            localStorage.setItem('Token', Vue.prototype.TokenEncode(resp.Data.Token));
           }
           resolve(resp);
         });

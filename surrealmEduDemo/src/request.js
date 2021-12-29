@@ -1,4 +1,5 @@
 import axios from 'axios'
+import Vue from 'vue'
 
 // const apiServer = "http://192.168.1.174:5600/";
 // const webServer = "http://localhost:8080/";
@@ -66,218 +67,218 @@ export const apiForgetPW = account => loginRequest.get('/forgetpw/' + account)
 
 export const apiUpdateAccountInfo = (data) => modelRequest.patch('/accountinfo', data, {
     headers: {
-        accessToken: localStorage.getItem('Token')
+        accessToken: Vue.prototype.TokenDecode(localStorage.getItem('Token'))
     },
 })
 
 export const apiChangePW = (data) => modelRequest.patch('/changepw', data, {
     headers: {
-        accessToken: localStorage.getItem('Token')
+        accessToken: Vue.prototype.TokenDecode(localStorage.getItem('Token'))
     },
 })
 
 export const apiAddTag = (data) => modelRequest.post('/tag', data, {
     headers: {
-        accessToken: localStorage.getItem('Token')
+        accessToken: Vue.prototype.TokenDecode(localStorage.getItem('Token'))
     },
 })
 
 export const apiGetTag = () => modelRequest.get('/tag', {
     headers: {
-        accessToken: localStorage.getItem('Token')
+        accessToken: Vue.prototype.TokenDecode(localStorage.getItem('Token'))
     },
 })
 
 export const apiUpdateTag = (serial, data) => modelRequest.patch('tag/' + serial, data, {
     headers: {
-        accessToken: localStorage.getItem('Token')
+        accessToken: Vue.prototype.TokenDecode(localStorage.getItem('Token'))
     },
 })
 
 export const apiDelTag = (serial) => modelRequest.delete('/tag/' + serial, {
     headers: {
-        accessToken: localStorage.getItem('Token')
+        accessToken: Vue.prototype.TokenDecode(localStorage.getItem('Token'))
     },
 })
 
 export const apiAddLink = (data) => modelRequest.post('/link', data, {
     headers: {
-        accessToken: localStorage.getItem('Token')
+        accessToken: Vue.prototype.TokenDecode(localStorage.getItem('Token'))
     },
 })
 
 export const apiGetLink = () => modelRequest.get('/link', {
     headers: {
-        accessToken: localStorage.getItem('Token')
+        accessToken: Vue.prototype.TokenDecode(localStorage.getItem('Token'))
     },
 })
 
 export const apiDelLink = (serial) => modelRequest.delete('/link/' + serial, {
     headers: {
-        accessToken: localStorage.getItem('Token')
+        accessToken: Vue.prototype.TokenDecode(localStorage.getItem('Token'))
     },
 })
 
 export const apiAddContact = (data) => modelRequest.post('/contact', data, {
     headers: {
-        accessToken: localStorage.getItem('Token')
+        accessToken: Vue.prototype.TokenDecode(localStorage.getItem('Token'))
     },
 })
 
 export const apiImportContact = (serial, data) => modelRequest.post('/batchregister/' + serial, data, {
     headers: {
-        accessToken: localStorage.getItem('Token')
+        accessToken: Vue.prototype.TokenDecode(localStorage.getItem('Token'))
     },
 })
 
 export const apiUpdateContact = (serial, data) => modelRequest.patch('/contact/' + serial, data, {
     headers: {
-        accessToken: localStorage.getItem('Token')
+        accessToken: Vue.prototype.TokenDecode(localStorage.getItem('Token'))
     },
 })
 
 export const apiDelContact = (data) => modelRequest.patch('/delcontact', data, {
     headers: {
-        accessToken: localStorage.getItem('Token')
+        accessToken: Vue.prototype.TokenDecode(localStorage.getItem('Token'))
     },
 })
 
 export const apiGetStudentByTag = (serial) => modelRequest.get('/studenttag/' + serial, {
     headers: {
-        accessToken: localStorage.getItem('Token')
+        accessToken: Vue.prototype.TokenDecode(localStorage.getItem('Token'))
     },
 })
 
 export const apiAddLecture = (data) => modelRequest.post('/lecture', data, {
     headers: {
-        accessToken: localStorage.getItem('Token')
+        accessToken: Vue.prototype.TokenDecode(localStorage.getItem('Token'))
     },
 })
 
 export const apiUpdateLecture = (data) => modelRequest.patch('/lecture', data, {
     headers: {
-        accessToken: localStorage.getItem('Token')
+        accessToken: Vue.prototype.TokenDecode(localStorage.getItem('Token'))
     },
 })
 
 export const apiGetLecture = () => modelRequest.get('/lecturelist', {
     headers: {
-        accessToken: localStorage.getItem('Token')
+        accessToken: Vue.prototype.TokenDecode(localStorage.getItem('Token'))
     },
 })
 
 export const apiGetLectureStudent = () => modelRequest.get('/studentlecturelist', {
     headers: {
-        accessToken: localStorage.getItem('Token')
+        accessToken: Vue.prototype.TokenDecode(localStorage.getItem('Token'))
     },
 })
 
 export const apiDelLecture = (serial) => modelRequest.delete('/lecture/' + serial, {
     headers: {
-        accessToken: localStorage.getItem('Token')
+        accessToken: Vue.prototype.TokenDecode(localStorage.getItem('Token'))
     },
 })
 
 export const apiGetStudentDetailByTag = (serial) => modelRequest.get('/studentdetail/' + serial, {
     headers: {
-        accessToken: localStorage.getItem('Token')
+        accessToken: Vue.prototype.TokenDecode(localStorage.getItem('Token'))
     },
 })
 
 export const apiGetTagByStudent = (serials) => modelRequest.get('/tagbystudent/' + serials, {
     headers: {
-        accessToken: localStorage.getItem('Token')
+        accessToken: Vue.prototype.TokenDecode(localStorage.getItem('Token'))
     },
 })
 
 export const apiAddStudentTag = (serial, data) => modelRequest.patch('/addstudenttag/' + serial, data, {
     headers: {
-        accessToken: localStorage.getItem('Token')
+        accessToken: Vue.prototype.TokenDecode(localStorage.getItem('Token'))
     },
 })
 
 export const apiDelStudentTag = (serial, data) => modelRequest.patch('/delstudenttag/' + serial, data, {
     headers: {
-        accessToken: localStorage.getItem('Token')
+        accessToken: Vue.prototype.TokenDecode(localStorage.getItem('Token'))
     },
 })
 
 export const apiGetFinishLecture = (params) => modelRequest.get('/finishedrecordlist', {
     headers: {
-        accessToken: localStorage.getItem('Token')
+        accessToken: Vue.prototype.TokenDecode(localStorage.getItem('Token'))
     },
     params: params
 })
 
 export const apiGetFinishLectureDetail = (serial) => modelRequest.get('/finishedrecord/' + serial, {
     headers: {
-        accessToken: localStorage.getItem('Token')
+        accessToken: Vue.prototype.TokenDecode(localStorage.getItem('Token'))
     },
 })
 
 export const apiGetFinishLectureStudent = (params) => modelRequest.get('/studentfinishedrecordlist', {
     headers: {
-        accessToken: localStorage.getItem('Token')
+        accessToken: Vue.prototype.TokenDecode(localStorage.getItem('Token'))
     },
     params: params
 })
 
 export const apiGetFinishLectureDetailStudent = (serial) => modelRequest.get('/studentfinishedrecord/' + serial, {
     headers: {
-        accessToken: localStorage.getItem('Token')
+        accessToken: Vue.prototype.TokenDecode(localStorage.getItem('Token'))
     },
 })
 
 export const apiGetPost = (type) => modelRequest.get('/annocementlist/' + type, {
     headers: {
-        accessToken: localStorage.getItem('Token')
+        accessToken: Vue.prototype.TokenDecode(localStorage.getItem('Token'))
     },
 })
 
 export const apiGetPostStudent = (type) => modelRequest.get('/studentannocementlist/' + type, {
     headers: {
-        accessToken: localStorage.getItem('Token')
+        accessToken: Vue.prototype.TokenDecode(localStorage.getItem('Token'))
     },
 })
 
 export const apiUpdatePostRead = (postSerial, data) => modelRequest.post('/annocementread/' + postSerial, data, {
     headers: {
-        accessToken: localStorage.getItem('Token')
+        accessToken: Vue.prototype.TokenDecode(localStorage.getItem('Token'))
     },
 })
 
 export const apiAddPost = (serial, data) => modelRequest.post('/annocement/' + serial, data, {
     headers: {
-        accessToken: localStorage.getItem('Token')
+        accessToken: Vue.prototype.TokenDecode(localStorage.getItem('Token'))
     },
 })
 
 export const apiCopyLecture = (serial, data) => modelRequest.post('/copylecture/' + serial, data, {
     headers: {
-        accessToken: localStorage.getItem('Token')
+        accessToken: Vue.prototype.TokenDecode(localStorage.getItem('Token'))
     },
 })
 
 export const apiGetLectureBySerial = (serial) => modelRequest.get('/lecture/' + serial, {
     headers: {
-        accessToken: localStorage.getItem('Token')
+        accessToken: Vue.prototype.TokenDecode(localStorage.getItem('Token'))
     },
 })
 
 export const apiGetModelsByType = (lectureType) => modelRequest.get('/lecturemodel/' + lectureType, {
     headers: {
-        accessToken: localStorage.getItem('Token')
+        accessToken: Vue.prototype.TokenDecode(localStorage.getItem('Token'))
     },
 })
 
 export const apiInsertExam = (serial, data) => modelRequest.post('/exam/' + serial, data, {
     headers: {
-        accessToken: localStorage.getItem('Token')
+        accessToken: Vue.prototype.TokenDecode(localStorage.getItem('Token'))
     },
 })
 
 export const apiGetExam = (serial) => modelRequest.get('/exam/' + serial, {
     headers: {
-        accessToken: localStorage.getItem('Token')
+        accessToken: Vue.prototype.TokenDecode(localStorage.getItem('Token'))
     },
 })
