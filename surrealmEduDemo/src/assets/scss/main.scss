@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100;300;400;500&display=swap");
 @import url("https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css");
 $material-icons-font-path: "~material-icons/iconfont/";
 @import "~material-icons/iconfont/material-icons.scss";
@@ -35,7 +35,28 @@ $color_exam_blue: #2ca6dc;
 $color_exam_tool: #404043;
 $color_select_text: #999999;
 $color_model_bg: rgba(0, 0, 0, 0.65);
+$color_admin_bg: #2c347b;
+$color_admin_pp: #6058ad;
+$color_admin_pp_menu: #6861b1;
+$color_admin_pp_light: #d2ceff;
+$color_admin_green_light: #a6e5f2;
+$color_admin_input: #ebebeb;
+$color_admin_gray: #808080;
+$color_admin_page: #f5f5f5;
+$color_admin_menu_select: #4f46ab;
+$color_admin_menu_bolder: #65c4d8;
+$color_admin_header_title: #171725;
+$color_setting_gray_line: #707070;
+$color_admin_tab_unselect: #d1cece;
+$color_admin_tab_select: #e3e2e2;
+$color_admin_tab_pp: #6058ad;
+$color_admin_tab_green: #218da4;
+$color_admin_footer_bg: #343f55;
+$color_sadmin_menu_bg: #080c30;
+$color_sadmin_menu_select: #113360;
+$color_sadmin_menu_hover: #214370;
 
+$font_weight_sl: 100;
 $font_weight_light: 300;
 $font_weight_regular: 400;
 $font_weight_medium: 500;
@@ -4059,7 +4080,7 @@ body {
                 }
             }
         }
-        
+
         .pnlDialogQA {
             position: relative;
             width: 471px;
@@ -4104,6 +4125,73 @@ body {
             .btnConfirm {
                 display: block;
                 margin: 26px auto 0;
+            }
+        }
+
+        .pnlDialogMsgMaintain {
+            position: relative;
+            width: 616px;
+            min-height: 195px;
+            margin: calc(50vh - 97px) auto 0;
+            display: block;
+            background: $color_btn_bg;
+
+            .pnlTitle {
+                position: relative;
+                width: 100%;
+                height: 60px;
+                line-height: 60px;
+                font-family: $font_family;
+                font-size: 20px;
+                color: $color_menu_txt;
+                text-align: center;
+                background: $color_dialog_bg;
+                border: 1px $color_dialog_border solid;
+                border-radius: 2px 2px 0 0;
+                box-sizing: border-box;
+
+                .btnDialogXX {
+                    position: absolute;
+                    width: 23px;
+                    height: 23px;
+                    padding: 18px;
+                    top: 0px;
+                    right: 0px;
+
+                    &:hover {
+                        cursor: pointer;
+                        opacity: 0.5;
+                    }
+
+                    &:focus {
+                        outline: 0px;
+                    }
+                }
+            }
+
+            .pnlContent {
+                position: relative;
+                width: 100%;
+                min-height: 135px;
+                background: $color_dialog_bg;
+                border: 1px $color_dialog_border solid;
+                border-top: 0;
+                padding: 39px 61px 53px;
+                box-sizing: border-box;
+
+                .msg {
+                    position: relative;
+                    display: block;
+                    width: 100%;
+                    line-height: 20px;
+                    font-family: $font_family;
+                    font-size: 16px;
+                    color: white;
+                    text-align: center;
+                    margin: 0;
+                    padding: 0;
+                    box-sizing: border-box;
+                }
             }
         }
     }
@@ -4618,6 +4706,2371 @@ body {
 
         .BtnPhoto {
             background-image: url("~@/assets/img/SURREALM/Backend/Exam/icon_photo.png");
+        }
+    }
+}
+
+.admin-set-info {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    background-color: $color_admin_bg;
+    border-bottom: 6vh $color_admin_pp solid;
+    box-sizing: border-box;
+    padding-top: calc(50vh - 255px);
+
+    .setting-area {
+        margin: 0 auto;
+        width: 1060px;
+        height: 410px;
+
+        .setting-logo {
+            float: left;
+            width: 264px;
+            height: auto;
+            margin: 40px 147px 0 0;
+        }
+
+        .setting-keyin-area {
+            float: right;
+            width: 575px;
+
+            .setting-title {
+                font-family: $font_family;
+                font-size: 24px;
+                color: white;
+                letter-spacing: 2.1px;
+                border-bottom: 1px white solid;
+                padding-bottom: 27px;
+            }
+            .setting-desc {
+                display: inline-block;
+                width: calc(575px - 439px);
+                line-height: 40px;
+                font-family: $font_family;
+                font-size: 18px;
+                color: white;
+                letter-spacing: 0.3px;
+                text-align: right;
+                padding-right: 25px;
+                margin-bottom: 20px;
+                box-sizing: border-box;
+            }
+            .setting-input {
+                display: inline-block;
+                width: 438px;
+                line-height: 40px;
+                font-family: $font_family;
+                font-size: 14px;
+                color: black;
+                margin-bottom: 20px;
+                padding-left: 12px;
+                box-sizing: border-box;
+                border-radius: 4px;
+                border: 0;
+            }
+
+            .setting-endline {
+                margin: 0;
+                border: 1px solid $color_setting_gray_line;
+            }
+
+            .setting-btn {
+                float: right;
+                width: 147px;
+                height: 40px;
+                margin: 32.5px 0 0 12px;
+                font-family: $font_family;
+                font-size: 14px;
+                color: white;
+                background-color: $color_admin_pp;
+                border: 0;
+                border-radius: 5px;
+
+                &:hover {
+                    cursor: pointer;
+                    opacity: 0.85;
+                }
+            }
+
+            .setting-hint {
+                display: block;
+                float: right;
+                width: 438px;
+                font-family: $font_family;
+                font-size: 14px;
+                color: white;
+                margin: -18px 0 29px;
+                letter-spacing: 0.8px;
+            }
+
+            .setting-mark {
+                display: block;
+                font-family: $font_family;
+                font-size: 14px;
+                color: white;
+                text-align: right;
+                margin-bottom: 43px;
+            }
+
+            .setting-done-title {
+                @extend .setting-title;
+                text-align: center;
+
+                .setting-done-icon {
+                    position: relative;
+                    top: 20px;
+                    margin-right: 18px;
+                }
+            }
+
+            .setting-done-text {
+                font-family: $font_family;
+                font-size: 18px;
+                color: white;
+                text-align: center;
+                margin: 68px 0 70px;
+            }
+
+            .setting-done-btn {
+                @extend .setting-btn;
+                float: none;
+                display: block;
+                margin: 46px auto 0;
+            }
+        }
+    }
+}
+
+.admin-login {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    background-color: $color_admin_bg;
+    background-image: url("~@/assets/img/SURREALM/Admin/bg.png");
+    background-size: cover;
+    border-bottom: 6vh $color_admin_pp solid;
+    box-sizing: border-box;
+    padding-top: calc(50vh - 350px);
+
+    .login-area {
+        width: 464px;
+        height: 688px;
+        margin: 0 auto;
+
+        .login-logo {
+            display: block;
+            margin: 0 auto 8vh;
+        }
+
+        .login-keyin-area {
+            position: relative;
+            width: 464px;
+            height: 493px;
+            background-color: white;
+            border-radius: 7px;
+
+            .login-title {
+                width: 100%;
+                height: 106px;
+                line-height: 106px;
+                text-align: center;
+                font-family: $font_family;
+                color: black;
+                background-color: $color_admin_pp_light;
+                border-radius: 7px;
+                margin-bottom: 42.8px;
+            }
+
+            .login-desc {
+                display: block;
+                margin: 0 auto 4px;
+                width: 378px;
+                height: 25px;
+                line-height: 25px;
+                font-family: $font_family;
+                font-size: 18px;
+                color: black;
+            }
+
+            .login-input {
+                display: block;
+                margin: 0 auto 23px;
+                width: 378px;
+                height: 40px;
+                line-height: 40px;
+                background-color: $color_admin_input;
+                font-family: $font_family;
+                font-size: 14px;
+                color: black;
+                text-indent: 12px;
+                border-radius: 4px;
+                border: 0;
+            }
+
+            .login-btn {
+                display: block;
+                margin: 62px auto 0;
+                width: 378px;
+                height: 48px;
+                line-height: 48px;
+                background-color: $color_admin_pp;
+                font-family: $font_family;
+                font-size: 14px;
+                color: white;
+                border-radius: 4px;
+                border: 0;
+
+                &:hover {
+                    cursor: pointer;
+                    opacity: 0.85;
+                }
+            }
+
+            .login-forget-pw {
+                display: block;
+                margin: 7px auto 0;
+                width: 378px;
+                height: 19px;
+                line-height: 19px;
+                font-family: $font_family;
+                font-size: 14px;
+                font-weight: bold;
+                color: $color_admin_gray;
+                text-align: right;
+                border: 0;
+                background-color: $color_null;
+
+                &:hover {
+                    cursor: pointer;
+                    opacity: 0.85;
+                }
+            }
+        }
+    }
+}
+
+.admin-forget-pw {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    background-color: $color_admin_bg;
+    background-image: url("~@/assets/img/SURREALM/Admin/bg.png");
+    background-size: cover;
+    border-bottom: 6vh $color_admin_pp solid;
+    box-sizing: border-box;
+    padding-top: calc(50vh - 350px);
+
+    .forget-area {
+        width: 464px;
+        height: 688px;
+        margin: 0 auto;
+
+        .forget-logo {
+            display: block;
+            margin: 0 auto 8vh;
+        }
+
+        .forget-keyin-area {
+            position: relative;
+            width: 464px;
+            height: 493px;
+            background-color: white;
+            border-radius: 7px;
+
+            .forget-title {
+                width: 100%;
+                height: 106px;
+                line-height: 106px;
+                text-align: center;
+                font-family: $font_family;
+                color: black;
+                border-radius: 7px;
+                margin-bottom: 42.8px;
+            }
+
+            .forget-desc {
+                display: block;
+                margin: 0 auto 4px;
+                width: 378px;
+                height: 25px;
+                line-height: 25px;
+                font-family: $font_family;
+                font-size: 18px;
+                color: black;
+            }
+
+            .forget-input {
+                display: block;
+                margin: 0 auto 23px;
+                width: 378px;
+                height: 40px;
+                line-height: 40px;
+                background-color: $color_admin_input;
+                font-family: $font_family;
+                font-size: 14px;
+                color: black;
+                text-indent: 12px;
+                border-radius: 4px;
+                border: 0;
+            }
+
+            .forget-btn-left,
+            .forget-btn-right {
+                position: absolute;
+                bottom: 71.5px;
+                left: 41px;
+                width: 181px;
+                height: 48px;
+                line-height: 48px;
+                background-color: $color_admin_input;
+                font-family: $font_family;
+                font-size: 14px;
+                color: black;
+                border-radius: 4px;
+                border: 0;
+
+                &:hover {
+                    cursor: pointer;
+                    opacity: 0.85;
+                }
+            }
+
+            .forget-btn-right {
+                left: auto;
+                right: 41px;
+                background-color: $color_admin_pp;
+                color: white;
+            }
+        }
+    }
+}
+
+.admin-reset-pw {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    background-color: $color_admin_bg;
+    background-image: url("~@/assets/img/SURREALM/Admin/bg.png");
+    background-size: cover;
+    border-bottom: 6vh $color_admin_pp solid;
+    box-sizing: border-box;
+    padding-top: calc(50vh - 350px);
+
+    .reset-area {
+        width: 464px;
+        height: 688px;
+        margin: 0 auto;
+
+        .reset-logo {
+            display: block;
+            margin: 0 auto 8vh;
+        }
+
+        .reset-keyin-area {
+            position: relative;
+            width: 464px;
+            height: 493px;
+            background-color: white;
+            border-radius: 7px;
+
+            .reset-title {
+                width: 100%;
+                height: 106px;
+                line-height: 106px;
+                text-align: center;
+                font-family: $font_family;
+                color: black;
+                border-radius: 7px;
+                margin-bottom: 42.8px;
+            }
+
+            .reset-desc {
+                display: block;
+                margin: 0 auto 4px;
+                width: 378px;
+                height: 25px;
+                line-height: 25px;
+                font-family: $font_family;
+                font-size: 18px;
+                color: black;
+            }
+
+            .reset-input {
+                display: block;
+                margin: 0 auto 23px;
+                width: 378px;
+                height: 40px;
+                line-height: 40px;
+                background-color: $color_admin_input;
+                font-family: $font_family;
+                font-size: 14px;
+                color: black;
+                text-indent: 12px;
+                border-radius: 4px;
+                border: 0;
+            }
+
+            .reset-btn-left,
+            .reset-btn-right {
+                position: absolute;
+                bottom: 71.5px;
+                left: 41px;
+                width: 181px;
+                height: 48px;
+                line-height: 48px;
+                background-color: $color_admin_input;
+                font-family: $font_family;
+                font-size: 14px;
+                color: black;
+                border-radius: 4px;
+                border: 0;
+
+                &:hover {
+                    cursor: pointer;
+                    opacity: 0.85;
+                }
+            }
+
+            .reset-btn-right {
+                left: auto;
+                right: 41px;
+                background-color: $color_admin_pp;
+                color: white;
+            }
+        }
+    }
+}
+
+.admin-menu {
+    position: relative;
+    display: block;
+    float: left;
+    width: 271px;
+    height: 100vh;
+    line-height: 0;
+    background: $color_admin_pp_menu;
+    z-index: 899;
+    box-sizing: border-box;
+    overflow: auto;
+
+    /* width */
+    &::-webkit-scrollbar {
+        width: 0px;
+    }
+
+    /* Track */
+    &::-webkit-scrollbar-track {
+        background: $color_dialog_bg;
+        margin: 0 0;
+    }
+
+    /* Handle */
+    &::-webkit-scrollbar-thumb {
+        background: $color_dialog_border;
+        border: $color_dialog_border 2.5px solid;
+    }
+
+    .menu-logo {
+        position: relative;
+        width: 100%;
+        padding: 39px 70px;
+        background-color: $color_admin_bg;
+        border-bottom: 0.5px solid white;
+        box-sizing: border-box;
+    }
+
+    .menu-item-select,
+    .menu-item-unselect {
+        position: relative;
+        width: 100%;
+        height: 74px;
+        line-height: 74px;
+        background-color: $color_admin_menu_select;
+        border-left: 7px solid $color_admin_menu_bolder;
+        border-bottom: 0.5px solid white;
+        box-sizing: border-box;
+
+        .menu-item-icon {
+            position: relative;
+            float: left;
+            width: 33px;
+            height: auto;
+            margin: 20px 0px 3px 42px;
+        }
+
+        .menu-item-txt {
+            position: relative;
+            float: left;
+            font-family: $font_family;
+            font-size: 18px;
+            color: white;
+            margin-left: 38px;
+
+            &:hover {
+                cursor: pointer;
+            }
+        }
+        .select-mark {
+            position: absolute;
+            width: 36px;
+            top: 15px;
+            right: 0px;
+        }
+
+        &:hover {
+            background: $color_admin_pp;
+            cursor: pointer;
+        }
+    }
+
+    .menu-item-unselect {
+        background-color: $color_null;
+        border-left: 0;
+
+        .menu-item-icon {
+            margin: 20px 0px 3px 49px;
+            -webkit-filter: brightness(0) invert(1);
+            -moz-filter: brightness(0) invert(1);
+            -ms-filter: brightness(0) invert(1);
+            -o-filter: brightness(0) invert(1);
+            filter: brightness(0) invert(1);
+        }
+
+        .select-mark {
+            display: none;
+        }
+    }
+}
+
+.adimn-header {
+    float: right;
+    width: calc(100% - 271px);
+    height: 70px;
+    background: white;
+
+    .admin-header-title {
+        float: left;
+        font-family: $font_family;
+        font-size: 20px;
+        font-weight: normal;
+        color: $color_admin_header_title;
+        margin-left: 68px;
+    }
+    .admin-header-logout {
+        float: right;
+        height: 70px;
+        font-family: $font_family;
+        font-size: 18px;
+        font-weight: normal;
+        color: $color_admin_header_title;
+        padding: 0 20px;
+        margin: 0 8px;
+        border: 0;
+        background-color: $color_null;
+        &:hover {
+            cursor: pointer;
+        }
+    }
+    .admin-header-icon {
+        position: relative;
+        float: right;
+        top: 18.5px;
+    }
+    .admin-header-user {
+        float: right;
+        line-height: 70px;
+        font-family: $font_family;
+        font-size: 18px;
+        font-weight: normal;
+        color: $color_admin_header_title;
+        padding: 0 36px 0 16px;
+        margin-right: 100px;
+    }
+}
+
+.admin-footer {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    width: calc(100% - 271px);
+    height: 58px;
+    background: $color_admin_footer_bg;
+
+    .footer-center {
+        position: relative;
+        width: 1160px;
+        margin: 0 auto;
+
+        .footer-txt {
+            display: inline-block;
+            font-family: $font_family;
+            font-size: 16px;
+            font-weight: normal;
+            color: #bcbcbc;
+            line-height: 58px;
+            margin: 0 25px;
+        }
+
+        .footer-cut-line {
+            position: relative;
+            display: inline-block;
+            top: 7px;
+            height: 26px;
+            border-left: 1px solid $color_setting_gray_line;
+        }
+
+        .footer-img {
+            position: relative;
+            display: inline-block;
+            top: 6px;
+            margin-right: -20px;
+        }
+    }
+}
+
+.title-bar {
+    position: relative;
+    width: 100%;
+    height: 109px;
+    margin-bottom: 25px;
+
+    .title-txt {
+        position: relative;
+        float: left;
+        width: 154px;
+        line-height: 109px;
+        font-family: $font_family;
+        font-size: 30px;
+        font-weight: normal;
+        color: $color_admin_header_title;
+        text-align: center;
+        margin: 0 50px 0 0;
+    }
+
+    .title-btn {
+        position: relative;
+        float: left;
+        width: 210px;
+        height: 48px;
+        font-family: $font_family;
+        font-size: 18px;
+        color: $color_admin_header_title;
+        background-color: white;
+        border-radius: 5px;
+        border: 0;
+        margin: 30.5px 13px 30.5px 0;
+        padding: 0;
+        -webkit-filter: drop-shadow(0 3px 6px rgba(0, 0, 0, 0.16));
+        filter: drop-shadow(0 3px 6px rgba(0, 0, 0, 0.16));
+
+        .btn-icon {
+            position: relative;
+            margin-right: 5px;
+            top: 5px;
+        }
+
+        &:hover {
+            opacity: 0.65;
+            cursor: pointer;
+        }
+    }
+
+    .title-search {
+        float: right;
+        width: calc(100% - 204px - 697px - 100px);
+        height: 48px;
+        line-height: 48px;
+        font-family: $font_family;
+        font-size: 14px;
+        color: $color_admin_header_title;
+        letter-spacing: 0.5px;
+        margin: 31px 100px 0 0;
+        padding: 0;
+        border: 0;
+        border-radius: 5px;
+        text-indent: 1.5em;
+        background-image: url("~@/assets/img/SURREALM/Admin/icon_search.png");
+        background-position: 95% center;
+        background-size: 24px 24px;
+        background-repeat: no-repeat;
+    }
+}
+
+.account-page {
+    float: right;
+    width: calc(100% - 271px);
+    height: calc(100vh - 70px);
+    background: $color_admin_page;
+    padding-left: 50px;
+    box-sizing: border-box;
+
+    .tab-teacher-select,
+    .tab-teacher-unselect,
+    .tab-student-select,
+    .tab-student-unselect {
+        position: relative;
+        display: block;
+        float: left;
+        width: 264px;
+        height: 63px;
+        font-family: $font_family;
+        font-size: 24px;
+        color: $color_setting_gray_line;
+        text-indent: 1.5em;
+        border-radius: 8px 8px 0 0;
+        box-sizing: border-box;
+        border: 0;
+        margin-right: 6px;
+        background-color: $color_admin_tab_unselect;
+        background-position: 60px center;
+        background-size: 30px 30px;
+        background-repeat: no-repeat;
+
+        &:hover {
+            cursor: pointer;
+        }
+    }
+
+    .tab-teacher-select {
+        color: black;
+        border-top: 7px $color_admin_tab_pp solid;
+        background-color: $color_admin_tab_select;
+        background-image: url("~@/assets/img/SURREALM/Admin/tab_teacher_select.png");
+    }
+    .tab-teacher-unselect {
+        background-image: url("~@/assets/img/SURREALM/Admin/tab_teacher_unselect.png");
+    }
+    .tab-student-select {
+        color: black;
+        border-top: 7px $color_admin_tab_green solid;
+        background-color: $color_admin_tab_select;
+        background-image: url("~@/assets/img/SURREALM/Admin/tab_student_select.png");
+    }
+
+    .tab-student-unselect {
+        background-image: url("~@/assets/img/SURREALM/Admin/tab_student_unselect.png");
+    }
+
+    .data-area {
+        position: relative;
+        float: right;
+        width: 271px;
+        height: 37px;
+        border: 1px #707070 solid;
+        border-radius: 4px;
+        margin-right: 100px;
+
+        .data-desc,
+        .data-number {
+            line-height: 33px;
+            font-family: $font_family;
+            font-size: 14px;
+            color: black;
+            margin-left: 20px;
+        }
+
+        .data-number {
+            font-size: 20px;
+            font-weight: bold;
+            margin-left: 0px;
+        }
+    }
+
+    .user-area {
+        position: relative;
+        width: calc(100% - 100px);
+        height: calc(100vh - 363px);
+        padding: 45px 0 20px 45px;
+        background-color: $color_admin_tab_select;
+        box-sizing: border-box;
+        overflow: auto;
+    }
+}
+
+.info-page {
+    position: relative;
+    float: right;
+    width: calc(100% - 271px);
+    height: calc(100vh - 70px);
+    background: $color_admin_page;
+    padding-left: 50px;
+    box-sizing: border-box;
+
+    .title-bar {
+        margin-bottom: 0;
+    }
+
+    .info-area {
+        width: calc(100% - 96px);
+        min-width: 1025px;
+        height: calc(100vh - 310px);
+        max-height: 663px;
+        border-radius: 8px;
+        background-color: white;
+        margin: 0 73px 0 23px;
+        padding-bottom: 30px;
+        -webkit-filter: drop-shadow(0 3px 6px rgba(0, 0, 0, 0.16));
+        filter: drop-shadow(0 3px 6px rgba(0, 0, 0, 0.16));
+        overflow: auto;
+
+        .info-logo {
+            display: block;
+            float: left;
+            margin: calc(50vh - 240px) 11.5% 0;
+        }
+
+        .info-keyin-area {
+            position: relative;
+            display: block;
+            float: left;
+            width: 564px;
+
+            .info-title {
+                line-height: 90px;
+                font-family: $font_family;
+                font-size: 24px;
+                color: black;
+                margin: 4vh 0 32px;
+                border-bottom: 1px $color_setting_gray_line solid;
+            }
+
+            .keyin-desc {
+                position: relative;
+                display: inline-block;
+                width: 103px;
+                height: 40px;
+                line-height: 40px;
+                text-align: right;
+                font-family: $font_family;
+                font-size: 18px;
+                color: black;
+                margin-right: 23px;
+                margin-bottom: 20px;
+            }
+
+            .keyin-input {
+                position: relative;
+                display: inline-block;
+                width: 438px;
+                height: 40px;
+                line-height: 40px;
+                font-family: $font_family;
+                font-size: 14px;
+                color: black;
+                text-indent: 1em;
+                background-color: #f5f5f5;
+                border-radius: 4px;
+                border: 0;
+                padding: 0;
+                margin-bottom: 20px;
+            }
+
+            .keyin-hint {
+                font-family: $font_family;
+                font-size: 14px;
+                color: black;
+                margin: -20px 0 20px;
+                padding-left: 126px;
+            }
+
+            .btn-edit {
+                float: right;
+                width: 40px;
+                height: 40px;
+                background-image: url("~@/assets/img/SURREALM/Admin/icon_edit.png");
+                background-position: center center;
+                background-size: 20px 20px;
+                background-repeat: no-repeat;
+                background-color: $color_null;
+                border: 0;
+                padding: 0;
+                margin-top: 25px;
+
+                &:hover {
+                    cursor: pointer;
+                    background-image: url("~@/assets/img/SURREALM/Admin/icon_edit_gray.png");
+                }
+            }
+
+            .btn-left,
+            .btn-right {
+                position: relative;
+                width: 146px;
+                height: 40px;
+                float: right;
+                font-family: $font_family;
+                font-size: 14px;
+                color: #323232;
+                background-color: #ebebeb;
+                margin-right: 14px;
+                border-radius: 5px;
+                border: 0;
+                padding: 0;
+
+                &:hover {
+                    opacity: 0.85;
+                    cursor: pointer;
+                }
+            }
+
+            .btn-right {
+                color: white;
+                background-color: $color_admin_pp;
+                margin: 0;
+            }
+        }
+    }
+}
+
+.user-info-item {
+    position: relative;
+    display: inline-block;
+    width: 337px;
+    height: 120px;
+    background-color: white;
+    margin: 0 18px 18px 0;
+    border-radius: 8px;
+
+    .info-icon {
+        position: relative;
+        float: left;
+        margin: 20px 18px 20px 20px;
+    }
+
+    .info-name {
+        position: relative;
+        float: left;
+        width: 175px;
+        height: 120px;
+        line-height: 120px;
+        font-family: $font_family;
+        font-size: 20px;
+        font-weight: bold;
+        color: black;
+        overflow: hidden;
+    }
+
+    .info-del-teacher,
+    .info-del-student {
+        position: relative;
+        float: left;
+        width: 44px;
+        height: 120px;
+        padding: 48px 9px;
+        border-left: 2px $color_admin_tab_select solid;
+        border-radius: 0 8px 8px 0;
+        box-sizing: border-box;
+        -webkit-filter: grayscale(100%);
+        -moz-filter: grayscale(100%);
+        -ms-filter: grayscale(100%);
+        -o-filter: grayscale(100%);
+        filter: grayscale(100%);
+        opacity: 0.6;
+    }
+
+    .info-hover {
+        position: absolute;
+        display: none;
+        width: 237px;
+        height: 200px;
+        top: 105px;
+        right: 51px;
+        background-color: $color_admin_pp_light;
+        border-radius: 4px;
+        -webkit-filter: drop-shadow(0 3px 6px rgba(0, 0, 0, 0.16));
+        filter: drop-shadow(0 3px 6px rgba(0, 0, 0, 0.16));
+        z-index: 2;
+
+        .hover-icon {
+            position: relative;
+            display: block;
+            width: 99px;
+            height: 99px;
+            margin: 22px auto 12px;
+        }
+
+        .hover-pointer {
+            position: absolute;
+            top: -23px;
+            right: 102px;
+        }
+
+        .hover-email,
+        .hover-company {
+            position: relative;
+            display: block;
+            line-height: 21px;
+            font-family: $font_family;
+            font-size: 16px;
+            font-weight: bold;
+            color: black;
+            text-align: center;
+        }
+
+        .hover-company {
+            font-size: 14px;
+            color: $color_admin_pp;
+        }
+    }
+
+    &:hover {
+        .info-del-teacher:hover {
+            cursor: pointer;
+            border-left: 2px $color_admin_pp_light solid;
+            background-color: $color_admin_pp_light;
+            -webkit-filter: grayscale(0%);
+            -moz-filter: grayscale(0%);
+            -ms-filter: grayscale(0%);
+            -o-filter: grayscale(0%);
+            filter: grayscale(0%);
+            opacity: 1;
+        }
+
+        .info-del-student:hover {
+            cursor: pointer;
+            border-left: 2px $color_admin_green_light solid;
+            background-color: $color_admin_green_light;
+            -webkit-filter: grayscale(0%);
+            -moz-filter: grayscale(0%);
+            -ms-filter: grayscale(0%);
+            -o-filter: grayscale(0%);
+            filter: grayscale(0%);
+            opacity: 1;
+        }
+
+        .info-hover {
+            display: block;
+        }
+    }
+}
+
+.dialog-full {
+    position: absolute;
+    width: 100%;
+    height: 100vh;
+    top: 0px;
+    left: 0px;
+    z-index: 999;
+
+    .dialog-gray {
+        position: fixed;
+        display: block;
+        width: 100%;
+        height: 100vh;
+        top: 0px;
+        left: 0px;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 99;
+
+        .btn-tool {
+            width: 306px;
+            margin-left: 79px;
+
+            .btn-left,
+            .btn-right {
+                position: relative;
+                width: 146px;
+                height: 40px;
+                float: left;
+                font-family: $font_family;
+                font-size: 14px;
+                color: #323232;
+                background-color: #ebebeb;
+                margin-right: 14px;
+                border-radius: 5px;
+                border: 0;
+                padding: 0;
+
+                &:hover {
+                    opacity: 0.85;
+                    cursor: pointer;
+                }
+            }
+
+            .btn-right {
+                color: white;
+                background-color: $color_admin_pp;
+                margin: 0;
+            }
+
+            .btn-center {
+                position: relative;
+                width: 146px;
+                height: 40px;
+                margin: 0 auto;
+                font-family: $font_family;
+                font-size: 14px;
+                color: white;
+                background-color: $color_admin_pp;
+                border-radius: 5px;
+                border: 0;
+                padding: 0;
+
+                &:hover {
+                    opacity: 0.85;
+                    cursor: pointer;
+                }
+            }
+        }
+
+        .dialog-del-user {
+            position: relative;
+            width: 464px;
+            height: 240px;
+            margin: calc(50vh - 120px) auto 0;
+            padding-top: 35px;
+            display: block;
+            background: white;
+            border-radius: 7px;
+            box-sizing: border-box;
+
+            .title-area {
+                width: 170px;
+                height: 34px;
+                margin: 0 auto 20px;
+
+                .icon-alart {
+                    position: relative;
+                    display: block;
+                    float: left;
+                }
+
+                .title-txt {
+                    font-family: $font_family;
+                    font-size: 24px;
+                    font-weight: bold;
+                    color: #333;
+                    margin-left: 15px;
+                    letter-spacing: 0.8px;
+                }
+            }
+
+            .del-desc {
+                display: block;
+                line-height: 21px;
+                font-family: $font_family;
+                font-size: 14px;
+                color: #333;
+                text-align: center;
+                margin-bottom: 34px;
+            }
+        }
+
+        .dialog-add-user {
+            position: relative;
+            width: 464px;
+            height: 337px;
+            margin: calc(50vh - 168px) auto 0;
+            padding-top: 35px;
+            display: block;
+            background: white;
+            border-radius: 7px;
+            box-sizing: border-box;
+
+            .title-area {
+                width: 170px;
+                height: 34px;
+                margin: 0 auto 20px;
+
+                .icon-alart {
+                    position: relative;
+                    display: block;
+                    float: left;
+                }
+
+                .title-txt {
+                    font-family: $font_family;
+                    font-size: 24px;
+                    font-weight: bold;
+                    color: #333;
+                    margin-left: 15px;
+                    letter-spacing: 0.8px;
+                }
+            }
+
+            .keyin-desc {
+                position: relative;
+                display: inline-block;
+                width: 83px;
+                height: 35px;
+                text-align: right;
+                font-family: $font_family;
+                font-size: 14px;
+                color: #323232;
+                margin-right: 23px;
+                margin-bottom: 9px;
+            }
+
+            .keyin-input {
+                position: relative;
+                display: inline-block;
+                width: 302px;
+                height: 35px;
+                font-family: $font_family;
+                font-size: 14px;
+                color: black;
+                text-indent: 1em;
+                background-color: #f5f5f5;
+                border-radius: 4px;
+                border: 0;
+                padding: 0;
+                margin-bottom: 9px;
+            }
+
+            .btn-tool {
+                margin-top: 35px;
+            }
+        }
+
+        .dialog-msg {
+            position: relative;
+            width: 464px;
+            height: 291px;
+            margin: calc(50vh - 145px) auto 0;
+            padding-top: 35px;
+            display: block;
+            background: white;
+            border-radius: 7px;
+            box-sizing: border-box;
+
+            .msg-content {
+                position: relative;
+                display: block;
+                margin: 35px auto 0;
+                width: 353px;
+                line-height: 26px;
+                font-family: $font_family;
+                font-size: 14px;
+                text-align: center;
+                color: black;
+            }
+
+            .btn-tool {
+                position: absolute;
+                bottom: 38px;
+                left: 79px;
+            }
+        }
+
+        .dialog-import {
+            position: relative;
+            width: 464px;
+            height: 229px;
+            margin: calc(50vh - 115px) auto 0;
+            padding-top: 35px;
+            display: block;
+            background: white;
+            border-radius: 7px;
+            box-sizing: border-box;
+
+            .title-area {
+                width: 170px;
+                height: 34px;
+                margin: 0 auto 20px;
+
+                .icon-alart {
+                    position: relative;
+                    display: block;
+                    float: left;
+                }
+
+                .title-txt {
+                    font-family: $font_family;
+                    font-size: 24px;
+                    font-weight: bold;
+                    color: #333;
+                    margin-left: 15px;
+                    letter-spacing: 0.8px;
+                }
+            }
+
+            .keyin-desc {
+                position: relative;
+                display: inline-block;
+                width: 83px;
+                height: 35px;
+                text-align: right;
+                font-family: $font_family;
+                font-size: 14px;
+                color: #323232;
+                margin-right: 23px;
+                margin-bottom: 9px;
+            }
+
+            .keyin-input {
+                position: relative;
+                display: inline-block;
+                width: 302px;
+                height: 35px;
+                font-family: $font_family;
+                font-size: 14px;
+                color: black;
+                text-indent: 1em;
+                background-color: #f5f5f5;
+                border-radius: 4px;
+                border: 0;
+                padding: 0;
+                margin-bottom: 9px;
+            }
+
+            .keyin-import {
+                position: relative;
+                display: inline-block;
+                width: 146px;
+                height: 40px;
+
+                .import-show {
+                    width: 146px;
+                    height: 40px;
+                    line-height: 37px;
+                    font-family: $font_family;
+                    font-size: 25px;
+                    color: white;
+                    text-align: center;
+                    background-color: $color_admin_pp;
+                    border-radius: 5px;
+
+                    &:hover {
+                        cursor: pointer;
+                    }
+                }
+
+                .import-hidden-fu {
+                    position: absolute;
+                    width: 100%;
+                    height: 40px;
+                    top: 0;
+                    left: 0;
+                    opacity: 0;
+                    &:hover {
+                        cursor: pointer;
+                    }
+                }
+            }
+
+            .msg-content {
+                position: relative;
+                display: block;
+                margin: 35px auto 0;
+                width: 353px;
+                line-height: 26px;
+                font-family: $font_family;
+                font-size: 14px;
+                color: black;
+            }
+
+            // .btn-tool {
+            //     position: absolute;
+            //     bottom: 38px;
+            // }
+        }
+
+        .dialog-setinfo-hint {
+            position: relative;
+            width: 464px;
+            height: 291px;
+            margin: calc(50vh - 145px) auto 0;
+            padding-top: 35px;
+            display: block;
+            background: white;
+            border-radius: 7px;
+            box-sizing: border-box;
+
+            .title-area {
+                width: 230px;
+                height: 34px;
+                margin: 0 auto 20px;
+
+                .title-txt {
+                    font-family: $font_family;
+                    font-size: 24px;
+                    font-weight: bold;
+                    color: black;
+                    letter-spacing: 0.8px;
+                    text-align: center;
+                }
+            }
+
+            .msg-content {
+                position: relative;
+                display: block;
+                margin: 35px auto 0;
+                width: 353px;
+                line-height: 20px;
+                font-family: $font_family;
+                font-size: 14px;
+                color: black;
+                text-align: center;
+
+                img {
+                    position: relative;
+                    top: 5px;
+                }
+            }
+
+            .btn-tool {
+                position: absolute;
+                bottom: 38px;
+                left: 79px;
+            }
+        }
+
+        .dialog-msg-twobtn {
+            position: relative;
+            width: 464px;
+            height: 291px;
+            margin: calc(50vh - 145px) auto 0;
+            padding-top: 35px;
+            display: block;
+            background: white;
+            border-radius: 7px;
+            box-sizing: border-box;
+
+            .title-area {
+                width: 230px;
+                height: 34px;
+                margin: 0 auto 20px;
+
+                .title-txt {
+                    font-family: $font_family;
+                    font-size: 24px;
+                    font-weight: bold;
+                    color: black;
+                    letter-spacing: 0.8px;
+                    text-align: center;
+                }
+            }
+
+            .msg-content {
+                position: relative;
+                display: block;
+                margin: 35px auto 0;
+                width: 353px;
+                line-height: 26px;
+                font-family: $font_family;
+                text-align: center;
+                font-size: 14px;
+                color: black;
+            }
+
+            .btn-tool {
+                position: absolute;
+                bottom: 38px;
+            }
+        }
+
+        .dialog-add-order {
+            position: relative;
+            width: 730px;
+            margin: 20px auto 0;
+            display: block;
+            background: white;
+            border-radius: 16px;
+            box-sizing: border-box;
+
+            .title-area {
+                position: relative;
+                width: 100%;
+                height: 55px;
+                line-height: 55px;
+                font-family: $font_family;
+                font-size: 28px;
+                color: white;
+                text-align: center;
+                border-radius: 15px 15px 0 0;
+                background-color: #4686be;
+                letter-spacing: 1.2px;
+
+                .title-close {
+                    position: absolute;
+                    top: 2px;
+                    right: 5px;
+                    float: right;
+                    width: 50px;
+                    height: 50px;
+                    background-color: $color_null;
+                    background-image: url("~@/assets/img/SURREALM/SuperAdmin/icon_close.png");
+                    background-position: center center;
+                    background-size: 35px 35px;
+                    background-repeat: no-repeat;
+                    border: 0;
+
+                    &:hover {
+                        cursor: pointer;
+                    }
+                }
+            }
+
+            .content-area {
+                position: relative;
+                margin: 0 auto;
+                width: 730px;
+                height: calc(100vh - 75px - 20px);
+                max-height: 669px;
+                padding: 55px 85px 40px;
+                overflow: auto;
+                box-sizing: border-box;
+
+                .content-title {
+                    float: left;
+                    width: 196px;
+                    height: 41px;
+                    font-family: $font_family;
+                    font-size: 24px;
+                    color: black;
+                    margin-bottom: 28px;
+                }
+
+                .content-desc {
+                    float: left;
+                    width: 340px;
+                    margin-bottom: 28px;
+
+                    .select-date {
+                        width: 100%;
+                        height: 41px;
+                        line-height: 41px;
+                        border: 0px;
+                        padding: 0;
+
+                        input {
+                            width: 100%;
+                            height: 38px;
+                            line-height: 38px;
+                            font-family: $font_family;
+                            font-size: 18px;
+                            color: black;
+                            border: 1px solid #ccc;
+                            border-radius: 2px;
+                            box-sizing: border-box;
+                            background: white;
+                            text-align: left;
+                        }
+                    }
+
+                    .input-edit {
+                        width: 100%;
+                        height: 41px;
+                        line-height: 41px;
+                        font-family: $font_family;
+                        font-size: 18px;
+                        margin: 0;
+                        padding: 0 10px;
+                        border: 1px solid #ccc;
+                        box-sizing: border-box;
+
+                        &:focus {
+                            outline: 0;
+                        }
+                    }
+
+                    .account-type {
+                        float: left;
+                        width: 51px;
+                        height: 41px;
+                        line-height: 41px;
+                        font-family: $font_family;
+                        font-size: 18px;
+                        color: black;
+                    }
+
+                    .account-no {
+                        float: left;
+                        width: 102px;
+                        height: 41px;
+                        line-height: 41px;
+                        text-align: center;
+                        font-family: $font_family;
+                        font-size: 16px;
+                        color: black;
+                        border: 1px solid #ccc;
+                        box-sizing: border-box;
+                    }
+
+                    .auth-type {
+                        float: left;
+                        width: 89px;
+                        height: 41px;
+                        line-height: 41px;
+                        font-family: $font_family;
+                        font-size: 18px;
+                        color: black;
+                    }
+
+                    .auth-select {
+                        float: left;
+                        width: 251px;
+                        height: 41px;
+                        padding-top: 3px;
+                        box-sizing: border-box;
+                    }
+
+                    .auth-checkbox-select,
+                    .auth-checkbox-unselect {
+                        display: block;
+                        float: left;
+                        width: 33px;
+                        height: 33px;
+                        border: 1px solid rgb(167, 163, 163);
+                        box-sizing: border-box;
+                        margin: 4px 28px 0 0;
+
+                        &:hover {
+                            cursor: pointer;
+                        }
+                    }
+
+                    .auth-checkbox-select {
+                        background-image: url("~@/assets/img/SURREALM/SuperAdmin/icon_select_2.png");
+                        background-size: 33px 33px;
+                        background-position: center center;
+                    }
+                }
+            }
+
+            .btn-add-order {
+                float: right;
+                width: 165px;
+                height: 48px;
+                font-family: $font_family;
+                font-size: 16px;
+                color: white;
+                background-color: #4686be;
+                border: 0;
+                border-radius: 4px;
+                margin-top: 30px;
+                &:hover {
+                    cursor: pointer;
+                    opacity: 0.85;
+                }
+            }
+        }
+
+        .dialog-spadmin-hint {
+            position: relative;
+            width: 820px;
+            margin: calc(50vh - 120px) auto 0;
+            display: block;
+            background: #363636;
+            border-radius: 15px;
+            padding: 70px 110px 35px;
+            box-sizing: border-box;
+
+            .dialog-close {
+                position: absolute;
+                top: 2px;
+                right: 5px;
+                float: right;
+                width: 50px;
+                height: 50px;
+                background-color: $color_null;
+                background-image: url("~@/assets/img/SURREALM/SuperAdmin/icon_close.png");
+                background-position: center center;
+                background-size: 35px 35px;
+                background-repeat: no-repeat;
+                border: 0;
+
+                &:hover {
+                    cursor: pointer;
+                }
+            }
+
+            .hint-txt {
+                display: block;
+                width: 100%;
+                font-family: $font_family;
+                font-size: 18px;
+                color: white;
+                text-align: center;
+                margin-bottom: 35px;
+            }
+
+            .btn-tool {
+                width: 346px;
+                height: 48px;
+                margin: 0 auto;
+
+                .btn-left,
+                .btn-right {
+                    width: 166px;
+                    height: 48px;
+                    font-size: 16px;
+                    color: white;
+                    background-color: #888888;
+                    margin-right: 14px;
+                    border-radius: 4px;
+                }
+
+                .btn-right {
+                    background-color: #4686be;
+                    margin: 0;
+                }
+
+                .btn-center {
+                    position: relative;
+                    width: 146px;
+                    height: 40px;
+                    margin: 0 auto;
+                    font-family: $font_family;
+                    font-size: 14px;
+                    color: white;
+                    background-color: $color_admin_pp;
+                    border-radius: 5px;
+                    border: 0;
+                    padding: 0;
+
+                    &:hover {
+                        opacity: 0.85;
+                        cursor: pointer;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.super-admin-login {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    background-color: $color_admin_bg;
+    background-image: url("~@/assets/img/SURREALM/SuperAdmin/bg.png");
+    background-size: cover;
+    padding-top: calc(50vh - 300px);
+    box-sizing: border-box;
+
+    .login-area {
+        width: 452px;
+        height: 584px;
+        margin: 0 auto;
+
+        .login-logo {
+            display: block;
+            margin: 0 auto 8vh;
+        }
+
+        .login-keyin-area {
+            position: relative;
+            width: 368px;
+            height: 340px;
+            margin: 0 auto;
+
+            .login-title {
+                width: 100%;
+                height: 31px;
+                line-height: 31px;
+                text-align: center;
+                font-family: $font_family;
+                font-size: 22px;
+                color: #51f9ff;
+                margin-bottom: 47px;
+            }
+
+            .login-desc {
+                display: block;
+                margin: 0 auto 4px;
+                width: 100%;
+                height: 25px;
+                line-height: 25px;
+                font-family: $font_family;
+                font-size: 18px;
+                color: white;
+            }
+
+            .login-input {
+                display: block;
+                margin: 0 auto 23px;
+                width: 100%;
+                height: 40px;
+                line-height: 40px;
+                background-color: $color_admin_input;
+                font-family: $font_family;
+                font-size: 14px;
+                color: black;
+                text-indent: 12px;
+                border-radius: 4px;
+                padding: 0;
+                border: 0;
+            }
+
+            .login-btn {
+                display: block;
+                margin: 47px auto 0;
+                width: 100%;
+                height: 48px;
+                line-height: 48px;
+                background-color: #4686be;
+                font-family: $font_family;
+                font-size: 16px;
+                color: white;
+                border-radius: 4px;
+                border: 0;
+
+                &:hover {
+                    cursor: pointer;
+                    opacity: 0.85;
+                }
+            }
+        }
+    }
+}
+
+.super-adimn-header {
+    float: right;
+    width: calc(100% - 271px);
+    min-width: 1025px;
+    height: 78px;
+    background: white;
+    border-bottom: 7px solid #b0b7bc;
+
+    .admin-header-title {
+        float: left;
+        line-height: 78px;
+        font-family: $font_family;
+        font-size: 20px;
+        font-weight: normal;
+        color: $color_admin_header_title;
+        margin: 0 0 0 68px;
+    }
+    .admin-header-logout {
+        float: right;
+        height: 78px;
+        font-family: $font_family;
+        font-size: 18px;
+        font-weight: normal;
+        color: $color_admin_header_title;
+        padding: 0 20px;
+        margin: 0 8px;
+        border: 0;
+        background-color: $color_null;
+        &:hover {
+            cursor: pointer;
+        }
+    }
+    .admin-header-icon {
+        position: relative;
+        float: right;
+        top: 18.5px;
+    }
+    .admin-header-user {
+        float: right;
+        line-height: 78px;
+        font-family: $font_family;
+        font-size: 18px;
+        font-weight: normal;
+        color: $color_admin_header_title;
+        padding: 0 36px 0 16px;
+        margin-right: 100px;
+    }
+}
+
+.super-admin-menu {
+    position: relative;
+    display: block;
+    float: left;
+    width: 271px;
+    height: 100vh;
+    line-height: 0;
+    background: $color_sadmin_menu_bg;
+    z-index: 899;
+    box-sizing: border-box;
+    overflow: auto;
+
+    /* width */
+    &::-webkit-scrollbar {
+        width: 0px;
+    }
+
+    /* Track */
+    &::-webkit-scrollbar-track {
+        background: $color_dialog_bg;
+        margin: 0 0;
+    }
+
+    /* Handle */
+    &::-webkit-scrollbar-thumb {
+        background: $color_dialog_border;
+        border: $color_dialog_border 2.5px solid;
+    }
+
+    .menu-logo {
+        position: relative;
+        width: 100%;
+        padding: 39px 70px;
+        background-color: $color_sadmin_menu_bg;
+        border-bottom: 0.5px solid #4d555b;
+        box-sizing: border-box;
+    }
+
+    .menu-item-select,
+    .menu-item-unselect {
+        position: relative;
+        width: 100%;
+        height: 74px;
+        line-height: 74px;
+        background-color: $color_sadmin_menu_select;
+        border-left: 7px solid $color_admin_menu_bolder;
+        border-bottom: 0.5px solid #4d555b;
+        box-sizing: border-box;
+
+        .menu-item-icon {
+            position: relative;
+            float: left;
+            width: 33px;
+            height: auto;
+            margin: 20px 0px 3px 42px;
+        }
+
+        .menu-item-txt {
+            position: relative;
+            float: left;
+            font-family: $font_family;
+            font-size: 18px;
+            color: white;
+            margin-left: 38px;
+
+            &:hover {
+                cursor: pointer;
+            }
+        }
+        .select-mark {
+            position: absolute;
+            width: 36px;
+            top: 15px;
+            right: 0px;
+        }
+
+        &:hover {
+            background: $color_sadmin_menu_hover;
+            cursor: pointer;
+        }
+    }
+
+    .menu-item-unselect {
+        background-color: $color_null;
+        border-left: 0;
+
+        .menu-item-icon {
+            margin: 20px 0px 3px 49px;
+            -webkit-filter: brightness(0) invert(1);
+            -moz-filter: brightness(0) invert(1);
+            -ms-filter: brightness(0) invert(1);
+            -o-filter: brightness(0) invert(1);
+            filter: brightness(0) invert(1);
+        }
+
+        .select-mark {
+            display: none;
+        }
+    }
+}
+
+#Order {
+    min-width: 1300px;
+    .order-page {
+        float: right;
+        width: calc(100% - 271px);
+        min-width: 1025px;
+        height: calc(100vh - 85px);
+        background: $color_admin_page;
+        padding-left: 50px;
+        box-sizing: border-box;
+
+        .title-bar {
+            .title-btn {
+                &:hover {
+                    .btn-txt {
+                        cursor: pointer;
+                    }
+                }
+                .btn-txt {
+                    position: relative;
+                    top: -7px;
+                }
+            }
+
+            .title-txt {
+                text-align: left;
+            }
+            .title-search {
+                width: calc(100% - 204px - 450px - 100px);
+                max-width: 430px;
+            }
+        }
+
+        .order-area {
+            width: calc(100% - 100px);
+            height: calc(100vh - 280px);
+            background-color: $color_null;
+            box-sizing: border-box;
+            // -webkit-filter: drop-shadow(0 3px 6px rgba(0, 0, 0, 0.16));
+            // filter: drop-shadow(0 3px 6px rgba(0, 0, 0, 0.16));
+
+            .title-buy-date,
+            .title-email,
+            .title-order-no,
+            .title-account-no,
+            .title-expire-date,
+            .title-admin {
+                position: relative;
+                display: inline-block;
+                width: 14%;
+                height: 70px;
+                line-height: 70px;
+                font-family: $font_family;
+                font-weight: $font_weight_sl;
+                font-size: 18px;
+                color: #171725;
+                background-color: $color_null;
+                text-align: center;
+                box-sizing: border-box;
+                border-right: 1px #b0b7bc solid;
+                overflow: hidden;
+            }
+
+            .title-buy-date,
+            .title-expire-date {
+                .btn-order-up,
+                .btn-order-down,
+                .btn-order-no {
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background-color: $color_null;
+                    background-image: url("~@/assets/img/SURREALM/SuperAdmin/icon_order_2.png");
+                    background-position: 92% 25px;
+                    background-size: 13px 13px;
+                    background-repeat: no-repeat;
+                    margin: 0;
+                    padding: 0;
+                    border: 0;
+                    box-sizing: border-box;
+
+                    &:hover {
+                        cursor: pointer;
+                    }
+                }
+
+                .btn-order-down {
+                    -webkit-transform: rotate(180deg);
+                    transform: rotate(180deg);
+                    background-position: 8% 25px;
+                }
+
+                .btn-order-no {
+                    background-image: url("~@/assets/img/SURREALM/SuperAdmin/icon_order_ud.png");
+                    background-size: 13px 21px;
+                    background-position: 92% 24px;
+                }
+            }
+
+            .title-account-no {
+                width: 18%;
+            }
+
+            .title-email {
+                width: 20%;
+            }
+
+            .title-admin {
+                width: 20%;
+                border-right: 0;
+            }
+
+            .table-title-bar {
+                width: 100%;
+                height: 70px;
+                border: 1px #b0b7bc solid;
+                box-sizing: border-box;
+            }
+
+            .table-scroll-area {
+                width: 100%;
+                height: calc(100% - 70px);
+                border: 1px #b0b7bc solid;
+                border-top: 0;
+                box-sizing: border-box;
+                overflow: auto;
+
+                .info-item {
+                    position: relative;
+                    width: 100%;
+                    height: 49px;
+                    background-color: white;
+
+                    &:nth-child(2n) {
+                        background-color: $color_null;
+                    }
+
+                    &:hover {
+                        cursor: pointer;
+                        background-color: #e3e2e2;
+                    }
+
+                    .title-buy-date,
+                    .title-email,
+                    .title-order-no,
+                    .title-account-no,
+                    .title-expire-date,
+                    .title-admin {
+                        height: 49px;
+                        line-height: 49px;
+                        font-size: 16px;
+                        border-right: 0;
+                    }
+                }
+            }
+        }
+    }
+}
+
+#OrderDetail {
+    min-width: 1300px;
+
+    .order-detail-page {
+        float: right;
+        width: calc(100% - 271px);
+        min-width: 1025px;
+        height: calc(100vh - 85px);
+        background: $color_admin_page;
+        padding-left: 50px;
+        box-sizing: border-box;
+
+        .title-bar {
+            margin-bottom: 0;
+            .title-img {
+                float: left;
+                padding: 39px 23px 39px 0;
+
+                &:hover {
+                    cursor: pointer;
+                }
+            }
+
+            .title-txt {
+                text-align: left;
+                width: 400px;
+                &:hover {
+                    cursor: pointer;
+                }
+            }
+        }
+
+        .detail-tab-select,
+        .detail-tab-unselect {
+            float: left;
+            width: 208px;
+            height: 63px;
+            border-radius: 8px 8px 0 0;
+            background-color: #f9f9f9;
+            border: 0px;
+            border-top: 9px #4686be solid;
+            font-family: $font_family;
+            font-size: 24px;
+            color: #4686be;
+            text-align: center;
+            margin-right: 5px;
+            &:hover {
+                cursor: pointer;
+            }
+        }
+
+        .detail-tab-unselect {
+            background-color: #e2e2e2;
+            border-top: 9px #e2e2e2 solid;
+            color: #989898;
+        }
+
+        .detail-area {
+            width: calc(100% - 100px);
+            height: calc(100vh - 315px);
+            background-color: #f9f9f9;
+            padding-top: 30px;
+            box-sizing: border-box;
+            overflow: auto;
+
+            .content-area {
+                position: relative;
+                float: left;
+                width: calc((100% / 3) - 50px);
+                height: auto;
+                min-height: calc(100vh - 470px);
+                padding: 0 0 0 35px;
+                box-sizing: border-box;
+                border-right: 1px solid #707070;
+                margin-bottom: 37px;
+
+                &:nth-child(3n) {
+                    border-right: 0;
+                    min-width: 385px;
+                }
+
+                &:nth-child(3n + 1) {
+                    min-width: 385px;
+                }
+
+                &:nth-child(3n + 2) {
+                    width: calc((100% / 3) + 100px);
+                    min-width: 470px;
+                }
+
+                .detail-title {
+                    float: left;
+                    width: 162px;
+                    height: 94px;
+                    font-family: $font_family;
+                    font-size: 24px;
+                    color: black;
+                }
+
+                .detail-content {
+                    float: left;
+                    width: calc(100% - 162px);
+                    min-height: 94px;
+                    font-family: $font_family;
+                    font-size: 18px;
+                    color: black;
+                    overflow: hidden;
+
+                    .detail-subtitle {
+                        float: left;
+                        height: 25px;
+                        margin: 0 15px 11px 0;
+                        font-family: $font_family;
+                        font-size: 18px;
+                        color: black;
+                    }
+
+                    .account-no {
+                        float: left;
+                        width: 119px;
+                        height: 28px;
+                        font-family: $font_family;
+                        font-size: 18px;
+                        color: black;
+                        text-align: center;
+                        margin-bottom: 10px;
+                    }
+
+                    .select-date {
+                        width: 100%;
+                        max-width: 170px;
+                        border: 0px;
+                        padding: 0;
+
+                        input {
+                            font-family: $font_family;
+                            font-size: 18px;
+                            color: black;
+                        }
+                    }
+
+                    .multiselect-area-close,
+                    .multiselect-area-show {
+                        float: left;
+                        width: 100%;
+                        max-width: 170px;
+                        margin-bottom: 11px;
+
+                        // .option-area{
+                        //     width: 220px;
+                        // }
+                    }
+
+                    .auth-checkbox-select,
+                    .auth-checkbox-unselect {
+                        display: block;
+                        float: left;
+                        width: 19px;
+                        height: 19px;
+                        border: 1px solid rgb(167, 163, 163);
+                        box-sizing: border-box;
+                        margin: 4px 28px 0 0;
+
+                        &:hover {
+                            cursor: pointer;
+                        }
+                    }
+
+                    .auth-checkbox-select {
+                        background-image: url("~@/assets/img/SURREALM/SuperAdmin/icon_select_2.png");
+                        background-size: 19px 19px;
+                        background-position: center center;
+                    }
+                }
+
+                .detail-desc {
+                    width: 315px;
+                    height: 402px;
+                    resize: none;
+                    margin-top: -40px;
+                }
+            }
+
+            .btn-tool {
+                float: right;
+                width: 336px;
+                margin-right: 66px;
+
+                .btn-left,
+                .btn-right {
+                    position: relative;
+                    width: 166px;
+                    height: 48px;
+                    float: left;
+                    font-family: $font_family;
+                    font-size: 16px;
+                    color: white;
+                    background-color: #888888;
+                    margin-right: 4px;
+                    border-radius: 4px;
+                    border: 0;
+                    padding: 0;
+
+                    &:hover {
+                        opacity: 0.85;
+                        cursor: pointer;
+                    }
+                }
+
+                .btn-right {
+                    color: white;
+                    background-color: #4686be;
+                    margin: 0;
+                }
+            }
+
+            .data-area {
+                position: relative;
+                float: right;
+                width: 271px;
+                height: 37px;
+                border: 1px #707070 solid;
+                border-radius: 4px;
+                margin: 0 100px 30px 0;
+
+                .data-desc,
+                .data-number {
+                    line-height: 33px;
+                    font-family: $font_family;
+                    font-size: 14px;
+                    color: black;
+                    margin-left: 20px;
+                }
+
+                .data-number {
+                    font-size: 20px;
+                    font-weight: bold;
+                    margin-left: 0px;
+                }
+            }
+
+            .user-info-item {
+                box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16);
+            }
         }
     }
 }

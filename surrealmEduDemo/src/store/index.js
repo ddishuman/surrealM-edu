@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import { apiUserLogin, apiOpenIDLogin } from '@/request.js' //, apiUserLogout
+import { apiUserLogin, apiOpenIDLogin, apiAdminLogin, apiSuperAdminLogin } from '@/request.js' //, apiUserLogout
 
 Vue.use(Vuex)
 
@@ -17,6 +17,9 @@ export default new Vuex.Store({
       ForgetPW: {
         Email: '',
       }
+    },
+    Admin: {
+      ContactName: localStorage.getItem('ContactName'),
     }
   },
   mutations: {
@@ -32,7 +35,10 @@ export default new Vuex.Store({
     },
     setForgetPWEmail: function (state, Email) {
       state.SURREALM.ForgetPW.Email = Email;
-    }
+    },
+    setAdminInfo: function (state, Name) {
+      state.Admin.ContactName = Name
+    },
   },
   actions: {
     LOGIN: function (context, data) {
@@ -102,7 +108,32 @@ export default new Vuex.Store({
     },
     ForgetPW: function (context, data) {
       context.commit('setForgetPWEmail', data.account);
-    }
+    },
+    ADMINLOGIN: function (context, data) {
+      return new Promise((resolve) => {
+        apiAdminLogin(data).then(res => {
+          //console.log("ADMINLOGIN:" + JSON.stringify(res.data));
+          let resp = res.data;
+          if (resp.Status == 'ok') {
+            localStorage.setItem('ContactName', resp.Data.ContactName);
+            localStorage.setItem('AdminToken', Vue.prototype.TokenEncode(resp.Data.Token));
+            context.commit('setAdminInfo', resp.Data.ContactName);
+          }
+          resolve(resp);
+        });
+      });
+    },
+    SUPERADMINLOGIN: function (context, data) {
+      return new Promise((resolve) => {
+        apiSuperAdminLogin(data).then(res => {
+          let resp = res.data;
+          if (resp.Status == 'ok') {
+            localStorage.setItem('SuperAdminToken', Vue.prototype.TokenEncode(resp.Data.Token));
+          }
+          resolve(resp);
+        });
+      });
+    },
   },
   modules: {
   }

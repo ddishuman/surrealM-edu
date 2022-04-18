@@ -141,6 +141,63 @@ const routes = [
     component: () => import("@/views/SURREALM/Client/Systems.vue"),
   },
   {
+    path: "/SURREALM/Admin",
+    redirect: {
+      name: "SURREALMAdminSetInfo",
+    },
+  },
+  {
+    path: "/SURREALM/Admin/Login",
+    name: "SURREALMAdminLogin",
+    component: () => import("@/views/SURREALM/Admin/Login.vue"),
+  },
+  {
+    path: "/SURREALM/Admin/SetInfo",
+    name: "SURREALMAdminSetInfo",
+    component: () => import("@/views/SURREALM/Admin/SetInfo.vue"),
+  },
+  {
+    path: "/SURREALM/Admin/ForgetPW",
+    name: "SURREALMAdminForgetPW",
+    component: () => import("@/views/SURREALM/Admin/ForgetPW.vue"),
+  },
+  {
+    path: "/SURREALM/Admin/ResetPW",
+    name: "SURREALMAdminResetPW",
+    component: () => import("@/views/SURREALM/Admin/ResetPW.vue"),
+  },
+  {
+    path: "/SURREALM/Admin/AccountSetting",
+    name: "SURREALMAdminAccountSetting",
+    component: () => import("@/views/SURREALM/Admin/AccountSetting.vue"),
+  },
+  {
+    path: "/SURREALM/Admin/Info",
+    name: "SURREALMAdminInfo",
+    component: () => import("@/views/SURREALM/Admin/Info.vue"),
+  },
+  {
+    path: "/SURREALM/SuperAdmin",
+    redirect: {
+      name: "SURREALMSAdminOrder",
+    },
+  },
+  {
+    path: "/SURREALM/SuperAdmin/Login",
+    name: "SURREALMSAdminLogin",
+    component: () => import("@/views/SURREALM/SuperAdmin/Login.vue"),
+  },
+  {
+    path: "/SURREALM/SuperAdmin/Order",
+    name: "SURREALMSAdminOrder",
+    component: () => import("@/views/SURREALM/SuperAdmin/Order.vue"),
+  },
+  {
+    path: "/SURREALM/SuperAdmin/OrderDetail",
+    name: "SURREALMSAdminOrderDetail",
+    component: () => import("@/views/SURREALM/SuperAdmin/OrderDetail.vue"),
+  },
+  {
     path: "/TokenFailure",
     name: "TokenFailure",
     component: () => import("@/views/TokenFailure.vue"),
@@ -155,27 +212,58 @@ const router = new VueRouter({
 router.beforeEach((to, from, next) => {
   const token = localStorage.getItem("Token");
   const isLogin = token == null ? false : true;
-  var system = "surrealm";
-  // if (to.path.toLowerCase().includes("surrealm")) {
-  //   system = "surrealm";
-  // }
+  const adminToken = localStorage.getItem("AdminToken");
+  const isAdminLogin = adminToken == null ? false : true;
+  const superAdminToken = localStorage.getItem("SuperAdminToken");
+  const isSuperAdminLogin = superAdminToken == null ? false : true;
+  let lowerCasePath = to.path.toLowerCase();
+  let system = "surrealm";
+
+
+  if (lowerCasePath.includes("superadmin")) {
+    system = "superadmin";
+  } else if (lowerCasePath.includes("admin")) {
+    system = "admin";
+  }
+
   if (system == "surrealm") {
     if (isLogin) {
-      // if (to.path !== "/SURREALM/Login") {
-      //   next();
-      // } else {
-      //   next("/SURREALM/Home");
-      // }
       next();
     }
     else {
-      if (to.path === "/SURREALM/Register" || to.path === "/SURREALM/RegisterDone" || to.path === "/SURREALM/Active" ||
-        to.path === "/SURREALM/ForgetPW" || to.path === "/SURREALM/ForgetPWDone" || to.path === "/SURREALM/ResetPW" ||
-        to.path === "/SURREALM/ResetPWDone") {
+      if (lowerCasePath.includes("register") || lowerCasePath.includes("active") ||
+        lowerCasePath.includes("forgetpw") || lowerCasePath.includes("resetpw") ||
+        lowerCasePath.includes("tokenfailure")) {
         next();
       }
-      else if (to.path !== "/SURREALM/Login") {
+      else if (lowerCasePath !== "/surrealm/login") {
         next("/SURREALM/Login");
+      } else {
+        next();
+      }
+    }
+  } else if (system == "admin") {
+    if (isAdminLogin) {
+      next();
+    }
+    else {
+      if (lowerCasePath.includes("setinfo") || lowerCasePath.includes("forgetpw") || lowerCasePath.includes("resetpw")) {
+        next();
+      }
+      else if (lowerCasePath !== "/surrealm/admin/login") {
+        next("/SURREALM/Admin/Login");
+      } else {
+        next();
+      }
+    }
+  }
+  else if (system == "superadmin") {
+    if (isSuperAdminLogin) {
+      next();
+    }
+    else {
+      if (lowerCasePath !== "/surrealm/superadmin/login") {
+        next("/SURREALM/SuperAdmin/Login");
       } else {
         next();
       }

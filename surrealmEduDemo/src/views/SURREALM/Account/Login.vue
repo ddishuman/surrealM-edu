@@ -25,10 +25,12 @@
       <button class="btnRegister" @click="Register">{{ $t('SURREALM.Login.Register') }}</button> -->
     </div>
     <div class="loginBackgroundM"></div>
+    <DialogMsgMaintain />
   </div>
 </template>
 
 <script>
+import DialogMsgMaintain from '@/components/SURREALM/Backend/DialogMsgMaintain.vue';
 import sha256 from 'sha256';
 
 export default {
@@ -92,6 +94,9 @@ export default {
     Register() {
       this.$router.push({ path: '/SURREALM/Register' });
     },
+  },
+  components: {
+    DialogMsgMaintain,
   },
 };
 </script>

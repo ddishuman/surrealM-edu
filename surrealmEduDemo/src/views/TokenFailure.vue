@@ -46,6 +46,10 @@ export default {
       let loginPath = '';
       if (this.type == 'surrealm') {
         loginPath = '/SURREALM';
+      } else if (this.type == 'surrealmAdmin') {
+        loginPath = '/SURREALM/Admin';
+      } else if (this.type == 'surrealmSuperAdmin') {
+        loginPath = '/SURREALM/SuperAdmin';
       }
       localStorage.clear();
       location.replace(loginPath + '/login?page=' + this.page);

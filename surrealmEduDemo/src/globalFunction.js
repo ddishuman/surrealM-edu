@@ -110,28 +110,58 @@ exports.install = function (Vue) {
             { Text: '專科教室－認識台灣趣', Type: '1002', Value: 30 }
         ];
         return data;
-    }
+    };
 
     Vue.prototype.DeepCopy = function (Array) {
         return JSON.parse(JSON.stringify(Array));
     };
 
     Vue.prototype.TokenEncode = function (Token) {
-        //Token ex: 2_Web_24f3fd27-96fe-4a96-ae64-4b827dea8cc5
+        //Token ex: 2_Web_SuperAdmin_56431b7e-a9fb-4ebc-bedd-667ca49ae8d7
+        //
         //_轉@, serial*10, 換位子
-        //→ Web@24f3fd27-96fe-4a96-ae64-4b827dea8cc5@20
+        //→ Web@SuperAdmin@56431b7e-a9fb-4ebc-bedd-667ca49ae8d7@20
         let TokenArray = Token.split("_");
         let Serial = TokenArray[0] * 10;
-        let EncodeToken = TokenArray[1] + "@" + TokenArray[2] + "@" + Serial;
+        let EncodeToken = TokenArray[1] + "@" + TokenArray[2] + "@" + TokenArray[3] + "@" + Serial;
         //console.log(`Token:${Token} , EncodeToken:${EncodeToken}`);
         return EncodeToken;
     };
 
     Vue.prototype.TokenDecode = function (EncodeToken) {
         let TokenArray = EncodeToken.split("@");
-        let Serial = TokenArray[2] / 10;
-        let OriToken = Serial + "_" + TokenArray[0] + "_" + TokenArray[1];
+        let Serial = TokenArray[3] / 10;
+        let OriToken = Serial + "_" + TokenArray[0] + "_" + TokenArray[1] + "_" + TokenArray[2];
         //console.log(`EncodeToken:${EncodeToken} , OriToken:${OriToken}`);
         return OriToken;
     };
+
+    Vue.prototype.DateToUTC8 = function (CovertDate) {
+        let TaiwanUTC = 8;
+        let TimeZone = -(new Date().getTimezoneOffset() / 60); //ex UTC+01 time zone offse = -60
+        let UTCOffset = TaiwanUTC - TimeZone;
+        let TmpDate = new Date(CovertDate);
+        TmpDate.setHours(TmpDate.getHours() + UTCOffset);
+        return TmpDate.format('yyyy-MM-dd hh:mm:ss').toString();
+    }
+
+    Vue.prototype.FirstWordUpperCase = function (string) {
+        return string.charAt(0).toUpperCase() + string.slice(1);
+    }
 };
+
+Date.prototype.format = function (fmt) {
+    var o = {
+        "M+": this.getMonth() + 1, //月份
+        "d+": this.getDate(), //日
+        "h+": this.getHours(), //小時
+        "m+": this.getMinutes(), //分
+        "s+": this.getSeconds(), //秒
+        "q+": Math.floor((this.getMonth() + 3) / 3), //季度
+        "S": this.getMilliseconds() //毫秒
+    };
+    if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+    for (var k in o)
+        if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+    return fmt;
+}

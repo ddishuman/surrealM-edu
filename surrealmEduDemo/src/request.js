@@ -4,8 +4,26 @@ import Vue from 'vue'
 // const apiServer = "http://192.168.1.174:5600/";
 // const webServer = "http://localhost:8080/";
 
-const apiServer = "https://surrealmedudemoapi.surreal.com.tw/";
-const webServer = "https://surrealmedudemo.surreal.com.tw/";
+// const apiServer = "https://surrealmedudemoapi.surreal.com.tw/";
+// const webServer = "https://surrealmedudemo.surreal.com.tw/";
+
+
+
+/****** For Test ********/
+
+const apiServer = "http://192.168.1.98:5700/";
+const webServer = "http://192.168.1.98:8999/";
+
+// const apiServer = "https://surrealmuatapi.surreal.com.tw/";
+// const webServer = "https://surrealmuat.surreal.com.tw";
+
+// const apiServer = "https://surrealmapi.surreal.com.tw/";
+// const webServer = "https://surrealmenterprise.surreal.com.tw";
+
+
+
+
+
 
 let loginRequest = axios.create({
     baseURL: apiServer,
@@ -37,8 +55,15 @@ const errorHandle = (status, msg) => {
             currentUrl = window.location.href;
             console.log("currentUrl =" + currentUrl);
             currentPage = currentUrl.split(webServer)[1];
+            console.log("currentPage =" + currentPage);
             if (currentUrl.toLowerCase().includes("surrealm")) {
-                type = "surrealm";
+                if (currentUrl.toLowerCase().includes("superadmin")) {
+                    type = "surrealmSuperAdmin";
+                } else if (currentUrl.toLowerCase().includes("admin")) {
+                    type = "surrealmAdmin";
+                } else {
+                    type = "surrealm";
+                }
             } else {
                 type = "";
             }
@@ -64,6 +89,10 @@ export const apiResetPW = (account, data) => loginRequest.patch('/resetpw/' + ac
 export const apiActivate = data => loginRequest.post('/activate', data)
 
 export const apiForgetPW = account => loginRequest.get('/forgetpw/' + account)
+
+export const apiMaintainMsg = () => loginRequest.get('/maintain')
+
+export const apicheckEmail = data => loginRequest.post('/checkemail', data)
 
 export const apiUpdateAccountInfo = (data) => modelRequest.patch('/accountinfo', data, {
     headers: {
@@ -282,3 +311,103 @@ export const apiGetExam = (serial) => modelRequest.get('/exam/' + serial, {
         accessToken: Vue.prototype.TokenDecode(localStorage.getItem('Token'))
     },
 })
+
+/************ Admin ************/
+
+export const apiUpdateAdminAccount = (data) => loginRequest.patch('/adminaccount', data)
+
+export const apiAdminLogin = data => loginRequest.post('/adminlogin', data)
+
+export const apiAdminForgetPW = (account) => loginRequest.get('/forgetadminpw/' + account)
+
+export const apiAdminResetPW = (data, account) => loginRequest.patch('/resetadminpw/' + account, data)
+
+export const apiGetAdminInfo = () => modelRequest.get('/admininfo', {
+    headers: {
+        accessToken: Vue.prototype.TokenDecode(localStorage.getItem('AdminToken'))
+    },
+})
+
+export const apiUpdateAdminInfo = (data) => modelRequest.patch('/adminaccount', data, {
+    headers: {
+        accessToken: Vue.prototype.TokenDecode(localStorage.getItem('AdminToken'))
+    },
+})
+
+export const apiGetAdminAccount = (type) => modelRequest.get('/adminaccount/' + type, {
+    headers: {
+        accessToken: Vue.prototype.TokenDecode(localStorage.getItem('AdminToken'))
+    },
+})
+
+export const apiAddAccount = (data) => modelRequest.post('/account', data, {
+    headers: {
+        accessToken: Vue.prototype.TokenDecode(localStorage.getItem('AdminToken'))
+    },
+})
+
+export const apiDelAccount = (serial) => modelRequest.delete('/account/' + serial, {
+    headers: {
+        accessToken: Vue.prototype.TokenDecode(localStorage.getItem('AdminToken'))
+    },
+})
+
+export const apiImportAccount = (role, data) => modelRequest.post('/batchaccount/' + role, data, {
+    headers: {
+        accessToken: Vue.prototype.TokenDecode(localStorage.getItem('AdminToken'))
+    },
+})
+
+export const apiGetResetPwEmail = () => modelRequest.get('/resetadminpw', {
+    headers: {
+        accessToken: Vue.prototype.TokenDecode(localStorage.getItem('AdminToken'))
+    },
+})
+
+
+/************ SuperAdmin ************/
+
+export const apiSuperAdminLogin = data => loginRequest.post('/superadminlogin', data)
+
+export const apiGetAdminList = () => modelRequest.get('/adminlist', {
+    headers: {
+        accessToken: Vue.prototype.TokenDecode(localStorage.getItem('SuperAdminToken'))
+    },
+})
+
+export const apiGetAdmindetail = (serial) => modelRequest.get('/admindetail/' + serial, {
+    headers: {
+        accessToken: Vue.prototype.TokenDecode(localStorage.getItem('SuperAdminToken'))
+    },
+})
+
+export const apiGetAdminAccountdetail = (serial, role) => modelRequest.get('/adminaccountdetail/' + serial + "/" + role, {
+    headers: {
+        accessToken: Vue.prototype.TokenDecode(localStorage.getItem('SuperAdminToken'))
+    },
+})
+
+export const apiGetSPAdminLectureType = () => modelRequest.get('/alllecturetype', {
+    headers: {
+        accessToken: Vue.prototype.TokenDecode(localStorage.getItem('SuperAdminToken'))
+    },
+})
+
+export const apiGetSPAdminLectureAuth = () => modelRequest.get('/lectureauth', {
+    headers: {
+        accessToken: Vue.prototype.TokenDecode(localStorage.getItem('SuperAdminToken'))
+    },
+})
+
+export const apiPostAdminAccount = (data) => modelRequest.post('/adminaccount', data, {
+    headers: {
+        accessToken: Vue.prototype.TokenDecode(localStorage.getItem('SuperAdminToken'))
+    },
+})
+
+export const apiPatchAdminDetail = (data) => modelRequest.patch('/admindetail', data, {
+    headers: {
+        accessToken: Vue.prototype.TokenDecode(localStorage.getItem('SuperAdminToken'))
+    },
+})
+
