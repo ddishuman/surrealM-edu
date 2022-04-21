@@ -7,6 +7,10 @@
       class="select-img"
     />
     <div class="option-area">
+      <div class="select-tools" v-if="Multi">
+        <button class="select-tools-btn" @click="SelectAll()">all</button>
+        <button class="select-tools-btn" @click="ClearAll()">clear</button>
+      </div>
       <div class="option-item" v-for="i in ListOption" :key="i[Value]" @click="SelectClick(i)">
         <span :class="OptionSelectClass(i.Selected)">{{ i[Text] }}</span>
       </div>
@@ -71,6 +75,20 @@ export default {
         let data = this.DeepCopy(Item);
         data.Selected = !data.Selected;
         this.ListOption.splice(IndexOf, 1, data);
+      }
+    },
+    SelectAll() {
+      for (let i = 0; i < this.ListOption.length; i++) {
+        let data = this.DeepCopy(this.ListOption[i]);
+        data.Selected = true;
+        this.ListOption.splice(i, 1, data);
+      }
+    },
+    ClearAll() {
+      for (let i = 0; i < this.ListOption.length; i++) {
+        let data = this.DeepCopy(this.ListOption[i]);
+        data.Selected = false;
+        this.ListOption.splice(i, 1, data);
       }
     },
     OptionSwitch() {

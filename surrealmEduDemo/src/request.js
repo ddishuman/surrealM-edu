@@ -4,25 +4,14 @@ import Vue from 'vue'
 // const apiServer = "http://192.168.1.174:5600/";
 // const webServer = "http://localhost:8080/";
 
+const apiServer = "http://192.168.1.98:5600/";
+const webServer = "http://192.168.1.98:8887/";
+
 // const apiServer = "https://surrealmedudemoapi.surreal.com.tw/";
 // const webServer = "https://surrealmedudemo.surreal.com.tw/";
 
-
-
-/****** For Test ********/
-
-const apiServer = "http://192.168.1.98:5700/";
-const webServer = "http://192.168.1.98:8999/";
-
-// const apiServer = "https://surrealmuatapi.surreal.com.tw/";
-// const webServer = "https://surrealmuat.surreal.com.tw";
-
-// const apiServer = "https://surrealmapi.surreal.com.tw/";
-// const webServer = "https://surrealmenterprise.surreal.com.tw";
-
-
-
-
+// const apiServer = "https://surrealmeduapi.surreal.com.tw/";
+// const webServer = "https://surrealmedu.surreal.com.tw/";
 
 
 let loginRequest = axios.create({

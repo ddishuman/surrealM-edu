@@ -28,17 +28,13 @@
           <div class="content-title">可用帳號數*</div>
           <div class="content-desc">
             <div class="account-type">教師</div>
-            <select v-model="Info.TeacherNo" class="account-no">
-              <option v-for="n in 2" :key="n" :value="n">
-                {{ n }}
-              </option>
-            </select>
+            <input class="account-no" type="text" v-model.trim="Info.TeacherNo" placeholder="數字" />
             <div class="account-type" style="margin-left: 34px">學生</div>
-            <select v-model="Info.StudentNo" class="account-no">
-              <option v-for="n in 29" :key="n" :value="n">
-                {{ n }}
-              </option>
-            </select>
+            <input class="account-no" type="text" v-model.trim="Info.StudentNo" placeholder="數字" />
+          </div>
+          <div class="content-title">同時上線數</div>
+          <div class="content-desc">
+            <input class="input-edit" type="text" v-model.trim="Info.MaxOnlineNo" placeholder="數字" />
           </div>
           <div class="content-title">使用期限*</div>
           <div class="content-desc">
@@ -156,6 +152,7 @@ export default {
         PurchaseDate: '',
         PurchaseEmail: '',
         OrderId: '',
+        MaxOnlineNo: '',
         TeacherNo: '',
         StudentNo: '',
         ExpireDate: '',
@@ -188,6 +185,7 @@ export default {
     },
     GetLectureType() {
       apiGetSPAdminLectureType().then((res) => {
+        console.log('GetLectureType: ' + JSON.stringify(res.data));
         if (res.data.Status == 'ok') {
           this.LectureType = res.data.LectureType;
           this.LectureType.forEach((l) => {
@@ -265,9 +263,17 @@ export default {
       } else if (!this.TestEmail(this.Info.PurchaseEmail)) {
         ErrMsg = '購買信箱格式有誤';
       } else if (this.Info.TeacherNo == '') {
-        ErrMsg = '請選擇老師帳號數';
+        ErrMsg = '請填寫教師帳號數';
+      } else if (!this.TestNumber(this.Info.TeacherNo)) {
+        ErrMsg = '教師帳號數請輸入數字';
       } else if (this.Info.StudentNo == '') {
-        ErrMsg = '請選擇學生帳號數';
+        ErrMsg = '請填寫學生帳號數';
+      } else if (!this.TestNumber(this.Info.StudentNo)) {
+        ErrMsg = '學生帳號數請輸入數字';
+      } else if (this.Info.MaxOnlineNo == '') {
+        ErrMsg = '請填寫同時上線數';
+      } else if (!this.TestNumber(this.Info.MaxOnlineNo)) {
+        ErrMsg = '同時上線數請輸入數字';
       } else if (this.Info.ExpireDate == '' || this.Info.ExpireDate == null) {
         ErrMsg = '請選擇使用期限';
       } else if (TypeNum == 0) {
@@ -349,8 +355,9 @@ export default {
       //   PurchaseDate: '2022-03-31',
       //   PurchaseEmail: 'ian@faya.com.tw',
       //   OrderId: '2131564231',
-      //   TeacherNo: 2,
-      //   StudentNo: 11,
+      //   TeacherNo: '2',
+      //   StudentNo: '11',
+      //   MaxOnlineNo: '995',
       //   ExpireDate: '2022-03-30',
       //   Stream: 'T',
       //   PublicArea: 'T',
@@ -395,6 +402,8 @@ export default {
       //   ],
       // };
       this.loadingInfo.isLoading = true;
+      //TODO API /adminaccount (post) data多帶一個 MaxOnlineNo,
+      //TeacherNo、StudentNo型態從數字改成文字
       apiPostAdminAccount(data).then((res) => {
         this.loadingInfo.isLoading = false;
         if (res.data.Status == 'ok') {

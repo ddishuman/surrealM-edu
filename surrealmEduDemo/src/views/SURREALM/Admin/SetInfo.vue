@@ -33,10 +33,6 @@
         <h2 class="setting-title">Admin 帳號設定</h2>
         <div class="setting-desc">*單位名稱</div>
         <input class="setting-input" v-model.trim="Info.Company" type="text" placeholder="" />
-        <div class="setting-desc" style="margin-bottom: 31px"></div>
-        <label class="setting-hint">需與統一編號登記的單位名稱一致</label>
-        <div class="setting-desc">統一編號</div>
-        <input class="setting-input" v-model.trim="Info.TaxID" type="text" placeholder="" />
         <div class="setting-desc">*聯絡人姓名</div>
         <input class="setting-input" v-model.trim="Info.ContactName" type="text" placeholder="" />
         <div class="setting-desc">*聯絡人電話</div>
@@ -81,7 +77,7 @@ export default {
         Password: '',
         PasswordAgain: '',
         Company: '',
-        TaxID: '',
+        //TaxID: '', //教育版不用統一編號 刪除
         ContactName: '',
         ContactPhone: '',
       },
@@ -149,11 +145,13 @@ export default {
             Email: this.Info.Email,
             Password: sha256(this.Info.Password),
             Company: this.Info.Company,
-            TaxID: this.Info.TaxID,
+            //TaxID: this.Info.TaxID, //教育版不用統編 拿掉
             ContactName: this.Info.ContactName,
             ContactPhone: this.Info.ContactPhone,
           };
 
+          //TODO API /adminaccount (patch) 
+          //送過去的data不會再帶 統一編號了 請拿掉
           apiUpdateAdminAccount(data).then((res) => {
             if (res.data.Status == 'ok') {
               this.CurrentStep++;

@@ -102,6 +102,11 @@ exports.install = function (Vue) {
         return regex.test(password);
     };
 
+    Vue.prototype.TestNumber = function (number) {
+        var regex = /^\d+$/;
+        return regex.test(number);
+    };
+
     Vue.prototype.GetRoomType = function () {
         let data = [
             { Text: '請選擇', Type: '', Value: 0 },

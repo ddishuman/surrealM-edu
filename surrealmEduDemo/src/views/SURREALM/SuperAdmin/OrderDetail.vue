@@ -20,34 +20,31 @@
             <div class="detail-content">{{ Info.PurchaseInfo.Email }}</div>
             <div class="detail-title">單位名稱</div>
             <div class="detail-content">{{ Info.PurchaseInfo.Company }}</div>
-            <div class="detail-title">統一編號</div>
-            <div class="detail-content">{{ Info.PurchaseInfo.TaxId }}</div>
+            <!-- <div class="detail-title">統一編號</div>
+            <div class="detail-content">{{ Info.PurchaseInfo.TaxId }}</div> -->
             <div class="detail-title">聯絡人姓名</div>
             <div class="detail-content">{{ Info.PurchaseInfo.Name }}</div>
             <div class="detail-title">聯絡人電話</div>
             <div class="detail-content">{{ Info.PurchaseInfo.Phone }}</div>
           </div>
           <div class="content-area">
-            <div class="detail-title">Admin帳號</div>
-            <div class="detail-content">{{ Info.AdminInfo.Account == '' ? '未開通' : Info.AdminInfo.Account }}</div>
+            <div class="detail-title" style="height: 63px">Admin帳號</div>
+            <div class="detail-content" style="min-height: 63px">{{ Info.AdminInfo.Account == '' ? '未開通' : Info.AdminInfo.Account }}</div>
             <div class="detail-title">可用帳號數</div>
             <div class="detail-content">
               <div class="detail-subtitle">教師</div>
-              <select v-model="Info.AdminInfo.TeacherNo" class="account-no">
-                <option v-for="n in 2" :key="n" :value="n">
-                  {{ n }}
-                </option>
-              </select>
+              <input class="account-no" type="text" v-model.trim="Info.AdminInfo.TeacherNo" placeholder="數字" />
               <div class="clear-both"></div>
               <div class="detail-subtitle">學生</div>
-              <select v-model="Info.AdminInfo.StudentNo" class="account-no">
-                <option v-for="n in 29" :key="n" :value="n">
-                  {{ n }}
-                </option>
-              </select>
+              <input class="account-no" type="text" v-model.trim="Info.AdminInfo.StudentNo" placeholder="數字" />
             </div>
-            <div class="detail-title">使用期限</div>
-            <div class="detail-content">
+            <div class="detail-title" style="height: 63px">同時上線數</div>
+            <div class="detail-content" style="min-height: 63px">
+              <input class="account-no" type="text" v-model.trim="Info.AdminInfo.MaxOnlineNo" placeholder="數字" />
+              <div class="clear-both"></div>
+            </div>
+            <div class="detail-title" style="height: 62px">使用期限</div>
+            <div class="detail-content" style="min-height: 62px">
               <Datepicker
                 v-model="Info.AdminInfo.ExpireDate"
                 format="YYYY-MM-DD"
@@ -171,6 +168,8 @@ export default {
       }
     },
     GetAdminInfo() {
+      //TODO API /admindetail/serial (get) 要多回一個 同時上線數Info.AdminInfo.MaxOnlineNo
+      //同時請刪掉 Info.PurchaseInfo.TaxId 教育版沒有統編 (db請一併刪除)
       apiGetAdmindetail(this.Serial).then((res) => {
         if (res.data.Status == 'ok') {
           this.Info = res.data.Info;
@@ -187,7 +186,7 @@ export default {
       //   PurchaseInfo: {
       //     Email: 'saasdasdm@gmail.com',
       //     Company: '超現實',
-      //     TaxId: '354131565',
+      //     TaxId: '354131565', //教育版刪掉
       //     Name: 'AAAA',
       //     Phone: '0987878787',
       //     OrderId: '40453243737',
@@ -196,6 +195,7 @@ export default {
       //     Account: '',
       //     TeacherNo: '2',
       //     StudentNo: '29',
+      //     MaxOnlineNo: '995',
       //     ExpireDate: '2022-04-22',
       //     LectureType: [
       //       {
@@ -260,10 +260,19 @@ export default {
       let AuthNum = this.Info.AdminInfo.LectureAuth.filter((x) => x.Selected == true).length;
 
       if (this.Info.AdminInfo.TeacherNo == '') {
-        ErrMsg = '請選擇老師帳號數';
+        ErrMsg = '請填寫老師帳號數';
+      } else if (!this.TestNumber(this.Info.AdminInfo.TeacherNo)) {
+        ErrMsg = '教師帳號數請輸入數字';
       } else if (this.Info.AdminInfo.StudentNo == '') {
-        ErrMsg = '請選擇學生帳號數';
-      } else if (this.Info.AdminInfo.ExpireDate == '' || this.Info.AdminInfo.ExpireDate == null) {
+        ErrMsg = '請填寫學生帳號數';
+      } else if (!this.TestNumber(this.Info.AdminInfo.StudentNo)) {
+        ErrMsg = '學生帳號數請輸入數字';
+      } else if (this.Info.AdminInfo.MaxOnlineNo == '') {
+        ErrMsg = '請填寫同時上線數';
+      } else if (!this.TestNumber(this.Info.AdminInfo.MaxOnlineNo)) {
+        ErrMsg = '同時上線數請輸入數字';
+      }
+      else if (this.Info.AdminInfo.ExpireDate == '' || this.Info.AdminInfo.ExpireDate == null) {
         ErrMsg = '請選擇使用期限';
       } else if (TypeNum == 0) {
         ErrMsg = '請選擇教室類型';
@@ -281,6 +290,10 @@ export default {
           duration: 3500,
         });
       } else {
+        //TODO API /admindetail (patch) 
+        //  TeacherNo 改成string ex: '2',
+        //  StudentNo 改成string ex: '29',
+        //  新增一個 MaxOnlineNo ex: '995',
         apiPatchAdminDetail(this.Info).then((res) => {
           if (res.data.Status == 'ok') {
             this.$toasted.show('修改完成', {
