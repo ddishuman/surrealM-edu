@@ -87,11 +87,12 @@ import Header from '@/components/SURREALM/Client/Header.vue';
 import Menu from '@/components/SURREALM/Client/Menu.vue';
 import TitleBar from '@/components/SURREALM/Backend/TitleBar.vue';
 import LectureItem from '@/components/SURREALM/Backend/LectureItem.vue';
-import { apiGetLectureStudent } from '@/request.js';
+import { apiGetLectureStudent, apiGetAllLectureType } from '@/request.js';
 
 export default {
   mounted() {
     this.GetLectures();
+    this.GetLectureType();
   },
   data() {
     return {
@@ -127,6 +128,8 @@ export default {
   },
   methods: {
     GetLectures() {
+      //TODO API /studentlecturelist (get)
+      //企業版已經有的 教育版也要新增
       apiGetLectureStudent().then((res) => {
         if (res.data.Status == 'ok') {
           this.Lectures = res.data.Lectures;
@@ -150,9 +153,17 @@ export default {
       let RoomType = this.GetRoomType();
       return RoomType.find((obj) => obj.Type == this.LectureSelect.Lecture.Type).Value;
     },
+    GetLectureType() {
+      apiGetAllLectureType().then((res) => {
+        if (res.data.Status == 'ok') {
+          this.LectureType = res.data.LectureType;
+        } else {
+          this.LectureType = null;
+        }
+      });
+    },
     GetRoomName() {
-      let RoomType = this.GetRoomType();
-      return RoomType.find((obj) => obj.Type == this.LectureSelect.Lecture.Type).Text;
+      return this.RoomTypeToName(this.LectureType, this.LectureSelect.Lecture.Type);
     },
   },
   components: {

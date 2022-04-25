@@ -301,6 +301,18 @@ export const apiGetExam = (serial) => modelRequest.get('/exam/' + serial, {
     },
 })
 
+export const apiGetLectureType = () => modelRequest.get('/lecturetype', {
+    headers: {
+        accessToken: Vue.prototype.TokenDecode(localStorage.getItem('Token'))
+    },
+})
+
+export const apiGetAllLectureType = () => modelRequest.get('/alllecturetype', {
+    headers: {
+        accessToken: Vue.prototype.TokenDecode(localStorage.getItem('Token'))
+    },
+})
+
 /************ Admin ************/
 
 export const apiUpdateAdminAccount = (data) => loginRequest.patch('/adminaccount', data)

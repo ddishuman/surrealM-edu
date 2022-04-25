@@ -2173,7 +2173,6 @@ body {
                 .step1 {
                     padding-left: 84px;
                     padding-right: 127px;
-                    padding-top: 30px;
 
                     .keyinTitle,
                     .keyinSubTitle {
@@ -2198,6 +2197,17 @@ body {
 
                     .keyinSubContent {
                         width: 139px;
+                    }
+
+                    .hintUTC {
+                        position: absolute;
+                        top: 115px;
+                        right: 75px;
+                        line-height: 36px;
+                        font-family: $font_family;
+                        font-size: 14px;
+                        color: white;
+                        letter-spacing: 0.8px;
                     }
 
                     .lectureName {
@@ -2281,19 +2291,25 @@ body {
                         margin-left: 15px;
                     }
 
-                    .lectureAuth {
+                    .lectureAuth,
+                    .lectureStream {
                         line-height: 38px;
-                        input[type="radio"] {
+                        margin-bottom: 10px;
+                        input[type="radio"],
+                        input[type="checkbox"] {
                             display: none;
                         }
 
-                        input[type="radio"] + label {
+                        input[type="radio"] + label,
+                        input[type="checkbox"] + label {
                             color: #f2f2f2;
                             font-family: Arial, sans-serif;
                             margin-right: 30px;
+                            user-select: none;
                         }
 
-                        input[type="radio"] + label span {
+                        input[type="radio"] + label span,
+                        input[type="checkbox"] + label span {
                             display: inline-block;
                             width: 27px;
                             height: 27px;
@@ -2306,14 +2322,15 @@ body {
                             cursor: pointer;
                         }
 
-                        input[type="radio"]:checked + label span {
+                        input[type="radio"]:checked + label span,
+                        input[type="checkbox"]:checked + label span {
                             background-image: url("~@/assets/img/SURREALM/Backend/LectureManager/auth_on.png");
                         }
                     }
 
                     .lectureDes {
                         width: 100%;
-                        height: 146px;
+                        height: 130px;
                         line-height: 30px;
                         padding: 5px 15px;
                         border: 0;
@@ -4710,6 +4727,43 @@ body {
 
         .BtnPhoto {
             background-image: url("~@/assets/img/SURREALM/Backend/Exam/icon_photo.png");
+        }
+    }
+}
+
+.hintIconArea {
+    position: relative;
+    float: right;
+    right: 8px;
+    width: 27px;
+    height: 35px;
+    z-index: 10;
+
+    .hintIcon {
+        position: relative;
+        top: 4px;
+    }
+
+    .hintTxt {
+        display: none;
+    }
+
+    &:hover {
+        .hintTxt {
+            position: absolute;
+            display: block;
+            top: -45px;
+            left: -60px;
+            width: 300px;
+            height: 46px;
+            line-height: 44px;
+            font-family: $font_family;
+            font-size: 14px;
+            color: white;
+            border-radius: 3px;
+            border: 1px solid white;
+            box-sizing: border-box;
+            background-color: #2a2a30;
         }
     }
 }

@@ -124,7 +124,13 @@ import TitleBar from '@/components/SURREALM/Backend/TitleBar.vue';
 import Datepicker from 'vue2-datepicker';
 import 'vue2-datepicker/index.css';
 import DialogPost from '@/components/SURREALM/Backend/DialogPost.vue';
-import { apiGetFinishLecture, apiGetFinishLectureDetail, apiCopyLecture, apiTeacherGetRecord } from '@/request.js';
+import {
+  apiGetFinishLecture,
+  apiGetFinishLectureDetail,
+  apiCopyLecture,
+  apiTeacherGetRecord,
+  apiGetLectureType,
+} from '@/request.js';
 
 export default {
   data() {
@@ -135,6 +141,7 @@ export default {
       },
       Lectures: [],
       LectureSelect: null,
+      LectureType: null,
       dialogPost: {
         show: false,
         serial: null,
@@ -152,9 +159,9 @@ export default {
     this.Search.StartDate = dtStart.format('yyyy-MM-dd').toString();
     this.Search.EndDate = dtEnd.format('yyyy-MM-dd').toString();
     this.SearchLecture();
+    this.GetLectureType();
   },
-  computed: {
-  },
+  computed: {},
   methods: {
     SearchLecture() {
       let data = {
@@ -211,9 +218,17 @@ export default {
     BackList() {
       this.LectureSelect = null;
     },
+    GetLectureType() {
+      apiGetLectureType().then((res) => {
+        if (res.data.Status == 'ok') {
+          this.LectureType = res.data.LectureType;
+        } else {
+          this.LectureType = null;
+        }
+      });
+    },
     GetRoomName() {
-      let RoomType = this.GetRoomType();
-      return RoomType.find((obj) => obj.Type == this.LectureSelect.Lecture.Type).Text;
+      return this.RoomTypeToName(this.LectureType, this.LectureSelect.Lecture.Type);
     },
     GetStudentAttendStyle(bool) {
       return bool ? 'itemAttend' : 'itemUnAttend';

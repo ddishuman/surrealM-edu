@@ -14,67 +14,6 @@
         </div>
         <div class="pnlContent">
           <div class="step1" v-show="CurrentStep == 1">
-            <!-- <div class="keyinTitle">{{ $t('SURREALM.LectureOwn.LectureName') }}</div>
-            <div class="keyinContent">
-              <input
-                class="lectureName"
-                type="text"
-                maxlength="30"
-                v-model.trim="Lecture.Name"
-                :placeholder="$t('SURREALM.LectureOwn.Placeholder.Name')"
-              />
-            </div>
-            <div class="keyinTitle">{{ $t('SURREALM.LectureOwn.LectureDate') }}</div>
-            <div class="keyinContent">
-              <Datepicker
-                v-model="Lecture.Date"
-                :disabled-date="DisableBeforeToday"
-                format="YYYY-MM-DD"
-                value-type="format"
-                placeholder="Select date"
-                class="lectureDate"
-              ></Datepicker>
-            </div>
-            <div class="keyinTitle">{{ $t('SURREALM.LectureOwn.LectureStartTime') }}</div>
-            <div class="keyinSubContent">
-              <Datepicker
-                v-model="Lecture.Time[0]"
-                format="HH:mm"
-                value-type="format"
-                placeholder="Select time"
-                type="time"
-                class="lectureTime"
-                @change="StartTimeChange"
-              ></Datepicker>
-            </div>
-            <div class="keyinTitle">{{ $t('SURREALM.LectureOwn.LectureEndTime') }}</div>
-            <div class="keyinSubContent">
-              <Datepicker
-                v-model="Lecture.Time[1]"
-                format="HH:mm"
-                value-type="format"
-                placeholder="Select time"
-                type="time"
-                class="lectureTime"
-              ></Datepicker>
-            </div>
-            <div class="keyinTitle">{{ $t('SURREALM.LectureOwn.LectureType') }}</div>
-            <div class="keyinContent">
-              <select v-model="Lecture.Type" class="lectureType">
-                <option v-for="option in TypeOptions" :key="option.Text" :value="option.Type">
-                  {{ option.Text }}
-                </option>
-              </select>
-              <div class="peopleMax">{{ `${this.$t('SURREALM.LectureOwn.PeopleMax')} ${PeopleMax}` }}</div>
-            </div>
-            <div class="keyinTitle">{{ $t('SURREALM.LectureOwn.LectureDes') }}</div>
-            <div class="keyinContent">
-              <textarea
-                v-model="Lecture.Des"
-                class="lectureDes"
-                :placeholder="$t('SURREALM.LectureOwn.Placeholder.Des')"
-              ></textarea>
-            </div> -->
             <div class="keyinTitle">{{ $t('SURREALM.LectureOwn.LectureName') }}</div>
             <div class="keyinContent">
               <input
@@ -316,6 +255,7 @@ import {
   apiDelLink,
   apiAddLecture,
   apiUpdateLecture,
+  apiGetLectureType,
 } from '@/request.js';
 
 export default {
@@ -348,9 +288,14 @@ export default {
         Time: [],
         Type: '',
         Auth: 'private',
+        IsStreaming: false,
         Des: '',
         Image: '',
         Models: [],
+      },
+      Edu: {
+        MaxNumber: 80,
+        CurrentNumber: 0,
       },
       Student: {
         Data: [],
@@ -385,6 +330,8 @@ export default {
     this.GetLinks();
     this.GetTags();
     this.TypeOptions = this.GetRoomType();
+    //TODO IAN K爸換好API後要換成
+    //this.TypeOptions = this.GetLectureType();
   },
   computed: {
     PeopleMax: function () {
@@ -461,6 +408,12 @@ export default {
       if (this.CurrentStep == 1) {
         let errMsg = this.CheckStep1Info();
         if (errMsg == '') {
+          //TODO API GET學校最大連線數&目前時段已預約人數
+          // Params: Date, StartTime, EndTimer
+          // EX: "2022-04-28", "04:00", "09:00"
+          this.Edu.MaxNumber = 80;
+          this.Edu.CurrentNumber = 60;
+
           this.CurrentStep++;
         } else {
           this.$toasted.show(errMsg, {
@@ -510,6 +463,7 @@ export default {
           data.Lecture.Image = this.Image.ChangePhoto ? data.Lecture.Image : '';
           data.Serial = this.Serial;
           data.LectureCode = this.LectureCode;
+          //TODO API /lecture (patch) data 會多帶 Lecture.IsStreaming
           apiUpdateLecture(data).then((res) => {
             this.loadingInfo.isLoading = false;
             if (res.data.Status == 'ok') {
@@ -529,6 +483,7 @@ export default {
             this.CloseDialog();
           });
         } else {
+          //TODO API /lecture (post) data 會多帶 Lecture.IsStreaming
           apiAddLecture(data).then((res) => {
             this.loadingInfo.isLoading = false;
             if (res.data.Status == 'ok') {
@@ -585,11 +540,10 @@ export default {
       if (this.Lecture.Time.length != 0 && this.Lecture.Time[0] != null && this.Lecture.Time[1] != null) {
         let StartTime = new Date(`${this.Lecture.Date} ${this.Lecture.Time[0]}`);
         let EndTime = new Date(`${this.Lecture.Date} ${this.Lecture.Time[1]}`);
-        let CurrentDate = new Date();        
+        let CurrentDate = new Date();
         if (StartTime.getTime() > EndTime.getTime()) {
           errMsg = this.$t('SURREALM.LectureOwn.Err.EndTimeErr');
-        }
-        else if (CurrentDate.getTime() > EndTime.getTime()) {
+        } else if (CurrentDate.getTime() > EndTime.getTime()) {
           errMsg = this.$t('SURREALM.LectureOwn.Err.EndTimeErr2');
         }
       }
@@ -629,8 +583,22 @@ export default {
         }
       });
     },
+    //TODO API /lecturetype (get)
+    //企業版已經有的 教育版也要新增 
+    GetLectureType() {
+      apiGetLectureType().then((res) => {
+        if (res.data.Status == 'ok') {
+          this.TypeOptions = res.data.LectureType;
+        } else {
+          this.$toasted.show(this.$t('SURREALM.ApiErr') + res.data.Code, {
+            icon: 'warning',
+            position: 'bottom-center',
+            duration: 3500,
+          });
+        }
+      });
+    },
     GetStudent(tag) {
-      //apiGetStudentByTag
       apiGetStudentDetailByTag(tag).then((res) => {
         if (res.data.Status == 'ok') {
           this.Student.Data = res.data.Student;

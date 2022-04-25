@@ -155,7 +155,7 @@ import DialogPost from '@/components/SURREALM/Backend/DialogPost.vue';
 import DialogExam from '@/components/SURREALM/Backend/DialogExam.vue';
 import LectureItem from '@/components/SURREALM/Backend/LectureItem.vue';
 import DialogMsg from '@/components/SURREALM/Backend/DialogMsg.vue';
-import { apiGetLecture, apiDelLecture, apiGetLectureBySerial } from '@/request.js';
+import { apiGetLecture, apiDelLecture, apiGetLectureBySerial, apiGetLectureType } from '@/request.js';
 
 export default {
   mounted() {
@@ -180,6 +180,7 @@ export default {
         }
       });
     }
+    this.GetLectureType();
   },
   data() {
     return {
@@ -343,9 +344,17 @@ export default {
       let RoomType = this.GetRoomType();
       return RoomType.find((obj) => obj.Type == this.LectureSelect.Lecture.Type).Value;
     },
+    GetLectureType() {
+      apiGetLectureType().then((res) => {
+        if (res.data.Status == 'ok') {
+          this.LectureType = res.data.LectureType;
+        } else {
+          this.LectureType = null;
+        }
+      });
+    },
     GetRoomName() {
-      let RoomType = this.GetRoomType();
-      return RoomType.find((obj) => obj.Type == this.LectureSelect.Lecture.Type).Text;
+      return this.RoomTypeToName(this.LectureType, this.LectureSelect.Lecture.Type);
     },
     ShowDialogPost() {
       this.dialogPost.serial = this.LectureSelect.Serial;

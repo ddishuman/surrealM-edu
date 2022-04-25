@@ -93,7 +93,12 @@ import Menu from '@/components/SURREALM/Client/Menu.vue';
 import TitleBar from '@/components/SURREALM/Backend/TitleBar.vue';
 import Datepicker from 'vue2-datepicker';
 import 'vue2-datepicker/index.css';
-import { apiGetFinishLectureStudent, apiStudentGetRecord, apiGetFinishLectureDetailStudent } from '@/request.js';
+import {
+  apiGetFinishLectureStudent,
+  apiStudentGetRecord,
+  apiGetFinishLectureDetailStudent,
+  apiGetAllLectureType,
+} from '@/request.js';
 
 export default {
   data() {
@@ -115,6 +120,7 @@ export default {
     this.Search.StartDate = dtStart.format('yyyy-MM-dd').toString();
     this.Search.EndDate = dtEnd.format('yyyy-MM-dd').toString();
     this.SearchLecture();
+    this.GetLectureType();
   },
   computed: {},
   methods: {
@@ -164,9 +170,17 @@ export default {
     BackList() {
       this.LectureSelect = null;
     },
+    GetLectureType() {
+      apiGetAllLectureType().then((res) => {
+        if (res.data.Status == 'ok') {
+          this.LectureType = res.data.LectureType;
+        } else {
+          this.LectureType = null;
+        }
+      });
+    },
     GetRoomName() {
-      let RoomType = this.GetRoomType();
-      return RoomType.find((obj) => obj.Type == this.LectureSelect.Lecture.Type).Text;
+      return this.RoomTypeToName(this.LectureType, this.LectureSelect.Lecture.Type);
     },
   },
   components: {

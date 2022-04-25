@@ -107,6 +107,30 @@ exports.install = function (Vue) {
         return regex.test(number);
     };
 
+    Vue.prototype.RoomTypeToName = function (LectureTypeList, Type) {
+        if (LectureTypeList != null) {
+            return LectureTypeList.find((obj) => obj.Type == Type).Text;
+        } else {
+            return '';
+        }
+    }
+
+    Vue.prototype.GetAuthText = function (value) {
+        let text = value.toLowerCase();
+        switch (text) {
+            case 'private':
+                text = this.$t('SURREALM.LectureOwn.Private');
+                break
+            case 'public':
+                text = this.$t('SURREALM.LectureOwn.Public');
+                break
+            case 'check':
+                text = this.$t('SURREALM.LectureOwn.NeedAuth');
+                break
+        }
+        return text;
+    }
+
     Vue.prototype.GetRoomType = function () {
         let data = [
             { Text: '請選擇', Type: '', Value: 0 },
