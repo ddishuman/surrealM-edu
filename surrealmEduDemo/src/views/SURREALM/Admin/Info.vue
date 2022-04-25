@@ -19,9 +19,9 @@
           </h3>
           <div class="keyin-desc">*單位名稱</div>
           <input class="keyin-input" type="text" v-model.trim="Info.Company" :disabled="EditMode" />
-          <div class="keyin-hint">需與統一編號登記的單位名稱一致</div>
+          <!-- <div class="keyin-hint">需與統一編號登記的單位名稱一致</div>
           <div class="keyin-desc">統一編號</div>
-          <input class="keyin-input" type="text" v-model.trim="Info.TaxId" :disabled="EditMode" />
+          <input class="keyin-input" type="text" v-model.trim="Info.TaxId" :disabled="EditMode" /> -->
           <div class="keyin-desc">*聯絡人姓名</div>
           <input class="keyin-input" type="text" v-model.trim="Info.ContactName" :disabled="EditMode" />
           <div class="keyin-desc">*聯絡人電話</div>
@@ -74,7 +74,7 @@ export default {
     return {
       Info: {
         Company: '',
-        TaxId: '',
+        //TaxId: '',
         ContactName: '',
         ContactPhone: '',
         ExpireDate: '2022/12/31',
@@ -102,6 +102,8 @@ export default {
   computed: {},
   methods: {
     GetAccountInfo() {
+      //TODO API /admininfo (get) 
+      //不用再送Info.TaxId 教育版沒有統一編號
       apiGetAdminInfo().then((res) => {
         if (res.data.Status == 'ok') {
           this.Info = res.data;
@@ -118,6 +120,8 @@ export default {
       let ChkMsg = this.ChkInfo();
       if (ChkMsg == '') {
         this.Info.Password = '';
+        //TODO API /adminaccount (patch) 
+        //不會再帶Info.TaxId過去 教育版沒有統一編號
         apiUpdateAdminInfo(this.Info).then((res) => {
           if (res.data.Status == 'ok') {
             this.SwitchEditMode(true);

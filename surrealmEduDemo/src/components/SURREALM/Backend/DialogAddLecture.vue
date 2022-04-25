@@ -14,7 +14,7 @@
         </div>
         <div class="pnlContent">
           <div class="step1" v-show="CurrentStep == 1">
-            <div class="keyinTitle">{{ $t('SURREALM.LectureOwn.LectureName') }}</div>
+            <!-- <div class="keyinTitle">{{ $t('SURREALM.LectureOwn.LectureName') }}</div>
             <div class="keyinContent">
               <input
                 class="lectureName"
@@ -67,15 +67,88 @@
               </select>
               <div class="peopleMax">{{ `${this.$t('SURREALM.LectureOwn.PeopleMax')} ${PeopleMax}` }}</div>
             </div>
-            <!-- <div class="keyinTitle">{{ $t('SURREALM.LectureOwn.LectureAuth') }}</div>
-            <div class="keyinContent lectureAuth">
-              <input type="radio" id="public" value="public" v-model="Lecture.Auth" />
-              <label for="public"><span></span>{{$t('SURREALM.LectureOwn.Public')}}</label>
-              <input type="radio" id="private" value="private" v-model="Lecture.Auth" />
-              <label for="private"><span></span>{{$t('SURREALM.LectureOwn.Private')}}</label>
-              <input type="radio" id="check" value="check" v-model="Lecture.Auth" />
-              <label for="check"><span></span>{{$t('SURREALM.LectureOwn.NeedAuth')}}</label>
+            <div class="keyinTitle">{{ $t('SURREALM.LectureOwn.LectureDes') }}</div>
+            <div class="keyinContent">
+              <textarea
+                v-model="Lecture.Des"
+                class="lectureDes"
+                :placeholder="$t('SURREALM.LectureOwn.Placeholder.Des')"
+              ></textarea>
             </div> -->
+            <div class="keyinTitle">{{ $t('SURREALM.LectureOwn.LectureName') }}</div>
+            <div class="keyinContent">
+              <input
+                class="lectureName"
+                type="text"
+                maxlength="30"
+                v-model.trim="Lecture.Name"
+                :placeholder="$t('SURREALM.LectureOwn.Placeholder.Name')"
+              />
+            </div>
+            <div class="keyinTitle">{{ $t('SURREALM.LectureOwn.LectureDate') }}</div>
+            <div class="keyinContent">
+              <Datepicker
+                v-model="Lecture.Date"
+                :disabled-date="DisableBeforeToday"
+                format="YYYY-MM-DD"
+                value-type="format"
+                placeholder="Select date"
+                class="lectureDate"
+              ></Datepicker>
+            </div>
+            <div class="keyinTitle">{{ $t('SURREALM.LectureOwn.LectureStartTime') }}</div>
+            <div class="keyinSubContent">
+              <Datepicker
+                v-model="Lecture.Time[0]"
+                format="HH:mm"
+                value-type="format"
+                placeholder="Select time"
+                type="time"
+                class="lectureTime"
+                @change="StartTimeChange"
+              ></Datepicker>
+            </div>
+            <div class="keyinTitle">{{ $t('SURREALM.LectureOwn.LectureEndTime') }}</div>
+            <div class="keyinSubContent">
+              <Datepicker
+                v-model="Lecture.Time[1]"
+                format="HH:mm"
+                value-type="format"
+                placeholder="Select time"
+                type="time"
+                class="lectureTime"
+              ></Datepicker>
+            </div>
+            <label class="hintUTC">(UTC+8)</label>
+            <div class="keyinTitle">{{ $t('SURREALM.LectureOwn.LectureType') }}</div>
+            <div class="keyinContent">
+              <select v-model="Lecture.Type" class="lectureType">
+                <option v-for="option in TypeOptions" :key="option.Text" :value="option.Type">
+                  {{ option.Text }}
+                </option>
+              </select>
+              <div class="peopleMax">{{ `${this.$t('SURREALM.LectureOwn.PeopleMax')} ${PeopleMax}` }}</div>
+            </div>
+            <div class="keyinTitle">{{ $t('SURREALM.LectureOwn.LectureAuth') }}</div>
+            <div class="keyinSubContent lectureAuth">
+              <!-- <input type="radio" id="public" value="public" v-model="Lecture.Auth" />
+              <label for="public"><span></span>{{ $t('SURREALM.LectureOwn.Public') }}</label> -->
+              <input type="radio" id="private" value="private" v-model="Lecture.Auth" />
+              <label for="private"><span></span>{{ $t('SURREALM.LectureOwn.Private') }}</label>
+              <!-- <input type="radio" id="check" value="check" v-model="Lecture.Auth" />
+              <label for="check"><span></span>{{ $t('SURREALM.LectureOwn.NeedAuth') }}</label> -->
+            </div>
+            <div class="keyinTitle">
+              {{ $t('SURREALM.LectureOwn.LectureStream') }}
+              <div class="hintIconArea">
+                <img class="hintIcon" src="@/assets/img/SURREALM/Backend/LectureManager/icon_hint.png" />
+                <div class="hintTxt">{{ $t('SURREALM.LectureOwn.AllowHint') }}</div>
+              </div>
+            </div>
+            <div class="keyinSubContent lectureStream">
+              <input type="checkbox" id="Stream" v-model="Lecture.IsStreaming" />
+              <label for="Stream"><span></span>{{ $t('SURREALM.LectureOwn.AllowStream') }}</label>
+            </div>
             <div class="keyinTitle">{{ $t('SURREALM.LectureOwn.LectureDes') }}</div>
             <div class="keyinContent">
               <textarea
