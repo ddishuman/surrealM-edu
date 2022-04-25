@@ -402,7 +402,7 @@ export default {
       //   ],
       // };
       this.loadingInfo.isLoading = true;
-      //TODO API /adminaccount (post) data多帶一個 MaxOnlineNo,
+      //TODO API /adminaccount (post) data多帶一個 MaxOnlineNo, 69
       //TeacherNo、StudentNo型態從數字改成文字
       apiPostAdminAccount(data).then((res) => {
         this.loadingInfo.isLoading = false;

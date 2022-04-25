@@ -38,6 +38,10 @@
       <img class="imgIcon" src="@/assets/img/SURREALM/Backend/Menu/icon_account_info.png" />
       <label class="lblMenu">{{ $t('SURREALM.Menu.AccountInfo') }}</label>
     </div>
+    <div :class="GetMenuStyle('Download')" @click="PageDownload">
+      <img class="imgIcon" src="@/assets/img/SURREALM/Backend/Menu/icon_download.png" />
+      <label class="lblMenu">{{ $t('SURREALM.Menu.Download') }}</label>
+    </div>
     <!-- <div :class="GetMenuStyle('Hint')">
       <img class="imgIcon" src="@/assets/img/SURREALM/Backend/Menu/icon_hint.png" />
       <label class="lblMenu">{{ $t('SURREALM.Menu.Hint') }}</label>
@@ -125,6 +129,12 @@ export default {
       if (this.nowTab != 'Systems') {
         this.$router.push({ path: '/SURREALM/Backend/Systems' });
         this.nowTab = 'Systems';
+      }
+    },
+    PageDownload() {
+      if (this.nowTab != 'Download') {
+        this.$router.push({ path: '/SURREALM/Backend/Download' });
+        this.nowTab = 'Download';
       }
     },
   },

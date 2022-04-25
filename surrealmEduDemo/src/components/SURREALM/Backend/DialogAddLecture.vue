@@ -66,7 +66,7 @@
                   {{ option.Text }}
                 </option>
               </select>
-              <div class="peopleMax">{{ `${this.$t('SURREALM.LectureOwn.PeopleMax')} ${PeopleMax}` }}</div>
+              <!-- <div class="peopleMax">{{ `${this.$t('SURREALM.LectureOwn.PeopleMax')} ${PeopleMax}` }}</div> -->
             </div>
             <div class="keyinTitle">{{ $t('SURREALM.LectureOwn.LectureAuth') }}</div>
             <div class="keyinSubContent lectureAuth">
@@ -97,7 +97,21 @@
               ></textarea>
             </div>
           </div>
-          <div class="step2" v-show="CurrentStep == 2">
+          <div class="step1_2" v-show="CurrentStep == 2">
+            <label class="SelectModelTitle" v-html="$t('SURREALM.LectureOwn.SelectModelTitle')"></label>
+            <div class="modelArea">
+              <div v-for="model in Lecture.Models" :key="model.Serial" class="selectModel">
+                <img :src="model.PhotoUrl" />
+                <label>{{ model.Name }}</label>
+                <button @click="RemoveModel(model)">{{ $t('SURREALM.LectureOwn.DelModel') }}</button>
+              </div>
+              <button v-for="x in CalcSelectModelNum" :key="`key${x}`" class="btnSelectModel" @click="ShowSelectModel">
+                {{ $t('SURREALM.LectureOwn.SelectModel') }}
+              </button>
+              <div style="clear: both"></div>
+            </div>
+          </div>
+          <div class="step2" v-show="CurrentStep == 3">
             <div class="keyinTitle">{{ $t('SURREALM.LectureOwn.TagFilter') }}</div>
             <select v-model="Student.Tag" class="studentTag" @change="GetStudent(Student.Tag)">
               <option v-for="option in TagOptions" :key="option.Serial" :value="option.Serial">
@@ -114,6 +128,9 @@
             <div class="keyinTitle">{{ $t('SURREALM.LectureOwn.SelectStudent') }}</div>
             <button class="btn" @click="SelectAllStudent">{{ $t('SURREALM.LectureOwn.SelectALL') }}</button>
             <button class="btn" @click="RemoveAllStudent">{{ $t('SURREALM.LectureOwn.RemoveAll') }}</button>
+            <label class="selectedNumber" style="top: 60px">{{
+              `學校同時段可上線人數 ${SchoolCurrentPeople} / ${Edu.MaxNumber}`
+            }}</label>
             <label class="selectedNumber">{{
               `${$t('SURREALM.LectureOwn.SelectedNumber')} ${Student.Select.length} / ${PeopleMax}`
             }}</label>
@@ -147,7 +164,7 @@
               </div>
             </div>
           </div>
-          <div class="step3" v-show="CurrentStep == 3">
+          <div class="step3" v-show="CurrentStep == 4">
             <div class="uploadArea">
               <label class="stepHint">{{ $t('SURREALM.LectureOwn.UpLinkStep1') }}</label>
               <label class="stepLine"></label>
@@ -181,10 +198,10 @@
               </div>
             </div>
           </div>
-          <div class="step4" v-show="CurrentStep == 4">
+          <div class="step4" v-show="CurrentStep == 5">
             <CropperView :defaultImage="DefaultImage" @set-image="SetImage" />
           </div>
-          <div class="step5" v-show="CurrentStep == 5">
+          <div class="step5" v-show="CurrentStep == 6">
             <label class="title">{{ $t('SURREALM.LectureOwn.LastStepTitle') }}</label>
             <img :src="Lecture.Image" />
             <div class="lectureArea">
@@ -237,6 +254,13 @@
       :opacity="loadingInfo.opacity"
       :background-color="loadingInfo.bgColor"
     ></Loading>
+
+    <DialogTeachingCoolSelect
+      :show="dialogSelectModel.show"
+      :option="dialogSelectModel.option"
+      @close-dialog="CloseSelectModel"
+      @add-answer="AddModel"
+    ></DialogTeachingCoolSelect>
   </div>
 </template>
 <script>
@@ -245,6 +269,7 @@ import Datepicker from 'vue2-datepicker';
 import 'vue2-datepicker/index.css';
 import CropperView from '@/components/SURREALM/Backend/CropperView.vue';
 import DialogMsg from '@/components/SURREALM/Backend/DialogMsg.vue';
+import DialogTeachingCoolSelect from '@/components/SURREALM/Backend/DialogTeachingCoolSelect.vue';
 import Loading from 'vue-loading-overlay';
 import 'vue-loading-overlay/dist/vue-loading.css';
 import {
@@ -256,6 +281,7 @@ import {
   apiAddLecture,
   apiUpdateLecture,
   apiGetLectureType,
+  //apiGetTeachingCool,
 } from '@/request.js';
 
 export default {
@@ -279,6 +305,10 @@ export default {
         isLeftBtnShow: true,
         txtLeftBtn: '',
         txtRightBtn: '',
+      },
+      dialogSelectModel: {
+        show: false,
+        option: [],
       },
       ModelMaxNum: 6,
       CurrentStep: 1,
@@ -329,11 +359,15 @@ export default {
     this.GetStudent(this.Student.Tag);
     this.GetLinks();
     this.GetTags();
+    this.GetModels();
     this.TypeOptions = this.GetRoomType();
     //TODO IAN K爸換好API後要換成
     //this.TypeOptions = this.GetLectureType();
   },
   computed: {
+    SchoolCurrentPeople: function () {
+      return this.Edu.CurrentNumber + this.Student.Select.length;
+    },
     PeopleMax: function () {
       return this.TypeOptions == null ? 0 : this.TypeOptions.find((obj) => obj.Type == this.Lecture.Type).Value;
     },
@@ -408,13 +442,18 @@ export default {
       if (this.CurrentStep == 1) {
         let errMsg = this.CheckStep1Info();
         if (errMsg == '') {
-          //TODO API GET學校最大連線數&目前時段已預約人數
+          //TODO API GET學校最大連線數&目前時段已預約人數 92
           // Params: Date, StartTime, EndTimer
           // EX: "2022-04-28", "04:00", "09:00"
           this.Edu.MaxNumber = 80;
-          this.Edu.CurrentNumber = 60;
+          this.Edu.CurrentNumber = 79;
 
-          this.CurrentStep++;
+          if (this.Lecture.Type == '200') {
+            this.CurrentStep++;
+          } else {
+            this.CurrentStep = this.CurrentStep + 2;
+            this.Lecture.Models = [];
+          }
         } else {
           this.$toasted.show(errMsg, {
             icon: 'warning',
@@ -434,13 +473,24 @@ export default {
           });
         }
       } else if (this.CurrentStep == 3) {
+        let errMsg = this.CheckStep3Info();
+        if (errMsg == '') {
+          this.CurrentStep++;
+        } else {
+          this.$toasted.show(errMsg, {
+            icon: 'warning',
+            position: 'bottom-center',
+            duration: 3500,
+          });
+        }
+      } else if (this.CurrentStep == 4) {
         if (this.Lecture.Image == '') {
           this.GetDefaultImage(this.GetDefaultImageCallback);
         } else {
           this.DefaultImage = this.Lecture.Image;
         }
         this.CurrentStep++;
-      } else if (this.CurrentStep == 4) {
+      } else if (this.CurrentStep == 5) {
         let errMsg = this.CheckStep4Info();
         if (errMsg == '') {
           this.CurrentStep++;
@@ -451,7 +501,7 @@ export default {
             duration: 3500,
           });
         }
-      } else if (this.CurrentStep == 5) {
+      } else if (this.CurrentStep == 6) {
         let data = {
           Student: this.Student.Select,
           Lecture: this.Lecture,
@@ -463,7 +513,7 @@ export default {
           data.Lecture.Image = this.Image.ChangePhoto ? data.Lecture.Image : '';
           data.Serial = this.Serial;
           data.LectureCode = this.LectureCode;
-          //TODO API /lecture (patch) data 會多帶 Lecture.IsStreaming
+          //TODO API /lecture (patch) data 會多帶 Lecture.Models 要計算最大連線人數**Update**
           apiUpdateLecture(data).then((res) => {
             this.loadingInfo.isLoading = false;
             if (res.data.Status == 'ok') {
@@ -483,7 +533,7 @@ export default {
             this.CloseDialog();
           });
         } else {
-          //TODO API /lecture (post) data 會多帶 Lecture.IsStreaming
+          //TODO API /lecture (post) data 會多帶Lecture.Models 要計算最大連線人數
           apiAddLecture(data).then((res) => {
             this.loadingInfo.isLoading = false;
             if (res.data.Status == 'ok') {
@@ -551,6 +601,13 @@ export default {
     },
     CheckStep2Info() {
       let errMsg = '';
+      if (this.Lecture.Models.length == 0) {
+        errMsg = this.$t('SURREALM.LectureOwn.Err.PlzSelectModel');
+      }
+      return errMsg;
+    },
+    CheckStep3Info() {
+      let errMsg = '';
       if (this.Student.Select.length == 0) {
         errMsg = this.$t('SURREALM.LectureOwn.Err.StudentLength');
       } else if (this.Student.Select.length > this.PeopleMax) {
@@ -558,7 +615,7 @@ export default {
       }
       return errMsg;
     },
-    CheckStep4Info() {
+    CheckStep5Info() {
       let errMsg = '';
       if (this.Lecture.Image == '') {
         errMsg = this.$t('SURREALM.LectureOwn.Err.NullImage');
@@ -583,8 +640,8 @@ export default {
         }
       });
     },
-    //TODO API /lecturetype (get)
-    //企業版已經有的 教育版也要新增 
+    //TODO API /lecturetype (get) 64
+    //企業版已經有的 教育版也要新增
     GetLectureType() {
       apiGetLectureType().then((res) => {
         if (res.data.Status == 'ok') {
@@ -597,6 +654,58 @@ export default {
           });
         }
       });
+    },
+    GetModels() {
+      //TODO API /teachingcool (get)
+      // apiGetTeachingCool().then((res) => {
+      //   if (res.data.Status == 'ok') {
+      //     this.dialogSelectModel.option = res.data.ModelList;
+      //   } else {
+      //     this.$toasted.show(this.$t('SURREALM.ApiErr') + res.data.Code, {
+      //       icon: 'warning',
+      //       position: 'bottom-center',
+      //       duration: 3500,
+      //     });
+      //   }
+      // });
+
+      this.dialogSelectModel.option = [
+        {
+          Serial: 1,
+          Name: '口腔與唾腺',
+          PhotoUrl: 'https://surreal-edu.s3-ap-northeast-1.amazonaws.com/server/biCh04_DigestiveSystem01_mouth.png',
+        },
+        {
+          Serial: 2,
+          Name: '胃、胰、肝與十二指腸',
+          PhotoUrl: 'https://surreal-edu.s3-ap-northeast-1.amazonaws.com/server/biCh04_DigestiveSystem03.png',
+        },
+        {
+          Serial: 3,
+          Name: '人體的消化管與消化腺',
+          PhotoUrl: 'https://surreal-edu.s3-ap-northeast-1.amazonaws.com/server/biCh04_DigestiveSystem.png',
+        },
+        {
+          Serial: 4,
+          Name: '模型4',
+          PhotoUrl: 'https://surreal-edu.s3-ap-northeast-1.amazonaws.com/server/biCh04_DigestiveSystem01_mouth.png',
+        },
+        {
+          Serial: 5,
+          Name: '模型5',
+          PhotoUrl: 'https://surreal-edu.s3-ap-northeast-1.amazonaws.com/server/biCh04_DigestiveSystem01_mouth.png',
+        },
+        {
+          Serial: 6,
+          Name: '模型6',
+          PhotoUrl: 'https://surreal-edu.s3-ap-northeast-1.amazonaws.com/server/biCh04_DigestiveSystem01_mouth.png',
+        },
+        {
+          Serial: 7,
+          Name: '模型7',
+          PhotoUrl: 'https://surreal-edu.s3-ap-northeast-1.amazonaws.com/server/biCh04_DigestiveSystem01_mouth.png',
+        },
+      ];
     },
     GetStudent(tag) {
       apiGetStudentDetailByTag(tag).then((res) => {
@@ -613,8 +722,13 @@ export default {
     },
     AddStudent(StudentItem) {
       let IndexOf = this.Student.Select.findIndex((Itme) => Itme.Serial == StudentItem.Serial);
-
-      if (this.Student.Select.length >= this.PeopleMax) {
+      if (this.SchoolCurrentPeople >= this.Edu.MaxNumber) {
+        this.$toasted.show('超過同時段人數上限！請調整人數或上課時間。', {
+          icon: 'warning',
+          position: 'bottom-center',
+          duration: 3500,
+        });
+      } else if (this.Student.Select.length >= this.PeopleMax) {
         this.$toasted.show(this.$t('SURREALM.LectureOwn.Err.MaxStudent'), {
           icon: 'warning',
           position: 'bottom-center',
@@ -770,12 +884,45 @@ export default {
     RoomTypeToText(Type) {
       return this.TypeOptions == null ? 0 : this.TypeOptions.find((obj) => obj.Type == Type).Text;
     },
+    ShowSelectModel() {
+      this.dialogSelectModel.show = true;
+    },
+    CloseSelectModel() {
+      this.dialogSelectModel.show = false;
+    },
+    AddModel(data) {
+      if (this.Lecture.Models.length < this.ModelMaxNum) {
+        let IndexOf = this.Lecture.Models.findIndex((obj) => obj.Serial == data.Serial);
+        if (IndexOf < 0) {
+          this.Lecture.Models.push(data);
+          this.CloseSelectModel();
+          this.$toasted.show(this.$t('SURREALM.LectureOwn.ModelAddDone', { Name: data.Name }), {
+            icon: 'check',
+            position: 'bottom-center',
+            duration: 3500,
+          });
+        } else {
+          this.$toasted.show(this.$t('SURREALM.LectureOwn.Err.ModelRepear'), {
+            icon: 'warning',
+            position: 'bottom-center',
+            duration: 3500,
+          });
+        }
+      } else {
+        this.$toasted.show(this.$t('SURREALM.LectureOwn.Err.ModelMaxLimit', { Num: this.ModelMaxNum }), {
+          icon: 'warning',
+          position: 'bottom-center',
+          duration: 3500,
+        });
+      }
+    },
   },
   components: {
     Datepicker,
     CropperView,
     Loading,
     DialogMsg,
+    DialogTeachingCoolSelect
   },
 };
 </script>

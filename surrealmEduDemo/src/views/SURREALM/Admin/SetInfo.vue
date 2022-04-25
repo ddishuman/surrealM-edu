@@ -150,7 +150,7 @@ export default {
             ContactPhone: this.Info.ContactPhone,
           };
 
-          //TODO API /adminaccount (patch) 
+          //TODO API /adminaccount (patch) 70
           //送過去的data不會再帶 統一編號了 請拿掉
           apiUpdateAdminAccount(data).then((res) => {
             if (res.data.Status == 'ok') {

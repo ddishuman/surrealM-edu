@@ -89,6 +89,7 @@ module.exports = {
       AccountInfo: "個人設定",
       System: "訊息推播",
       Hint: "操作提示",
+      Download: "檔案下載",
     },
     Guide: {
       WelcomeTitle: "歡迎來到SURREALM共學平台<br />我們將幫助您快速熟悉使用",
@@ -410,6 +411,13 @@ module.exports = {
     QA: {
       QAFile: "資料必須為有效的「網頁」格式。<br>如該資料為雲端硬碟內的連結，請將權限設為公開，才能正常開啟。",
       QAComfirm: "確認",
+    },
+    Download: {
+      PlzSelectApk: "請選擇對應的VR頭盔種類 :",
+      Apk: "※ 頭盔安裝檔下載 (版本:{version}  更新日期:{date})",
+      InstallSop: "※ 安裝教學下載",
+      TeacherSop: "※ 教師使用手冊下載",
+      StudentSop: "※ 學生使用手冊下載",
     }
   }
 };

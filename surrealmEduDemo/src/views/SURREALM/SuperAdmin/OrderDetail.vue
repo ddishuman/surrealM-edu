@@ -168,7 +168,7 @@ export default {
       }
     },
     GetAdminInfo() {
-      //TODO API /admindetail/serial (get) 要多回一個 同時上線數Info.AdminInfo.MaxOnlineNo
+      //TODO API /admindetail/serial (get) 要多回一個 同時上線數Info.AdminInfo.MaxOnlineNo 90
       //同時請刪掉 Info.PurchaseInfo.TaxId 教育版沒有統編 (db請一併刪除)
       apiGetAdmindetail(this.Serial).then((res) => {
         if (res.data.Status == 'ok') {
@@ -290,7 +290,7 @@ export default {
           duration: 3500,
         });
       } else {
-        //TODO API /admindetail (patch) 
+        //TODO API /admindetail (patch) 91
         //  TeacherNo 改成string ex: '2',
         //  StudentNo 改成string ex: '29',
         //  新增一個 MaxOnlineNo ex: '995',

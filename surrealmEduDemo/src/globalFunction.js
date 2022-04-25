@@ -134,9 +134,10 @@ exports.install = function (Vue) {
     Vue.prototype.GetRoomType = function () {
         let data = [
             { Text: '請選擇', Type: '', Value: 0 },
-            { Text: '一般教室', Type: '100', Value: 30 },
-            { Text: '專科教室－透視人體', Type: '1001', Value: 30 },
-            { Text: '專科教室－認識台灣趣', Type: '1002', Value: 30 }
+            { Text: '一般教室', Type: '100', Value: 2 },
+            { Text: '專科教室－教具酷', Type: '200', Value: 2 },
+            { Text: '專科教室－透視人體', Type: '1001', Value: 2 },
+            { Text: '專科教室－認識台灣趣', Type: '1002', Value: 2 }
         ];
         return data;
     };
@@ -147,7 +148,6 @@ exports.install = function (Vue) {
 
     Vue.prototype.TokenEncode = function (Token) {
         //Token ex: 2_Web_SuperAdmin_56431b7e-a9fb-4ebc-bedd-667ca49ae8d7
-        //
         //_轉@, serial*10, 換位子
         //→ Web@SuperAdmin@56431b7e-a9fb-4ebc-bedd-667ca49ae8d7@20
         let TokenArray = Token.split("_");

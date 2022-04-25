@@ -14,9 +14,12 @@
     </div>
     <!-- Header的底 -->
     <div style="width: 100%; height: 90px"></div>
+    <DialogMsgUpdate />
   </header>
 </template>
 <script>
+import DialogMsgUpdate from '@/components/SURREALM/Backend/DialogMsgUpdate.vue';
+
 export default {
   name: 'Header',
   props: {
@@ -37,7 +40,9 @@ export default {
       this.$router.push({ path: this.logoutPath });
     },
   },
-  components: {},
+  components: {
+    DialogMsgUpdate,
+  },
 };
 </script>
 

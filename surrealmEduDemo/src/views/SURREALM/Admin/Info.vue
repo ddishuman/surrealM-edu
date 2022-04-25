@@ -102,7 +102,7 @@ export default {
   computed: {},
   methods: {
     GetAccountInfo() {
-      //TODO API /admininfo (get) 
+      //TODO API /admininfo (get) 79
       //不用再送Info.TaxId 教育版沒有統一編號
       apiGetAdminInfo().then((res) => {
         if (res.data.Status == 'ok') {
@@ -120,7 +120,7 @@ export default {
       let ChkMsg = this.ChkInfo();
       if (ChkMsg == '') {
         this.Info.Password = '';
-        //TODO API /adminaccount (patch) 
+        //TODO API /adminaccount (patch) 72
         //不會再帶Info.TaxId過去 教育版沒有統一編號
         apiUpdateAdminInfo(this.Info).then((res) => {
           if (res.data.Status == 'ok') {

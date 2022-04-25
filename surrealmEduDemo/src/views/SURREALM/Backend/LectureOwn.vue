@@ -255,6 +255,7 @@ export default {
       }
     },
     GetLectures() {
+      //TODO API 參考教育版的 有Models的部分
       apiGetLecture().then((res) => {
         if (res.data.Status == 'ok') {
           this.Lectures = res.data.Lectures;

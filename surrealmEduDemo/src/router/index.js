@@ -105,6 +105,11 @@ const routes = [
     component: () => import("@/views/SURREALM/Backend/Systems.vue"),
   },
   {
+    path: "/SURREALM/Backend/Download",
+    name: "SURREALMDownload",
+    component: () => import("@/views/SURREALM/Backend/Download.vue"),
+  },
+  {
     path: "/SURREALM/Client",
     redirect: {
       name: "SURREALMClientGuide",
@@ -139,6 +144,11 @@ const routes = [
     path: "/SURREALM/Client/Systems",
     name: "SURREALMClientSystems",
     component: () => import("@/views/SURREALM/Client/Systems.vue"),
+  },
+  {
+    path: "/SURREALM/Client/Download",
+    name: "SURREALMClientDownload",
+    component: () => import("@/views/SURREALM/Client/Download.vue"),
   },
   {
     path: "/SURREALM/Admin",
