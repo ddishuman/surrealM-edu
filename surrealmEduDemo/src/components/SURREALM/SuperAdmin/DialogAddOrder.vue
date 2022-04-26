@@ -185,7 +185,6 @@ export default {
     },
     GetLectureType() {
       apiGetSPAdminLectureType().then((res) => {
-        console.log('GetLectureType: ' + JSON.stringify(res.data));
         if (res.data.Status == 'ok') {
           this.LectureType = res.data.LectureType;
           this.LectureType.forEach((l) => {
@@ -350,60 +349,7 @@ export default {
       let data = this.DeepCopy(this.Info);
       data.LectureAuth = this.DeepCopy(this.LectureAuth);
       data.LectureType = this.DeepCopy(this.LectureType);
-      //console.log('AddOrder: ' + JSON.stringify(data));
-      // let data = {
-      //   PurchaseDate: '2022-03-31',
-      //   PurchaseEmail: 'ian@faya.com.tw',
-      //   OrderId: '2131564231',
-      //   TeacherNo: '2',
-      //   StudentNo: '11',
-      //   MaxOnlineNo: '995',
-      //   ExpireDate: '2022-03-30',
-      //   Stream: 'T',
-      //   PublicArea: 'T',
-      //   LectureAuth: [
-      //     {
-      //       Type: '1',
-      //       Text: '非公開',
-      //       Selected: false,
-      //     },
-      //     {
-      //       Type: '2',
-      //       Text: '上鎖課程',
-      //       Selected: true,
-      //     },
-      //   ],
-      //   LectureType: [
-      //     {
-      //       Type: '100',
-      //       Text: '一般教室',
-      //       Selected: false,
-      //     },
-      //     {
-      //       Type: '200',
-      //       Text: '專科教室－教具酷',
-      //       Selected: true,
-      //     },
-      //     {
-      //       Type: '1001',
-      //       Text: '專科教室－透視人體',
-      //       Selected: false,
-      //     },
-      //     {
-      //       Type: '1002',
-      //       Text: '專科教室－認識台灣趣',
-      //       Selected: true,
-      //     },
-      //     {
-      //       Type: '2001',
-      //       Text: '超商',
-      //       Selected: false,
-      //     },
-      //   ],
-      // };
       this.loadingInfo.isLoading = true;
-      //TODO API /adminaccount (post) data多帶一個 MaxOnlineNo, 69
-      //TeacherNo、StudentNo型態從數字改成文字
       apiPostAdminAccount(data).then((res) => {
         this.loadingInfo.isLoading = false;
         if (res.data.Status == 'ok') {

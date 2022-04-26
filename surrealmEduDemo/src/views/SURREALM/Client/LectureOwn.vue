@@ -128,8 +128,6 @@ export default {
   },
   methods: {
     GetLectures() {
-      //TODO API /studentlecturelist (get) 39
-      //企業版已經有的 教育版也要新增
       apiGetLectureStudent().then((res) => {
         if (res.data.Status == 'ok') {
           this.Lectures = res.data.Lectures;

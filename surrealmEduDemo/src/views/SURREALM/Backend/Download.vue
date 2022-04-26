@@ -72,7 +72,6 @@ export default {
   computed: {},
   methods: {
     GetApkInfo() {
-      //TODO API  /apkinfo/+helmet (get)
       apiGetHelmetFileUrl(this.SelectHelmet.Value).then((res) => {
         if (res.data.Status == 'ok') {
           this.SelectHelmet.Version = res.data.Version;

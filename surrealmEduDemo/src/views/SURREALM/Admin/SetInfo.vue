@@ -77,7 +77,6 @@ export default {
         Password: '',
         PasswordAgain: '',
         Company: '',
-        //TaxID: '', //教育版不用統一編號 刪除
         ContactName: '',
         ContactPhone: '',
       },
@@ -145,13 +144,10 @@ export default {
             Email: this.Info.Email,
             Password: sha256(this.Info.Password),
             Company: this.Info.Company,
-            //TaxID: this.Info.TaxID, //教育版不用統編 拿掉
             ContactName: this.Info.ContactName,
             ContactPhone: this.Info.ContactPhone,
           };
 
-          //TODO API /adminaccount (patch) 70
-          //送過去的data不會再帶 統一編號了 請拿掉
           apiUpdateAdminAccount(data).then((res) => {
             if (res.data.Status == 'ok') {
               this.CurrentStep++;

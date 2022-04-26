@@ -53,7 +53,6 @@ export default {
       this.Show = false;
     },
     CheckAPKVersion() {
-      //TODO API /lastapkinfo (get)
       apiGetLastApkInfo().then((res) => {
         if (res.data.Status == 'ok') {
           this.Version = res.data.Version;

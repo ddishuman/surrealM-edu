@@ -331,6 +331,14 @@ export const apiGetLastApkInfo = () => modelRequest.get('/lastapkinfo', {
     },
 })
 
+export const apiGeMaxUsingNo = (date, starttime, endtime) => modelRequest.get('/checklecture/' + date + "/" + starttime + "/" + endtime, {
+    headers: {
+        accessToken: Vue.prototype.TokenDecode(localStorage.getItem('Token'))
+    },
+})
+
+
+
 /************ Admin ************/
 
 export const apiUpdateAdminAccount = (data) => loginRequest.patch('/adminaccount', data)

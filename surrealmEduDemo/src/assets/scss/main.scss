@@ -5811,11 +5811,11 @@ body {
     .data-area {
         position: relative;
         float: right;
-        width: 271px;
         height: 37px;
         border: 1px #707070 solid;
         border-radius: 4px;
         margin-right: 100px;
+        padding: 0 20px 0 0;
 
         .data-desc,
         .data-number {
@@ -5840,7 +5840,81 @@ body {
         padding: 45px 0 20px 45px;
         background-color: $color_admin_tab_select;
         box-sizing: border-box;
+    }
+}
+
+.user-table {
+    position: relative;
+    width: calc(100% - 100px);
+    height: calc(100vh - 363px - 65px);
+    -webkit-filter: drop-shadow(0 3px 6px rgba(0, 0, 0, 0.16));
+    filter: drop-shadow(0 3px 6px rgba(0, 0, 0, 0.16));
+
+    .user-table-title {
+        position: relative;
+        width: 100%;
+        height: 50px;
+        background-color: #ffffff;
+        border-radius: 8px 8px 0 0;
+        border-bottom: 1px solid #707070;
+    }
+
+    .user-table-scrollarea {
+        position: relative;
+        width: 100%;
+        height: calc(100vh - 363px - 65px - 50px);
+        background-color: #ffffff;
+        border-radius: 0 0 8px 8px;
         overflow: auto;
+
+        .user-table-item {
+            width: 100%;
+            height: 42px;
+
+            .item-name,
+            .item-acc {
+                height: 42px;
+                line-height: 42px;
+                font-size: 16px;
+                font-weight: normal;
+                border-right: 0;
+            }
+
+            .item-del{
+                position: relative;
+                float: right;
+                padding: 9px 28px;
+
+                &:hover{
+                    cursor: pointer;
+                    opacity: 0.6;
+                }
+            }
+
+            &:nth-child(2n) {
+                background-color: #f5f5f5;
+            }
+        }
+    }
+
+    .item-name,
+    .item-acc {
+        position: relative;
+        float: left;
+        width: 183px;
+        height: 50px;
+        line-height: 50px;
+        text-align: center;
+        font-family: $font_family;
+        font-size: 20px;
+        font-weight: bolder;
+        color: black;
+        border-right: 1px solid #707070;
+        overflow: hidden;
+    }
+
+    .item-acc {
+        width: 226px;
     }
 }
 

@@ -47,9 +47,7 @@ export default new Vuex.Store({
           let resp = res.data;
           if (resp.Status == 'ok') {
             context.commit('setProfile', { Name: resp.Data.Name, Account: resp.Data.Account });
-
             localStorage.setItem('Account', resp.Data.Account);
-            localStorage.setItem('Birthday', resp.Data.Birthday);
             localStorage.setItem('Language', resp.Data.Language);
             localStorage.setItem('Name', resp.Data.Name);
             localStorage.setItem('Nation', resp.Data.Nation);
@@ -62,6 +60,9 @@ export default new Vuex.Store({
             localStorage.setItem('Subject', resp.Data.Subject);
             localStorage.setItem('Photo', resp.Data.Photo);
             localStorage.setItem('Token', Vue.prototype.TokenEncode(resp.Data.Token));
+            //TODO API Login要多傳 StudentNo過來 請參考企業版
+            //localStorage.setItem('StudentNo', resp.Data.StudentNo);
+            localStorage.setItem('StudentNo', 40);
           }
           resolve(resp);
         });
@@ -95,9 +96,11 @@ export default new Vuex.Store({
       });
     },
     LOGOUT: function (context) {
-      //Vue.$cookies.remove('accessToken');
+      let SetDontAgain = localStorage.getItem('SetDontAgainDateUTC8');
       localStorage.clear();
-      //apiUserLogout();
+      if (SetDontAgain != null) {
+        localStorage.setItem('SetDontAgainDateUTC8', SetDontAgain);
+      }
       context.commit('clearProfile')
     },
     SetNameAccount: function (context, data) {

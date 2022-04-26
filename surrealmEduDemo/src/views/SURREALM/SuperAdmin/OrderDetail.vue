@@ -20,8 +20,6 @@
             <div class="detail-content">{{ Info.PurchaseInfo.Email }}</div>
             <div class="detail-title">單位名稱</div>
             <div class="detail-content">{{ Info.PurchaseInfo.Company }}</div>
-            <!-- <div class="detail-title">統一編號</div>
-            <div class="detail-content">{{ Info.PurchaseInfo.TaxId }}</div> -->
             <div class="detail-title">聯絡人姓名</div>
             <div class="detail-content">{{ Info.PurchaseInfo.Name }}</div>
             <div class="detail-title">聯絡人電話</div>
@@ -100,7 +98,9 @@
           </div>
           <div class="clear-both"></div>
           <div class="user-area">
-            <UserItem v-for="i in TacherInfo.Users" :Type="Tab.toLowerCase()" :UserInfo="i" :key="i.Serial" />
+            <!-- <UserItem v-for="i in TacherInfo.Users" :Type="Tab.toLowerCase()" :UserInfo="i" :key="i.Serial" /> -->
+            <UserTable :UserInfo="TacherInfo.Users" :Type="Tab.toLowerCase()" />
+            
           </div>
         </template>
         <template v-else>
@@ -112,7 +112,8 @@
           </div>
           <div class="clear-both"></div>
           <div class="user-area" v-if="StudentInfo != null">
-            <UserItem v-for="i in StudentInfo.Users" :Type="Tab.toLowerCase()" :UserInfo="i" :key="i.Serial" />
+            <!-- <UserItem v-for="i in StudentInfo.Users" :Type="Tab.toLowerCase()" :UserInfo="i" :key="i.Serial" /> -->
+              <UserTable :UserInfo="StudentInfo.Users" :Type="Tab.toLowerCase()" />
           </div>
         </template>
       </div>
@@ -126,7 +127,8 @@ import Menu from '@/components/SURREALM/SuperAdmin/Menu.vue';
 import Datepicker from 'vue2-datepicker';
 import 'vue2-datepicker/index.css';
 import Multiselect from '@/components/SURREALM/SuperAdmin/Multiselect/Multiselect.vue';
-import UserItem from '@/components/SURREALM/SuperAdmin/UserItem.vue';
+//import UserItem from '@/components/SURREALM/SuperAdmin/UserItem.vue';
+import UserTable from '@/components/SURREALM/SuperAdmin/UserTable.vue';
 import { apiGetAdmindetail, apiGetAdminAccountdetail, apiPatchAdminDetail } from '@/request.js';
 
 export default {
@@ -168,8 +170,6 @@ export default {
       }
     },
     GetAdminInfo() {
-      //TODO API /admindetail/serial (get) 要多回一個 同時上線數Info.AdminInfo.MaxOnlineNo 90
-      //同時請刪掉 Info.PurchaseInfo.TaxId 教育版沒有統編 (db請一併刪除)
       apiGetAdmindetail(this.Serial).then((res) => {
         if (res.data.Status == 'ok') {
           this.Info = res.data.Info;
@@ -290,10 +290,6 @@ export default {
           duration: 3500,
         });
       } else {
-        //TODO API /admindetail (patch) 91
-        //  TeacherNo 改成string ex: '2',
-        //  StudentNo 改成string ex: '29',
-        //  新增一個 MaxOnlineNo ex: '995',
         apiPatchAdminDetail(this.Info).then((res) => {
           if (res.data.Status == 'ok') {
             this.$toasted.show('修改完成', {
@@ -368,7 +364,8 @@ export default {
     Menu,
     Datepicker,
     Multiselect,
-    UserItem,
+    //UserItem,
+    UserTable
   },
 };
 </script>

@@ -281,6 +281,7 @@ import {
   apiAddLecture,
   apiUpdateLecture,
   apiGetLectureType,
+  apiGeMaxUsingNo,
   //apiGetTeachingCool,
 } from '@/request.js';
 
@@ -316,7 +317,7 @@ export default {
         Name: '',
         Date: '',
         Time: [],
-        Type: '',
+        Type: '100',
         Auth: 'private',
         IsStreaming: false,
         Des: '',
@@ -324,7 +325,7 @@ export default {
         Models: [],
       },
       Edu: {
-        MaxNumber: 80,
+        MaxNumber: 0,
         CurrentNumber: 0,
       },
       Student: {
@@ -360,16 +361,17 @@ export default {
     this.GetLinks();
     this.GetTags();
     this.GetModels();
-    this.TypeOptions = this.GetRoomType();
+    //this.TypeOptions = this.GetRoomType();
     //TODO IAN K爸換好API後要換成
-    //this.TypeOptions = this.GetLectureType();
+    this.GetLectureType();
   },
   computed: {
     SchoolCurrentPeople: function () {
       return this.Edu.CurrentNumber + this.Student.Select.length;
     },
     PeopleMax: function () {
-      return this.TypeOptions == null ? 0 : this.TypeOptions.find((obj) => obj.Type == this.Lecture.Type).Value;
+      return localStorage.getItem('StudentNo');
+      //return this.TypeOptions == null ? 0 : this.TypeOptions.find((obj) => obj.Type == this.Lecture.Type).Value;
     },
     FilterStudentList: function () {
       if (this.Student.Keyword != '') {
@@ -442,11 +444,23 @@ export default {
       if (this.CurrentStep == 1) {
         let errMsg = this.CheckStep1Info();
         if (errMsg == '') {
-          //TODO API GET學校最大連線數&目前時段已預約人數 92
-          // Params: Date, StartTime, EndTimer
-          // EX: "2022-04-28", "04:00", "09:00"
-          this.Edu.MaxNumber = 80;
-          this.Edu.CurrentNumber = 79;
+          //TODO API /checklecture (get) 算出來的數字有問題
+          //DB 2022-04-27 04:00 07:00 3人
+          //我選 2022-04-27 01:00 02:00 他也回我已使用3人
+          //2022-04-28  01:00 02:00 回我0人使用 (正確)
+          apiGeMaxUsingNo(this.Lecture.Date, this.Lecture.Time[0], this.Lecture.Time[1]).then((res) => {
+            console.log(`apiGeMaxUsingNo: ${JSON.stringify(res.data)}`);
+            if (res.data.Status == 'ok') {
+              this.Edu.MaxNumber = res.data.MaxNumber;
+              this.Edu.CurrentNumber = res.data.CurrentNumber;
+            } else {
+              this.$toasted.show(this.$t('SURREALM.ApiErr') + res.data.Code, {
+                icon: 'warning',
+                position: 'bottom-center',
+                duration: 3500,
+              });
+            }
+          });
 
           if (this.Lecture.Type == '200') {
             this.CurrentStep++;
@@ -491,7 +505,7 @@ export default {
         }
         this.CurrentStep++;
       } else if (this.CurrentStep == 5) {
-        let errMsg = this.CheckStep4Info();
+        let errMsg = this.CheckStep5Info();
         if (errMsg == '') {
           this.CurrentStep++;
         } else {
@@ -534,6 +548,7 @@ export default {
           });
         } else {
           //TODO API /lecture (post) data 會多帶Lecture.Models 要計算最大連線人數
+          // POST http://192.168.1.98:5600/m/lecture 400 (Bad Request)
           apiAddLecture(data).then((res) => {
             this.loadingInfo.isLoading = false;
             if (res.data.Status == 'ok') {
@@ -640,8 +655,6 @@ export default {
         }
       });
     },
-    //TODO API /lecturetype (get) 64
-    //企業版已經有的 教育版也要新增
     GetLectureType() {
       apiGetLectureType().then((res) => {
         if (res.data.Status == 'ok') {
@@ -656,8 +669,9 @@ export default {
       });
     },
     GetModels() {
-      //TODO API /teachingcool (get)
+      //TODO API /teachingcool (get) 55?? 直接401
       // apiGetTeachingCool().then((res) => {
+      //   console.log(`apiGetTeachingCool: ${JSON.stringify(res.data)}`);
       //   if (res.data.Status == 'ok') {
       //     this.dialogSelectModel.option = res.data.ModelList;
       //   } else {
@@ -922,7 +936,7 @@ export default {
     CropperView,
     Loading,
     DialogMsg,
-    DialogTeachingCoolSelect
+    DialogTeachingCoolSelect,
   },
 };
 </script>

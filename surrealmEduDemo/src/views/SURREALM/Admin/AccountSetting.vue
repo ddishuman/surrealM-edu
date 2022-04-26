@@ -23,6 +23,8 @@
       <button :class="TabStyle('teacher')" @click="SwitchTab('teacher')">教師帳號</button>
       <button :class="TabStyle('student')" @click="SwitchTab('student')">學生帳號</button>
       <div class="data-area">
+        <label class="data-desc">同時上線數 : </label>
+        <label class="data-number" :style="GetTxtColor">{{ UserInfo.MaxOnlineNumber }}</label>
         <label class="data-desc">可使用數量 : </label>
         <label class="data-number" :style="GetTxtColor">{{ UserInfo.MaxNumber }}</label>
         <label class="data-desc">已使用數量 : </label>
@@ -30,13 +32,7 @@
       </div>
       <div class="clear-both"></div>
       <div class="user-area">
-        <UserItem
-          v-for="i in FilterUserInfo"
-          :Type="CurrentTab"
-          :UserInfo="i"
-          :key="i.Serial"
-          @show-del="ShowDelUser"
-        />
+        <UserTable :UserInfo="FilterUserInfo" :Type="CurrentTab" @show-del="ShowDelUser" />
       </div>
     </div>
     <Footer />
@@ -51,7 +47,8 @@
 import Header from '@/components/SURREALM/Admin/Header.vue';
 import Menu from '@/components/SURREALM/Admin/Menu.vue';
 import Footer from '@/components/SURREALM/Admin/Footer.vue';
-import UserItem from '@/components/SURREALM/Admin/UserItem.vue';
+//import UserItem from '@/components/SURREALM/Admin/UserItem.vue';
+import UserTable from '@/components/SURREALM/Admin/UserTable.vue';
 import DialogDelUser from '@/components/SURREALM/Admin/DialogDelUser.vue';
 import DialogAddUser from '@/components/SURREALM/Admin/DialogAddUser.vue';
 import DialogMsg from '@/components/SURREALM/Admin/DialogMsg.vue';
@@ -109,9 +106,11 @@ export default {
       this.GetTeacherOrStudentInfo();
     },
     GetTeacherOrStudentInfo() {
+      //TODO API /adminaccount/' + type (get) 多帶MaxOnlineNumber(同時上線人數)
       apiGetAdminAccount(this.FirstWordUpperCase(this.CurrentTab)).then((res) => {
         if (res.data.Status == 'ok') {
           this.UserInfo = res.data.UserInfo;
+          this.UserInfo.MaxOnlineNumber = 80;
         } else {
           this.$toasted.show(this.$t('SURREALM.ApiErr') + res.data.Code, {
             icon: 'warning',
@@ -121,6 +120,7 @@ export default {
         }
       });
       // this.UserInfo = {
+      //   MaxOnlineNumber: 15
       //   MaxNumber: 15,
       //   UsedNumber: 6,
       //   Users: [
@@ -163,8 +163,13 @@ export default {
     },
     DelUser() {
       let IndexOf = this.UserInfo.Users.findIndex((user) => user.Serial == this.dialogDelUser.Serial);
+      console.log(`apiDelAccount  Serial:${this.dialogDelUser.Serial}`);
       if (IndexOf >= 0) {
-        apiDelAccount(this.dialogDelUser.Serial).then((res) => {
+        //TODO API 無法刪除 DELETE "http://192.168.1.98:5600/m/account/4" 
+        // {"Error":"Error 1146: Table 'surrealm_edu.m01_accounts' doesn't exist","Status":"failed"} 
+        // 應該是沒改到 m01? h01? 可能要檢查看看有沒有其他這種的BUG
+        apiDelAccount(Number(this.dialogDelUser.Serial)).then((res) => {
+          console.log(`apiDelAccount res: ${JSON.stringify(res.data)}`);
           if (res.data.Status == 'ok') {
             this.UserInfo.Users.splice(IndexOf, 1);
             this.CloseDelUser();
@@ -189,11 +194,12 @@ export default {
     Header,
     Menu,
     Footer,
-    UserItem,
+    //UserItem,
     DialogDelUser,
     DialogAddUser,
     DialogMsg,
     DialogImport,
+    UserTable,
   },
 };
 </script>

@@ -255,8 +255,9 @@ export default {
       }
     },
     GetLectures() {
-      //TODO API 參考教育版的 有Models的部分
+      //TODO API /lecturelist (get) 參考教育版的 20?? 抓出來的Models是[] 但DB有寫
       apiGetLecture().then((res) => {
+        //console.log(`apiGetLecture: ${JSON.stringify(res.data)}`);
         if (res.data.Status == 'ok') {
           this.Lectures = res.data.Lectures;
           this.MountedWorkAfterGetLecture();
