@@ -60,9 +60,7 @@ export default new Vuex.Store({
             localStorage.setItem('Subject', resp.Data.Subject);
             localStorage.setItem('Photo', resp.Data.Photo);
             localStorage.setItem('Token', Vue.prototype.TokenEncode(resp.Data.Token));
-            //TODO API Login要多傳 StudentNo過來 請參考企業版
-            //localStorage.setItem('StudentNo', resp.Data.StudentNo);
-            localStorage.setItem('StudentNo', 40);
+            localStorage.setItem('StudentNo', resp.Data.StudentNo);
           }
           resolve(resp);
         });

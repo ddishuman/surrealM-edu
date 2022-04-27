@@ -303,7 +303,7 @@ export const apiGetExam = (serial) => modelRequest.get('/exam/' + serial, {
 
 export const apiGetTeachingCool = () => modelRequest.get('/teachingcool', {
     headers: {
-        accessToken: localStorage.getItem('Token')
+        accessToken: Vue.prototype.TokenDecode(localStorage.getItem('Token'))
     },
 })
 
@@ -331,7 +331,7 @@ export const apiGetLastApkInfo = () => modelRequest.get('/lastapkinfo', {
     },
 })
 
-export const apiGeMaxUsingNo = (date, starttime, endtime) => modelRequest.get('/checklecture/' + date + "/" + starttime + "/" + endtime, {
+export const apiGeMaxUsingNo = (date, starttime, endtime, serial) => modelRequest.get('/checklecture/' + date + "/" + starttime + "/" + endtime + "/" + serial, {
     headers: {
         accessToken: Vue.prototype.TokenDecode(localStorage.getItem('Token'))
     },

@@ -106,11 +106,9 @@ export default {
       this.GetTeacherOrStudentInfo();
     },
     GetTeacherOrStudentInfo() {
-      //TODO API /adminaccount/' + type (get) 多帶MaxOnlineNumber(同時上線人數)
       apiGetAdminAccount(this.FirstWordUpperCase(this.CurrentTab)).then((res) => {
         if (res.data.Status == 'ok') {
           this.UserInfo = res.data.UserInfo;
-          this.UserInfo.MaxOnlineNumber = 80;
         } else {
           this.$toasted.show(this.$t('SURREALM.ApiErr') + res.data.Code, {
             icon: 'warning',
@@ -165,9 +163,6 @@ export default {
       let IndexOf = this.UserInfo.Users.findIndex((user) => user.Serial == this.dialogDelUser.Serial);
       console.log(`apiDelAccount  Serial:${this.dialogDelUser.Serial}`);
       if (IndexOf >= 0) {
-        //TODO API 無法刪除 DELETE "http://192.168.1.98:5600/m/account/4" 
-        // {"Error":"Error 1146: Table 'surrealm_edu.m01_accounts' doesn't exist","Status":"failed"} 
-        // 應該是沒改到 m01? h01? 可能要檢查看看有沒有其他這種的BUG
         apiDelAccount(Number(this.dialogDelUser.Serial)).then((res) => {
           console.log(`apiDelAccount res: ${JSON.stringify(res.data)}`);
           if (res.data.Status == 'ok') {
