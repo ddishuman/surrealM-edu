@@ -1,0 +1,279 @@
+@function vh($quantity, $px) {
+    @return calc(var(--vh, 1vh) * #{$quantity} - #{$px});
+}
+
+@media screen and (max-width: 1050px) {
+    body {
+        min-width: auto;
+    }
+
+    .SurrealmHeader {
+        .headerCenter {
+            min-width: auto;
+            width: 90%;
+        }
+
+        .headerLogoImg {
+            width: 30px;
+            margin-top: 30px;
+            margin-right: 15px;
+        }
+
+        .headerLogoTxt {
+            font-size: 18px;
+        }
+
+        .headerLogoArea {
+            margin-right: 0px;
+        }
+    }
+
+    .SurrealmMenu {
+        display: none;
+    }
+
+    .pnlPageContent {
+        min-width: auto;
+        width: 100%;
+        height: 100%;
+        padding: 23px 0 0 37px;
+        box-sizing: border-box;
+
+        .pnlTitleArea {
+            min-width: auto;
+            .imgCustomTitle {
+                width: 32px;
+                height: 32px;
+                margin: 29px 8px 0px 0px;
+            }
+
+            .lblTitle {
+                width: calc(100% - 240px);
+                height: 90px;
+                font-size: 18px;
+                overflow: hidden;
+                white-space: nowrap;
+                text-overflow: ellipsis;
+                margin-right: 0px;
+            }
+        }
+        .lectureManager {
+            .previewLeft {
+                float: none;
+                width: 90%;
+                margin: 0 auto;
+            }
+            .previewRight {
+                float: none;
+                width: 90%;
+                margin: 0 auto;
+            }
+        }
+    }
+    .pnlDialogFull {
+        height: vh(100, 0px);
+        .pnlDialogGray {
+            height: vh(100, 0px);
+            .pnlDialogLive {
+                width: 600px;
+                height: 406px;
+                margin: vh(50, 203px) auto 0;
+
+                .pnlContent {
+                    height: 338px;
+                }
+            }           
+        }
+    }
+
+    .pnlStreamingArea {
+        height: 337px;
+
+        .hintTxt {
+            line-height: 337px;
+        }
+
+        .pnlImgArea {
+            line-height: 0;
+
+            .pnlStreamToolBar {
+                .bntfullscreen {
+                    display: block;
+                }
+                &:hover {
+                    background: rgba(0, 0, 0, 0);
+                }
+            }
+        }
+    }
+
+    .fullscreen .pnlImgArea {
+        #DisplayImg {
+            height: vh(100, 0px);
+        }
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .loginContainer {
+        width: 320px;
+        height: 500px;
+        margin: vh(50, 250px) auto 0;
+
+        .logoArea {
+            margin: -20px 0 32px;
+        }
+
+        .formWrapping {
+            width: 270px;
+            margin: -10px auto 0;
+        }
+
+        .btnConfirm {
+            left: 100px;
+            bottom: 35px;
+        }
+    }
+
+    .SurrealmHeader {
+        .headerCenter {
+            .pnlUserInfo {
+                display: none;
+            }
+        }
+    }
+
+    .pnlPageContent {
+        padding: 0px;
+
+        .pnlTitleArea {
+            padding-left: 10px;
+        }
+
+        .lectureManager {
+            height: vh(100, 180px);
+
+            .title {
+                padding-left: 20px;
+            }
+        }
+    }
+
+    .lectureItem {
+        float: none;
+        margin: 23px auto 23px;
+    }
+
+    .pnlDialogFull .pnlDialogGray {
+        .pnlDialogMsg {
+            position: relative;
+            width: 300px;
+            min-height: 254px;
+            margin: vh(50, 127px) auto 0;
+            display: block;
+            background: #2a2a30;
+        }
+
+        .pnlDialogLive {
+            width: 300px;
+            height: 237px;
+            margin: vh(50, 118px) auto 0;
+
+            .pnlContent {
+                height: 168px;
+            }
+        }
+
+        .pnlDialogMsgMaintain{
+            position: relative;
+            width: 300px;
+            margin: vh(50, 97px) auto 0;   
+        }
+    }
+
+    .pnlStreamingArea {
+        height: 167px;
+
+        .hintTxt {
+            line-height: 167px;
+        }
+    }
+}
+
+@media screen and (max-width: 340px) {
+    .pnlPageContent {
+        .pnlTitleArea {
+            .lblTitle {
+                width: calc(100% - 208px);
+            }
+        }
+    }
+
+    .btn,
+    .btnNoBg,
+    .btnWithIcon {
+        font-size: 14px;
+        padding: 0 12px;
+        margin-right: 8px;
+    }
+}
+
+/*iPad pro - portrait*/
+// @media screen and (max-width: 1024px) and (orientation: portrait) {
+// }
+
+/*iPad - portrait*/
+// @media screen and (max-width: 768px) and (orientation: portrait) {
+// }
+
+/*Phone - portrait*/
+@media screen and (max-width: 450px) and (orientation: portrait) {
+    .SurrealmHeader .headerLogoTxt {
+        font-size: 16px;
+    }
+}
+
+/*iPad pro - landscape*/
+@media screen and (max-width: 1366px) and (orientation: landscape) {
+    .fullscreen .pnlImgArea {
+        #DisplayImg {
+            height: vh(100, 0px);
+        }
+    }
+}
+
+/*iPad - landscape*/
+// @media screen and (max-width: 1024px) and (orientation: landscape) {
+// }
+
+/*Phone - landscape*/
+@media screen and (max-width: 850px) and (orientation: landscape) {
+    .pnlDialogFull .pnlDialogGray {
+        .pnlDialogMsg {
+            position: relative;
+            width: 300px;
+            min-height: 254px;
+            margin: vh(50, 127px) auto 0;
+            display: block;
+            background: #2a2a30;
+        }
+
+        .pnlDialogLive {
+            width: 300px;
+            height: 237px;
+            margin: vh(50, 118px) auto 0;
+
+            .pnlContent {
+                height: 168px;
+            }
+        }
+    }
+
+    .pnlStreamingArea {
+        height: 167px;
+
+        .hintTxt {
+            line-height: 167px;
+        }
+    }
+}

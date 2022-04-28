@@ -4352,6 +4352,76 @@ body {
             }
         }
 
+        .pnlDialogLive {
+            position: relative;
+            width: 800px;
+            height: 519px;
+            margin: calc(50vh - 260px) auto 0;
+            display: block;
+            background: $color_btn_bg;
+
+            .pnlTitle {
+                position: relative;
+                width: 100%;
+                height: 69px;
+                line-height: 69px;
+                font-family: $font_family;
+                font-size: 20px;
+                color: $color_menu_txt;
+                text-align: center;
+                background: $color_dialog_bg;
+                border: 1px $color_dialog_border solid;
+                border-radius: 2px 2px 0 0;
+                box-sizing: border-box;
+
+                .btnDialogXX {
+                    position: absolute;
+                    width: 23px;
+                    height: 23px;
+                    padding: 18px;
+                    top: 0px;
+                    right: 0px;
+
+                    &:hover {
+                        cursor: pointer;
+                        opacity: 0.5;
+                    }
+
+                    &:focus {
+                        outline: 0px;
+                    }
+                }
+            }
+
+            .pnlContent {
+                position: relative;
+                width: 100%;
+                height: 450px;
+                background: $color_dialog_bg;
+                border: 1px $color_dialog_border solid;
+                border-top: 0;
+                box-sizing: border-box;
+                overflow: auto;
+
+                /* width */
+                &::-webkit-scrollbar {
+                    width: 10px;
+                }
+
+                /* Track */
+                &::-webkit-scrollbar-track {
+                    background: $color_dialog_bg;
+                    margin: 0 0;
+                }
+
+                /* Handle */
+                &::-webkit-scrollbar-thumb {
+                    background: $color_dialog_border;
+                    border: $color_dialog_border 2.5px solid;
+                }
+            }
+        }
+
         .pnlDialogMsgMaintain {
             position: relative;
             width: 616px;
@@ -4562,6 +4632,22 @@ body {
             width: 100%;
         }
 
+        .lblLive {
+            position: absolute;
+            display: block;
+            top: 9px;
+            left: 4px;
+            height: 13px;
+            line-height: 13px;
+            color: white;
+            font-family: $font_family;
+            font-weight: bolder;
+            font-size: 8px;
+            padding: 3px 6px;
+            border-radius: 2px;
+            background: #ff0000;
+        }
+
         .lblLectureName {
             position: relative;
             display: block;
@@ -4656,6 +4742,10 @@ body {
 
                 .imgIconDel {
                     background-image: url("~@/assets/img/SURREALM/Backend/LectureManager/icon_delete.png");
+                }
+
+                .imgIconLive {
+                    background-image: url("~@/assets/img/SURREALM/Backend/LectureManager/icon_live.png");
                 }
             }
         }
@@ -5880,12 +5970,12 @@ body {
                 border-right: 0;
             }
 
-            .item-del{
+            .item-del {
                 position: relative;
                 float: right;
                 padding: 9px 28px;
 
-                &:hover{
+                &:hover {
                     cursor: pointer;
                     opacity: 0.6;
                 }

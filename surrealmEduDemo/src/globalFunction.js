@@ -146,6 +146,16 @@ exports.install = function (Vue) {
         return JSON.parse(JSON.stringify(Array));
     };
 
+    Vue.prototype.IsLiveTime = function (LectureStartDt, LectureEndDt) {
+        let IsLive = this.$router.currentRoute.name.toLowerCase().includes('client') ? true : false;
+        if (IsLive) {
+            let CurrentDt = new Date();
+            LectureStartDt.setMinutes(LectureStartDt.getMinutes() - 10); //課程開始前十分鐘即可入場
+            IsLive = LectureStartDt.getTime() <= CurrentDt.getTime() && CurrentDt.getTime() <= LectureEndDt.getTime() ? true : false;
+        }
+        return IsLive;
+    };
+
     Vue.prototype.TokenEncode = function (Token) {
         //Token ex: 2_Web_SuperAdmin_56431b7e-a9fb-4ebc-bedd-667ca49ae8d7
         //_轉@, serial*10, 換位子

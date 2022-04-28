@@ -260,6 +260,8 @@ module.exports = {
       ShowLectureCode: "顯示課程碼",
       EditLecture: "修改課程",
       DelLecture: "刪除課程",
+      Live: "LIVE",
+      ShowLive: "觀看直播",
     },
     LectureCode: {
       Code: "課程邀請碼",
@@ -411,6 +413,20 @@ module.exports = {
     QA: {
       QAFile: "資料必須為有效的「網頁」格式。<br>如該資料為雲端硬碟內的連結，請將權限設為公開，才能正常開啟。",
       QAComfirm: "確認",
+    },
+    LIVE: {
+      ChkID: {
+        Title: "身分驗證",
+        Msg: "請問是否以 {msg} 身分出席本課程",
+        RightBtn: "是",
+        LeftBtn: "否",
+      },
+      Err: {
+        Prepare: "課程即將開始。",
+        Wait: "直播已中斷，請耐心等候。",
+        NotAllow: "此課程未開放直播",
+        NotStart: "此課程尚未開始",
+      }
     },
     Download: {
       PlzSelectApk: "請選擇對應的VR頭盔種類 :",
