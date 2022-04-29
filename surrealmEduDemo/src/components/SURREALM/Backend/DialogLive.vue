@@ -26,7 +26,6 @@
   </div>
 </template>
 <script>
-//import { apiGetVideoList } from '@/request.js';
 import DialogMsg from '@/components/SURREALM/Backend/DialogMsg.vue';
 import StreamingView from '@/components/SURREALM/Backend/StreamingView.vue';
 

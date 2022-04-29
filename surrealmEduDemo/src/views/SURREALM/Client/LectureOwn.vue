@@ -19,6 +19,7 @@
             :key="lecture.Serial"
             :LectureInfo="lecture"
             @into-lecture="IntoLecture"
+            @show-live="ShowLiveDialog"
           />
         </template>
         <div style="clear: both"></div>
@@ -33,6 +34,7 @@
             :key="lecture.Serial"
             :LectureInfo="lecture"
             @into-lecture="IntoLecture"
+            @show-live="ShowLiveDialog"
           />
         </template>
       </div>
@@ -44,6 +46,9 @@
       >
         <button class="btn" @click="BackList()">
           {{ $t('SURREALM.LectureOwn.BtnBack') }}
+        </button>
+        <button class="btn" @click="WatchLive()">
+          {{ $t('SURREALM.LectureItem.ShowLive') }}
         </button>
       </TitleBar>
       <div class="lectureManager">
@@ -79,6 +84,14 @@
         </div>
       </div>
     </div>
+
+    <DialogLive
+      :show="dialogLive.show"
+      :title="dialogLive.lectureTitle"
+      :serial="dialogLive.serial"
+      :code="dialogLive.lectureCode"
+      @close-dialog="CloseLiveDialog"
+    ></DialogLive>
   </div>
 </template>
 
@@ -87,6 +100,7 @@ import Header from '@/components/SURREALM/Client/Header.vue';
 import Menu from '@/components/SURREALM/Client/Menu.vue';
 import TitleBar from '@/components/SURREALM/Backend/TitleBar.vue';
 import LectureItem from '@/components/SURREALM/Backend/LectureItem.vue';
+import DialogLive from '@/components/SURREALM/Backend/DialogLive.vue';
 import { apiGetLectureStudent, apiGetAllLectureType } from '@/request.js';
 
 export default {
@@ -96,8 +110,15 @@ export default {
   },
   data() {
     return {
+      dialogLive: {
+        show: false,
+        lectureTitle: '',
+        serial: null,
+        lectureCode: '',
+      },
       Lectures: [],
       LectureSelect: null,
+      LectureType: null,
     };
   },
   computed: {
@@ -163,12 +184,59 @@ export default {
     GetRoomName() {
       return this.RoomTypeToName(this.LectureType, this.LectureSelect.Lecture.Type);
     },
+    WatchLive() {
+      let StartDt = new Date(this.LectureSelect.Lecture.Date);
+      let StartTime = this.LectureSelect.Lecture.Time[0].split(':');
+      StartDt.setHours(StartTime[0]);
+      StartDt.setMinutes(StartTime[1]);
+      let EndDt = new Date(this.LectureSelect.Lecture.Date);
+      let EndTime = this.LectureSelect.Lecture.Time[1].split(':');
+      EndDt.setHours(EndTime[0]);
+      EndDt.setMinutes(EndTime[1]);
+
+      let data = {
+        StartDt: StartDt,
+        EndDt: EndDt,
+        LectureTitle: this.LectureSelect.Lecture.Name,
+        LectureCode: this.LectureSelect.LectureCode,
+        Serial: this.LectureSelect.Serial,
+        IsStreaming: this.LectureSelect.Lecture.IsStreaming,
+      };
+      this.ShowLiveDialog(data);
+    },
+    ShowLiveDialog(data) {
+      let bool = this.IsLiveTime(data.StartDt, data.EndDt);
+      if (data.IsStreaming != 'T') {
+        this.$toasted.show(this.$t('SURREALM.LIVE.Err.NotAllow'), {
+          icon: 'warning',
+          position: 'bottom-center',
+          duration: 3500,
+        });
+      } else if (bool) {
+        this.dialogLive.show = true;
+        this.dialogLive.lectureTitle = data.LectureTitle;
+        this.dialogLive.lectureCode = data.LectureCode;
+        this.dialogLive.serial = data.Serial;
+      } else {
+        this.$toasted.show(this.$t('SURREALM.LIVE.Err.NotStart'), {
+          icon: 'warning',
+          position: 'bottom-center',
+          duration: 3500,
+        });
+      }
+    },
+    CloseLiveDialog() {
+      this.dialogLive.show = false;
+      this.dialogLive.lectureTitle = '';
+      this.dialogLive.serial = null;
+    },
   },
   components: {
     Header,
     Menu,
     TitleBar,
     LectureItem,
+    DialogLive,
   },
 };
 </script>
