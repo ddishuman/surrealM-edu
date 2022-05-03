@@ -73,6 +73,10 @@
             <label class="infoTitle">{{ `${$t('SURREALM.LectureOwn.LectureType')}` }}</label>
             <label class="infoContent">{{ GetRoomName() }}</label>
           </div>
+          <div class="infoItem">
+            <label class="infoTitle">{{ `${$t('SURREALM.LectureOwn.LectureStream')}` }}</label>
+            <label class="infoContent">{{ IsStreamingAllow(LectureSelect.Lecture.IsStreaming) }}</label>
+          </div>
           <!-- <div class="infoItem">
             <label class="infoTitle">{{ `${$t('SURREALM.LectureOwn.LectureNum')}` }}</label>
             <label class="infoContent">{{ CalcPeopleMax() }}</label>

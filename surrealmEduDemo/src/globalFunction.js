@@ -131,6 +131,12 @@ exports.install = function (Vue) {
         return text;
     }
 
+    Vue.prototype.IsStreamingAllow = function (value) {
+        return value == 'T'
+            ? this.$t('SURREALM.LectureOwn.AllowStream')
+            : this.$t('SURREALM.LectureOwn.NotAllowStream');
+    };
+
     Vue.prototype.GetRoomType = function () {
         let data = [
             { Text: '請選擇', Type: '', Value: 0 },

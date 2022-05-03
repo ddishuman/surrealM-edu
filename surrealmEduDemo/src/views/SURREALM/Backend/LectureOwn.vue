@@ -95,6 +95,10 @@
             <label class="infoContent">{{ LectureSelect.Lecture.Auth }}</label>
           </div> -->
           <div class="infoItem">
+            <label class="infoTitle">{{ `${$t('SURREALM.LectureOwn.LectureStream')}` }}</label>
+            <label class="infoContent">{{ IsStreamingAllow(LectureSelect.Lecture.IsStreaming) }}</label>
+          </div>
+          <div class="infoItem">
             <label class="infoTitle">{{ `${$t('SURREALM.LectureOwn.StudentList')}` }}</label>
             <div class="studentItems">
               <label v-for="item in LectureSelect.Student" :key="item.Serial" class="item">{{ item.Name }}</label>

@@ -398,7 +398,17 @@ export default {
     },
     show(bool) {
       if (!bool) {
-        this.Lecture = { Name: '', Date: '', Time: [], Type: '100', Auth: 'private', Des: '', Image: '', Models: [] };
+        this.Lecture = {
+          Name: '',
+          Date: '',
+          Time: [],
+          Type: '100',
+          Auth: 'private',
+          IsStreaming: false,
+          Des: '',
+          Image: '',
+          Models: [],
+        };
         this.Student.Select = [];
         this.Serial = null;
         this.LectureCode = '';

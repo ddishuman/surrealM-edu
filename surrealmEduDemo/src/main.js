@@ -23,8 +23,8 @@ Vue.config.productionTip = false;
 Vue.use(new VueSocketIO({
   debug: false,
   //connection: 'http://192.168.1.174:3000',
-  //connection: 'https://socketiouat.surreal.com.tw',
-  connection: 'https://socketio.surreal.com.tw',
+  connection: 'https://socketiouat.surreal.com.tw',
+  //connection: 'https://socketio.surreal.com.tw',
 
   options: {
     path: "",
