@@ -156,8 +156,6 @@ export default {
       return date > today;
     },
     IntoLecture(Serial) {
-      //TODO API /studentfinishedrecord/' + serial (get)
-      //要多帶 LectureSelect.Lecture.IsStreaming
       apiGetFinishLectureDetailStudent(Serial).then((res) => {
         if (res.data.Status == 'ok') {
           this.LectureSelect = res.data.LectureSelect;

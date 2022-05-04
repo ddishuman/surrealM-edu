@@ -189,10 +189,7 @@ export default {
       return date > today;
     },
     IntoLecture(Serial) {
-      //TODO API /finishedrecord/' + serial (get)
-      //要多帶 LectureSelect.Lecture.IsStreaming
       apiGetFinishLectureDetail(Serial).then((res) => {
-        console.log('apiGetFinishLectureDetail:' + JSON.stringify(res.data));
         if (res.data.Status == 'ok') {
           this.LectureSelect = res.data.LectureSelect;
         } else {

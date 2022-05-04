@@ -85,7 +85,7 @@
               </div>
             </div>
             <div class="keyinSubContent lectureStream">
-              <input type="checkbox" id="Stream" v-model="Lecture.IsStreaming" />
+              <input type="checkbox" id="Stream" v-model="Lecture.IsStreaming" :disabled="StreamingAuth" />
               <label for="Stream"><span></span>{{ $t('SURREALM.LectureOwn.AllowStream') }}</label>
             </div>
             <div class="keyinTitle">{{ $t('SURREALM.LectureOwn.LectureDes') }}</div>
@@ -354,6 +354,7 @@ export default {
         Serial: null,
         Index: null,
       },
+      StreamingAuth: false,
     };
   },
   mounted() {
@@ -362,6 +363,7 @@ export default {
     this.GetTags();
     this.GetModels();
     this.GetLectureType();
+    this.StreamingAuth = localStorage.getItem('StreamingAuth') == 'T' ? false : true;
   },
   computed: {
     SchoolCurrentPeople: function () {

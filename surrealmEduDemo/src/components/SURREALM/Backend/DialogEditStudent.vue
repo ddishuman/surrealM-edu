@@ -11,13 +11,14 @@
           <label class="keyinTitle">{{ $t('SURREALM.StudentManager.StudentEmail') }}</label>
           <label class="labelContent">{{ Info.Email }}</label>
           <label class="keyinTitle">{{ $t('SURREALM.StudentManager.StudentName') }}</label>
-          <input
+          <label class="labelContent">{{ Info.Name }}</label>
+          <!-- <input
             class="keyinContent"
             type="text"
             v-model.trim="Info.Name"
             maxlength="20"
             :placeholder="$t('SURREALM.StudentManager.Placeholder.Name')"
-          />
+          /> -->
           <label class="keyinTitle">{{ $t('SURREALM.StudentManager.StudentNickName') }}</label>
           <input
             class="keyinContent"
@@ -80,13 +81,14 @@ export default {
     },
     CheckEditStudent() {
       let ErrMsg = '';
-      if (this.Info.Name == '') {
-        ErrMsg = this.$t('SURREALM.StudentManager.Placeholder.Name');
-      }
-      // else if(this.Info.NickName == '')
-      // {
-      //   ErrMsg = this.$t('SURREALM.StudentManager.Placeholder.Nickname');
+      // if (this.Info.Name == '') {
+      //   ErrMsg = this.$t('SURREALM.StudentManager.Placeholder.Name');
       // }
+      // else 
+      if(this.Info.NickName == '')
+      {
+        ErrMsg = this.$t('SURREALM.StudentManager.Placeholder.Nickname');
+      }
       return ErrMsg;
     },
     EditStudent() {

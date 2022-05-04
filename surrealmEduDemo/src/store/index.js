@@ -61,9 +61,7 @@ export default new Vuex.Store({
             localStorage.setItem('Photo', resp.Data.Photo);
             localStorage.setItem('Token', Vue.prototype.TokenEncode(resp.Data.Token));
             localStorage.setItem('StudentNo', resp.Data.StudentNo);
-            //TODO API Login 要多帶這個老師 可不可以開直播課程
-            //要帶該老師的Admin 表01 Streaming過來
-            //for 後續AddLectureDialog 勾選enable使用
+            localStorage.setItem('StreamingAuth', resp.Data.Streaming);
           }
           resolve(resp);
         });
