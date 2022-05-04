@@ -5119,6 +5119,72 @@ body {
     }
 }
 
+.pnlStreamingArea {
+    position: relative;
+    width: 100%;
+    height: 448px;
+    background: black;
+    overflow-y: hidden;
+
+    .hintTxt {
+        width: 100%;
+        line-height: 448px;
+        text-align: center;
+        font-family: $font_family;
+        font-size: 22px;
+        color: white;
+    }
+
+    .pnlImgArea {
+        height: 100%;
+        line-height: 0;
+
+        #DisplayImg {
+            width: 100%;
+            height: 100%;
+            margin-top: 0;
+            object-fit: contain;
+        }
+
+        .pnlStreamToolBar {
+            display: block;
+            position: absolute;
+            width: 100%;
+            height: 40px;
+            bottom: 0px;
+            right: 0px;
+            background: $color_null;
+
+            .bntfullscreen {
+                position: absolute;
+                display: none;
+                width: 20px;
+                height: 20px;
+                bottom: 10px;
+                right: 20px;
+                border: 0;
+                background-image: url("~@/assets/img/SURREALM/Backend/StreamingView/fullscreen.png");
+                background-position: center center;
+                background-repeat: no-repeat;
+                background-size: 20px 20px;
+                background-color: $color_null;
+
+                &:hover {
+                    cursor: pointer;
+                }
+            }
+
+            &:hover {
+                background: $color_model_bg;
+
+                .bntfullscreen {
+                    display: block;
+                }
+            }
+        }
+    }
+}
+
 .hintIconArea {
     position: relative;
     float: right;

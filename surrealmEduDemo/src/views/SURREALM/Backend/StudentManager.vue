@@ -267,7 +267,6 @@ export default {
     },
     GetStudent(tagSerial) {
       apiGetStudentDetailByTag(tagSerial).then((res) => {
-        console.log('apiGetStudentDetailByTag:' + JSON.stringify(res.data));
         if (res.data.Status == 'ok') {
           this.Student.Data = res.data.Student;
           this.Student.Data.forEach((t) => {

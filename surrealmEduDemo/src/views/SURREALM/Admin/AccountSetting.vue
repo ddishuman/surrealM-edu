@@ -161,10 +161,8 @@ export default {
     },
     DelUser() {
       let IndexOf = this.UserInfo.Users.findIndex((user) => user.Serial == this.dialogDelUser.Serial);
-      console.log(`apiDelAccount  Serial:${this.dialogDelUser.Serial}`);
       if (IndexOf >= 0) {
         apiDelAccount(Number(this.dialogDelUser.Serial)).then((res) => {
-          console.log(`apiDelAccount res: ${JSON.stringify(res.data)}`);
           if (res.data.Status == 'ok') {
             this.UserInfo.Users.splice(IndexOf, 1);
             this.CloseDelUser();
