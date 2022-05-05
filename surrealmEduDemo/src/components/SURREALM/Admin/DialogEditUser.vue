@@ -16,8 +16,6 @@
   </div>
 </template>
 <script>
-//import { apiAddAccount } from '@/request.js';
-
 export default {
   name: 'DialogEditUser',
   props: {

@@ -10,7 +10,7 @@ import VueSocketIO from 'vue-socket.io'
 
 import './assets/scss/main.scss'
 
-Vue.use(gFunction); 
+Vue.use(gFunction);
 Vue.use(VueI18n);
 const i18n = new VueI18n({
   locale: localStorage.getItem("nowLanguageID") || 'zh-TW', // 語言標識

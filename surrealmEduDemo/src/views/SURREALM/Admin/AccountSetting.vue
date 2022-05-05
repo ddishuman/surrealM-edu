@@ -61,7 +61,7 @@ import DialogAddUser from '@/components/SURREALM/Admin/DialogAddUser.vue';
 import DialogEditUser from '@/components/SURREALM/Admin/DialogEditUser.vue';
 import DialogMsg from '@/components/SURREALM/Admin/DialogMsg.vue';
 import DialogImport from '@/components/SURREALM/Admin/DialogImport.vue';
-import { apiGetAdminAccount, apiDelAccount } from '@/request.js';
+import { apiGetAdminAccount, apiDelAccount, apiUpdateAccountName } from '@/request.js';
 
 export default {
   mounted() {
@@ -206,17 +206,24 @@ export default {
       this.dialogEditUser.Name = '';
     },
     EditDown(Data) {
-      console.log(`EditDown data:${JSON.stringify(Data)}`);
-      //TODO API 修改 h02 Name
-      // {"Serial":1,"Name":"Ian878"}
-      let indexOf = this.UserInfo.Users.findIndex((obj) => obj.Serial == Data.Serial);
-      if (indexOf >= 0) {
-        this.UserInfo.Users[indexOf].Name = Data.Name;
-      }
-      this.$toasted.show('修改完成', {
-        icon: 'check',
-        position: 'bottom-center',
-        duration: 3500,
+      apiUpdateAccountName(Data).then((res) => {
+        if (res.data.Status == 'ok') {
+          let indexOf = this.UserInfo.Users.findIndex((obj) => obj.Serial == Data.Serial);
+          if (indexOf >= 0) {
+            this.UserInfo.Users[indexOf].Name = Data.Name;
+          }
+          this.$toasted.show('修改完成', {
+            icon: 'check',
+            position: 'bottom-center',
+            duration: 3500,
+          });
+        } else {
+          this.$toasted.show(this.$t('SURREALM.ApiErr') + res.data.Code, {
+            icon: 'warning',
+            position: 'bottom-center',
+            duration: 3500,
+          });
+        }
       });
     },
   },
