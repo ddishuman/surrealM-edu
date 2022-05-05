@@ -6,6 +6,7 @@
     </div>
     <div class="user-table-scrollarea">
       <div class="user-table-item" v-for="u in UserInfo" :key="u.Serial">
+        <img class="item-edit" src="@/assets/img/SURREALM/Admin/icon_edit_gray.png" @click="ShowEditUserDialog(u)" />
         <label class="item-name">{{ u.Name }}</label>
         <label class="item-acc">{{ u.Account }}</label>
         <img class="item-del" :src="GetInfoDel" @click="ShowDelUserDialog(u.Serial)" />
@@ -58,6 +59,9 @@ export default {
   methods: {
     ShowDelUserDialog(Serial) {
       this.$emit('show-del', Serial);
+    },
+    ShowEditUserDialog(UserInfo) {
+      this.$emit('show-edit', UserInfo);
     },
     // SelectedStyle(Selected) {
     //   return Selected ? 'select' : 'unselect';

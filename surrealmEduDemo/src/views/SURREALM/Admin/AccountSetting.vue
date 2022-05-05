@@ -32,7 +32,7 @@
       </div>
       <div class="clear-both"></div>
       <div class="user-area">
-        <UserTable :UserInfo="FilterUserInfo" :Type="CurrentTab" @show-del="ShowDelUser" />
+        <UserTable :UserInfo="FilterUserInfo" :Type="CurrentTab" @show-del="ShowDelUser" @show-edit="ShowEditUser" />
       </div>
     </div>
     <Footer />
@@ -40,6 +40,13 @@
     <DialogAddUser :Show="dialogAddUser.Show" @close-dialog="CloseAddUser" @add-down="AddDown" />
     <DialogMsg :Show="dialogMsg.Show" :Msg="dialogMsg.Msg" @close-dialog="CloseMsg" />
     <DialogImport :Show="dialogImport.Show" @close-dialog="CloseImportUser" @import-down="ImportDown" />
+    <DialogEditUser
+      :Show="dialogEditUser.Show"
+      :Name="dialogEditUser.Name"
+      :Serial="dialogEditUser.Serial"
+      @close-dialog="CloseEditUser"
+      @edit-down="EditDown"
+    />
   </div>
 </template>
 
@@ -51,6 +58,7 @@ import Footer from '@/components/SURREALM/Admin/Footer.vue';
 import UserTable from '@/components/SURREALM/Admin/UserTable.vue';
 import DialogDelUser from '@/components/SURREALM/Admin/DialogDelUser.vue';
 import DialogAddUser from '@/components/SURREALM/Admin/DialogAddUser.vue';
+import DialogEditUser from '@/components/SURREALM/Admin/DialogEditUser.vue';
 import DialogMsg from '@/components/SURREALM/Admin/DialogMsg.vue';
 import DialogImport from '@/components/SURREALM/Admin/DialogImport.vue';
 import { apiGetAdminAccount, apiDelAccount } from '@/request.js';
@@ -77,6 +85,11 @@ export default {
       },
       dialogImport: {
         Show: false,
+      },
+      dialogEditUser: {
+        Show: false,
+        Serial: 0,
+        Name: '',
       },
     };
   },
@@ -182,6 +195,30 @@ export default {
     DownloadImportExample() {
       window.open('https://surreal-edu.s3.ap-northeast-1.amazonaws.com/surrealm/files/surrealm_admin_import.xlsx');
     },
+    ShowEditUser(UserInfo) {
+      this.dialogEditUser.Show = true;
+      this.dialogEditUser.Serial = UserInfo.Serial;
+      this.dialogEditUser.Name = UserInfo.Name;
+    },
+    CloseEditUser() {
+      this.dialogEditUser.Show = false;
+      this.dialogEditUser.Serial = 0;
+      this.dialogEditUser.Name = '';
+    },
+    EditDown(Data) {
+      console.log(`EditDown data:${JSON.stringify(Data)}`);
+      //TODO API 修改 h02 Name
+      // {"Serial":1,"Name":"Ian878"}
+      let indexOf = this.UserInfo.Users.findIndex((obj) => obj.Serial == Data.Serial);
+      if (indexOf >= 0) {
+        this.UserInfo.Users[indexOf].Name = Data.Name;
+      }
+      this.$toasted.show('修改完成', {
+        icon: 'check',
+        position: 'bottom-center',
+        duration: 3500,
+      });
+    },
   },
   components: {
     Header,
@@ -193,6 +230,7 @@ export default {
     DialogMsg,
     DialogImport,
     UserTable,
+    DialogEditUser,
   },
 };
 </script>
