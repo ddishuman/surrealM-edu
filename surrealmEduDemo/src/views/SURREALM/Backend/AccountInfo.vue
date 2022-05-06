@@ -197,8 +197,6 @@ export default {
         errMsg = this.$t('SURREALM.AccountInfo.Err.NameEmpty');
       } else if (this.info.Sex == '') {
         errMsg = this.$t('SURREALM.AccountInfo.Err.SexEmpty');
-      } else if (this.info.Birthday == null) {
-        errMsg = this.$t('SURREALM.AccountInfo.Err.BirthdayEmpty');
       } else if (this.info.Nickname == '') {
         errMsg = this.$t('SURREALM.AccountInfo.Err.NicknameEmpty');
       } else if (this.info.School == '') {

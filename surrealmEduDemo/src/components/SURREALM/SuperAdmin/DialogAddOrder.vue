@@ -32,7 +32,7 @@
             <div class="account-type" style="margin-left: 34px">學生</div>
             <input class="account-no" type="text" v-model.trim="Info.StudentNo" placeholder="數字" />
           </div>
-          <div class="content-title">同時上線數</div>
+          <div class="content-title">同時上線數*</div>
           <div class="content-desc">
             <input class="input-edit" type="text" v-model.trim="Info.MaxOnlineNo" placeholder="數字" />
           </div>

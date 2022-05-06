@@ -94,7 +94,6 @@ export default {
       if (ErrMsg == '') {
         this.loadingInfo.isLoading = true;
         apiAddContact(data).then((res) => {
-          //console.log('apiAddContact' + JSON.stringify(res.data));
           if (res.data.Status == 'ok') {
             data.Serial = res.data.Serial;
             data.Selected = false;

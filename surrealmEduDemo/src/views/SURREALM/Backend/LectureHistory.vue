@@ -94,9 +94,12 @@
             <label class="infoTitle">{{ `${$t('SURREALM.LectureHistory.AttendAndPeopleNumber')}` }}</label>
             <label class="infoContent">{{ `${LectureSelect.AttendNumber} / ${LectureSelect.PeopleNumber}` }}</label>
           </div>
-
           <div class="infoItem">
             <label class="infoTitle">{{ `${$t('SURREALM.LectureOwn.StudentList')}` }}</label>
+            <div class="hintIconArea">
+              <img class="hintIcon" src="@/assets/img/SURREALM/Backend/LectureManager/icon_hint.png" />
+              <div class="hintTxt">{{ $t('SURREALM.LectureHistory.HintStudentList') }}</div>
+            </div>
             <div class="studentItems">
               <label
                 v-for="item in LectureSelect.Student"
@@ -233,8 +236,14 @@ export default {
     GetRoomName() {
       return this.RoomTypeToName(this.LectureType, this.LectureSelect.Lecture.Type);
     },
-    GetStudentAttendStyle(bool) {
-      return bool ? 'itemAttend' : 'itemUnAttend';
+    GetStudentAttendStyle(Status) {
+      if (Status == 'Mobile') {
+        return 'itemMobileAttend';
+      } else if (Status == 'Web') {
+        return 'itemWebAttend';
+      } else {
+        return 'itemUnAttend';
+      }
     },
     ShowDialogPost() {
       this.dialogPost.serial = this.LectureSelect.Serial;

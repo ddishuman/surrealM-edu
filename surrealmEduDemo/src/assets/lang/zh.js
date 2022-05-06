@@ -281,7 +281,8 @@ module.exports = {
       Record: "成績單",
       btnBack: "返回",
       TeacherName: '授課教師',
-      AttendAndPeopleNumber: "實到 / 應到人數"
+      AttendAndPeopleNumber: "實到 / 應到人數",
+      HintStudentList: "未出席學生顯示灰色，出席學生顯示黃色，透過直播出席的學生顯示綠色",
     },
     ClientLectureHistory: {
       PageName: "上課歷程",

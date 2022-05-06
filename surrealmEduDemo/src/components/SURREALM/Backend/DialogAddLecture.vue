@@ -66,7 +66,7 @@
                   {{ option.Text }}
                 </option>
               </select>
-              <!-- <div class="peopleMax">{{ `${this.$t('SURREALM.LectureOwn.PeopleMax')} ${PeopleMax}` }}</div> -->
+              <div class="peopleMax">{{ `${this.$t('SURREALM.LectureOwn.PeopleMax')} ${PeopleMax}` }}</div>
             </div>
             <div class="keyinTitle">{{ $t('SURREALM.LectureOwn.LectureAuth') }}</div>
             <div class="keyinSubContent lectureAuth">
@@ -77,17 +77,24 @@
               <!-- <input type="radio" id="check" value="check" v-model="Lecture.Auth" />
               <label for="check"><span></span>{{ $t('SURREALM.LectureOwn.NeedAuth') }}</label> -->
             </div>
-            <div class="keyinTitle">
-              {{ $t('SURREALM.LectureOwn.LectureStream') }}
-              <div class="hintIconArea">
-                <img class="hintIcon" src="@/assets/img/SURREALM/Backend/LectureManager/icon_hint.png" />
-                <div class="hintTxt">{{ $t('SURREALM.LectureOwn.AllowHint') }}</div>
+            <template v-if="StreamingAuth">
+              <div class="keyinTitle">
+                {{ $t('SURREALM.LectureOwn.LectureStream') }}
+                <div class="hintIconArea">
+                  <img class="hintIcon" src="@/assets/img/SURREALM/Backend/LectureManager/icon_hint.png" />
+                  <div class="hintTxt">{{ $t('SURREALM.LectureOwn.AllowHint') }}</div>
+                </div>
               </div>
-            </div>
-            <div class="keyinSubContent lectureStream">
-              <input type="checkbox" id="Stream" v-model="Lecture.IsStreaming" :disabled="StreamingAuth" />
-              <label for="Stream"><span></span>{{ $t('SURREALM.LectureOwn.AllowStream') }}</label>
-            </div>
+              <div class="keyinSubContent lectureStream">
+                <input type="checkbox" id="Stream" v-model="Lecture.IsStreaming" />
+                <label for="Stream"><span></span>{{ $t('SURREALM.LectureOwn.AllowStream') }}</label>
+              </div>
+            </template>
+            <template v-else>
+              <div class="keyinTitle"></div>
+              <div class="keyinSubContent lectureStream"></div>
+            </template>
+
             <div class="keyinTitle">{{ $t('SURREALM.LectureOwn.LectureDes') }}</div>
             <div class="keyinContent">
               <textarea
@@ -363,14 +370,15 @@ export default {
     this.GetTags();
     this.GetModels();
     this.GetLectureType();
-    this.StreamingAuth = localStorage.getItem('StreamingAuth') == 'T' ? false : true;
+    this.StreamingAuth = localStorage.getItem('StreamingAuth') == 'T' ? true : false;
   },
   computed: {
     SchoolCurrentPeople: function () {
       return this.Edu.CurrentNumber + this.Student.Select.length;
     },
     PeopleMax: function () {
-      return localStorage.getItem('StudentNo');
+      return 29;
+      //return localStorage.getItem('StudentNo');
       //return this.TypeOptions == null ? 0 : this.TypeOptions.find((obj) => obj.Type == this.Lecture.Type).Value;
     },
     FilterStudentList: function () {
