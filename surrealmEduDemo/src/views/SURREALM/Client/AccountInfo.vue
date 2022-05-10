@@ -202,8 +202,6 @@ export default {
         errMsg = this.$t('SURREALM.AccountInfo.Err.NicknameEmpty');
       } else if (this.info.School == '') {
         errMsg = this.$t('SURREALM.AccountInfo.Err.SchoolEmpty');
-      } else if (this.info.Subject == '') {
-        errMsg = this.$t('SURREALM.AccountInfo.Err.SubjectEmpty');
       }
       return errMsg;
     },

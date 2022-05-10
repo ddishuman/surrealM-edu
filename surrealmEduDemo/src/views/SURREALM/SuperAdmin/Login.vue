@@ -3,7 +3,7 @@
     <div class="login-area">
       <img src="@/assets/img/SURREALM/SuperAdmin/logo.png" class="login-logo" />
       <div class="login-keyin-area">
-        <h2 class="login-title">企業版Super Admin管理後台</h2>
+        <h2 class="login-title">教育版Super Admin管理後台</h2>
         <div class="login-desc">帳號</div>
         <input type="text" class="login-input" v-model.trim="Account" :placeholder="Placeholder.Email" />
         <div class="login-desc">密碼</div>
