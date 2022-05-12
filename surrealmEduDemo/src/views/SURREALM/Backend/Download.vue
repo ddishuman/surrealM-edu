@@ -31,10 +31,10 @@
           {{ $t('SURREALM.Download.TeacherSop') }}
         </label>
         <br />
-        <label class="downloadItems" @click="DownloadFile(SelectHelmet.StudentSop)">
+        <!-- <label class="downloadItems" @click="DownloadFile(SelectHelmet.StudentSop)">
           {{ $t('SURREALM.Download.StudentSop') }}
         </label>
-        <br />
+        <br /> -->
       </div>
     </div>
   </div>
