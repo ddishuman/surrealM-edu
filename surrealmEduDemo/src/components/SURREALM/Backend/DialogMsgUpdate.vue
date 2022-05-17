@@ -87,7 +87,9 @@ export default {
         localStorage.setItem('SetDontAgainDateUTC8', CurrentDate.format('yyyy-MM-dd hh:mm:ss').toString());
       }
       this.CloseDialog();
-      this.$router.push({ path: '/SURREALM/Backend/Download' });
+      let Role = localStorage.getItem('Role');
+      let path = Role == 'Teacher'? '/SURREALM/Backend/Download' : '/SURREALM/Client/Download';
+      this.$router.push({ path: path });
     },
   },
 };
