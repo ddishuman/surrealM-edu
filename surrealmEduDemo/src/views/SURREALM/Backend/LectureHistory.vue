@@ -38,6 +38,7 @@
           <div class="infoAttend">{{ $t('SURREALM.LectureHistory.Attend') }}</div>
           <div class="infoRestart">{{ $t('SURREALM.LectureHistory.ReStart') }}</div>
           <div class="infoRecord">{{ $t('SURREALM.LectureHistory.Record') }}</div>
+          <div class="infoBonus">{{ $t('SURREALM.LectureHistory.Bonus') }}</div>
         </div>
         <div class="infoArea">
           <div class="infoItem" v-for="info in Lectures" :key="info.Serial">
@@ -51,6 +52,9 @@
               <img src="@/assets/img/SURREALM/Backend/LectureManager/icon_restart.png" />
             </div>
             <div class="infoRecord" @click="DownLoadRecord(info.Serial)">
+              <img src="@/assets/img/SURREALM/Backend/LectureManager/icon_download.png" />
+            </div>
+            <div class="infoBonus" @click="DownLoadBonus(info.Serial)">
               <img src="@/assets/img/SURREALM/Backend/LectureManager/icon_download.png" />
             </div>
           </div>
@@ -135,6 +139,7 @@ import {
   apiGetFinishLectureDetail,
   apiCopyLecture,
   apiTeacherGetRecord,
+  apiTeacherGetBonusRecord,
   apiGetLectureType,
 } from '@/request.js';
 
@@ -206,6 +211,9 @@ export default {
     },
     DownLoadRecord(Serial) {
       window.open(apiTeacherGetRecord + Serial);
+    },
+    DownLoadBonus(Serial) {
+      window.open(apiTeacherGetBonusRecord + Serial);
     },
     ReStartLecture(Serial) {
       apiCopyLecture(Serial, {}).then((res) => {

@@ -279,6 +279,7 @@ module.exports = {
       Attend: "學生出席統計",
       ReStart: "再次開課",
       Record: "成績單",
+      Bonus: "課堂分數",
       btnBack: "返回",
       TeacherName: '授課教師',
       AttendAndPeopleNumber: "實到 / 應到人數",

@@ -1471,7 +1471,8 @@ body {
             .infoTeacherName,
             .infoAttend,
             .infoRestart,
-            .infoRecord {
+            .infoRecord,
+            .infoBonus {
                 position: relative;
                 float: left;
                 width: 156px;
@@ -1512,6 +1513,10 @@ body {
                 width: 125px;
             }
 
+            .infoBonus {
+                width: 125px;
+            }
+
             &::after {
                 display: block;
                 content: " ";
@@ -1521,7 +1526,7 @@ body {
 
         .infoArea {
             position: relative;
-            width: 988px;
+            width: 1113px;
             height: calc(100vh - 380px);
             background: $color_menu_bg;
             border-radius: 5px;
@@ -1546,7 +1551,8 @@ body {
                 .infoTeacherName,
                 .infoAttend,
                 .infoRestart,
-                .infoRecord {
+                .infoRecord,
+                .infoBonus {
                     position: relative;
                     float: left;
                     width: 156px;
@@ -1586,8 +1592,17 @@ body {
                         top: 9px;
                     }
                 }
-                .infoRecord {
-                    width: calc(100% - 862px);
+
+                .infoRecord{
+                    width: 125px;
+                    img {
+                        position: relative;
+                        top: 9px;
+                    }
+                }
+
+                .infoBonus {
+                    width: calc(100% - 987px);
                     img {
                         position: relative;
                         top: 9px;
