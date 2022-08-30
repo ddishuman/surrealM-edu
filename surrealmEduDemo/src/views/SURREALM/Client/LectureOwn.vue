@@ -132,8 +132,8 @@ export default {
       threeDay.setDate(threeDay.getDate() + 3);
       return this.Lectures.filter((obj) => {
         let LectureDate = new Date(obj.Lecture.Date);
-        let hours = obj.Lecture.Time[1].split(':')[0];
-        let minutes = obj.Lecture.Time[1].split(':')[1];
+        let hours = obj.Lecture.Time[0].split(':')[0];
+        let minutes = obj.Lecture.Time[0].split(':')[1];
         LectureDate.setHours(hours);
         LectureDate.setMinutes(minutes);
         return today.getTime() <= LectureDate.getTime() && LectureDate.getTime() <= threeDay.getTime();
