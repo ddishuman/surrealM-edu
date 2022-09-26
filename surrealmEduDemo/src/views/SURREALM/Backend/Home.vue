@@ -72,7 +72,6 @@ export default {
   },
   computed: {
     FilterLectureNew: function () {
-      let today = new Date();
       let threeDay = new Date();
       threeDay.setDate(threeDay.getDate() + 3);
       return this.Lectures.filter((obj) => {
@@ -81,7 +80,7 @@ export default {
         let minutes = obj.Lecture.Time[0].split(':')[1];
         LectureDate.setHours(hours);
         LectureDate.setMinutes(minutes);
-        return today.getTime() <= LectureDate.getTime() && LectureDate.getTime() <= threeDay.getTime();
+        return LectureDate.getTime() <= threeDay.getTime();
       });
     },
   },
