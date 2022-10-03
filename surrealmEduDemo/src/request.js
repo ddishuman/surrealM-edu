@@ -7,11 +7,11 @@ import Vue from 'vue'
 // const apiServer = "http://192.168.1.98:5600/";
 // const webServer = "http://192.168.1.98:8887/";
 
-// const apiServer = "https://surrealmedudemoapi.surreal.com.tw/";
-// const webServer = "https://surrealmedudemo.surreal.com.tw/";
+const apiServer = "https://surrealmedudemoapi.surreal.com.tw/";
+const webServer = "https://surrealmedudemo.surreal.com.tw/";
 
-const apiServer = "https://surrealmeduapi.surreal.com.tw/";
-const webServer = "https://surrealmedu.surreal.com.tw/";
+// const apiServer = "https://surrealmeduapi.surreal.com.tw/";
+// const webServer = "https://surrealmedu.surreal.com.tw/";
 
 
 let loginRequest = axios.create({
@@ -341,6 +341,14 @@ export const apiGeMaxUsingNo = (date, starttime, endtime, serial) => modelReques
 
 
 
+export const apiGetNewLectureStudent = (serial, date, starttime, endtime) => modelRequest.get(`/newlecturestudent/${serial}/${date}/${starttime}/${endtime}`, {
+    headers: {
+        accessToken: Vue.prototype.TokenDecode(localStorage.getItem('Token'))
+    },
+})
+
+
+
 /************ Admin ************/
 
 export const apiUpdateAdminAccount = (data) => loginRequest.patch('/adminaccount', data)
@@ -446,6 +454,3 @@ export const apiPatchAdminDetail = (data) => modelRequest.patch('/admindetail', 
         accessToken: Vue.prototype.TokenDecode(localStorage.getItem('SuperAdminToken'))
     },
 })
-
-
-

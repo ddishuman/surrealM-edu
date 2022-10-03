@@ -431,8 +431,8 @@ module.exports = {
       }
     },
     Download: {
-      PlzSelectApk: "請選擇對應的VR頭盔種類 :",
-      Apk: "※ 頭盔安裝檔下載 (版本:{version}  更新日期:{date})",
+      PlzSelectApk: "請選擇對應的硬體設備種類 :",
+      Apk: "※ 安裝檔下載 (版本:{version}  更新日期:{date})",
       InstallSop: "※ 安裝教學下載",
       TeacherSop: "※ 教師使用手冊下載",
       StudentSop: "※ 學生使用手冊下載",

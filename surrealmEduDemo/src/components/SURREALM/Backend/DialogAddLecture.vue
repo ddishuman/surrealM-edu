@@ -281,7 +281,7 @@ import Loading from 'vue-loading-overlay';
 import 'vue-loading-overlay/dist/vue-loading.css';
 import {
   apiGetTag,
-  apiGetStudentDetailByTag,
+  apiGetNewLectureStudent,
   apiAddLink,
   apiGetLink,
   apiDelLink,
@@ -365,7 +365,6 @@ export default {
     };
   },
   mounted() {
-    this.GetStudent(this.Student.Tag);
     this.GetLinks();
     this.GetTags();
     this.GetModels();
@@ -472,6 +471,7 @@ export default {
           } else {
             this.CurrentStep = this.CurrentStep + 2;
             this.Lecture.Models = [];
+            this.GetStudent(this.Student.Tag);
           }
         } else {
           this.$toasted.show(errMsg, {
@@ -484,6 +484,7 @@ export default {
         let errMsg = this.CheckStep2Info();
         if (errMsg == '') {
           this.CurrentStep++;
+          this.GetStudent(this.Student.Tag);
         } else {
           this.$toasted.show(errMsg, {
             icon: 'warning',
@@ -740,7 +741,7 @@ export default {
       // ];
     },
     GetStudent(tag) {
-      apiGetStudentDetailByTag(tag).then((res) => {
+      apiGetNewLectureStudent(tag, this.Lecture.Date, this.Lecture.Time[0], this.Lecture.Time[1]).then((res) => {
         if (res.data.Status == 'ok') {
           this.Student.Data = res.data.Student;
         } else {

@@ -54,6 +54,7 @@ export default {
         { Text: 'Oculus Quest 1/2', Value: 'Quest' },
         { Text: 'VIVE Focus Plus', Value: 'FocusPlus' },
         { Text: 'VIVE Focus 3', Value: 'Focus3' },
+        { Text: 'Android', Value: 'Android' },
       ],
       SelectHelmet: {
         Value: 'Quest',
