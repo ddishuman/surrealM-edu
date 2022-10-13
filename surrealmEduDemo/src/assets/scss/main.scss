@@ -1593,7 +1593,7 @@ body {
                     }
                 }
 
-                .infoRecord{
+                .infoRecord {
                     width: 125px;
                     img {
                         position: relative;
@@ -2670,6 +2670,13 @@ body {
                         &::-webkit-scrollbar-thumb {
                             background: $color_dialog_border;
                             border: $color_dialog_border 2.5px solid;
+                        }
+
+                        .hintTxt {
+                            font-family: $font_family;
+                            font-size: 14px;
+                            color: white;
+                            margin-bottom: 10px;
                         }
 
                         .btnFilterStudent,
@@ -6074,7 +6081,7 @@ body {
                 border-right: 0;
             }
 
-            .item-name{
+            .item-name {
                 width: 143px;
             }
 

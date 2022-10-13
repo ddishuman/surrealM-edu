@@ -143,6 +143,7 @@
             }}</label>
             <div style="clear: both"></div>
             <div class="fliterArea">
+              <div class="hintTxt">※同時段已被其他老師預約的學生不會出現在清單中</div>
               <div
                 class="btnFilterStudent"
                 v-for="StudentItem in FilterStudentList"
