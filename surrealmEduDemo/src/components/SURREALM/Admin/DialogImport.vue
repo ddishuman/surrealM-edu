@@ -71,6 +71,7 @@ export default {
       var postforms = new FormData();
       postforms.append('file', event.target.files[0]);
       apiImportAccount(this.FirstWordUpperCase(this.Type), postforms).then((res) => {
+        // console.log('ImportUser res' + JSON.stringify(res.data));
         this.loadingInfo.isLoading = false;
         document.getElementById('fileAccount').value = '';
         if (res.data.Status == 'ok') {

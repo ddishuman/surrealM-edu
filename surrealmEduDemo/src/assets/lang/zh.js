@@ -4,7 +4,6 @@ module.exports = {
     ApiErr: "錯誤, code：",
     Login: {
       Login: "登入",
-      OpenIDLogin: "OpenID 登入",
       Account: "帳號",
       Password: "密碼",
       PlaceholderEmail: "請輸入信箱",

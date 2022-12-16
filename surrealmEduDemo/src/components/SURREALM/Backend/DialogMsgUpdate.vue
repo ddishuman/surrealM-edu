@@ -50,6 +50,10 @@ export default {
   },
   methods: {
     CloseDialog() {
+      if (this.DontShowAgain) {
+        let CurrentDate = new Date(this.DateToUTC8(new Date()));
+        localStorage.setItem('SetDontAgainDateUTC8', CurrentDate.format('yyyy-MM-dd hh:mm:ss').toString());
+      }
       this.Show = false;
     },
     CheckAPKVersion() {
@@ -82,13 +86,9 @@ export default {
       });
     },
     DownloadPage() {
-      if (this.DontShowAgain) {
-        let CurrentDate = new Date(this.DateToUTC8(new Date()));
-        localStorage.setItem('SetDontAgainDateUTC8', CurrentDate.format('yyyy-MM-dd hh:mm:ss').toString());
-      }
       this.CloseDialog();
       let Role = localStorage.getItem('Role');
-      let path = Role == 'Teacher'? '/SURREALM/Backend/Download' : '/SURREALM/Client/Download';
+      let path = Role == 'Teacher' ? '/SURREALM/Backend/Download' : '/SURREALM/Client/Download';
       this.$router.push({ path: path });
     },
   },
