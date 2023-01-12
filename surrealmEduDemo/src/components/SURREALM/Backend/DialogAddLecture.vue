@@ -604,9 +604,10 @@ export default {
         errMsg = this.$t('SURREALM.LectureOwn.Err.Type');
       } else if (this.Lecture.Auth == '') {
         errMsg = this.$t('SURREALM.LectureOwn.Err.Auth');
-      } else if (this.Lecture.Des.length < 10) {
-        errMsg = this.$t('SURREALM.LectureOwn.Err.Des');
-      }
+      } 
+      // else if (this.Lecture.Des.length < 10) {
+      //   errMsg = this.$t('SURREALM.LectureOwn.Err.Des');
+      // }
 
       // if (this.Lecture.Time.length != 0 && this.Lecture.Time[0] != null) {
       //   let LectureDate = new Date(this.Lecture.Date);

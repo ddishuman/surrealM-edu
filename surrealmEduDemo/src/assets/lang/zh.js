@@ -222,7 +222,7 @@ module.exports = {
       DelModel: "移除",
       Placeholder: {
         Name: "替您的課程取個名稱吧!",
-        Des: "請至少輸入10個字",
+        Des: "請輸入課程描述",
         StudentName: "請輸入學生名稱",
         ModelName: "請輸入模型名稱",
         Link: "請貼上雲端路徑連結",
@@ -234,7 +234,7 @@ module.exports = {
         Time: "請選擇授課時間",
         Type: "請選擇課程類型",
         Auth: "請選擇課程權限",
-        Des: "課程說明請至少輸入10個字",
+        Des: "請輸入課程描述",
         StudentLength: "請選擇學生",
         MaxStudent: "已達人數上限",
         AddRepeat: "重複新增",
