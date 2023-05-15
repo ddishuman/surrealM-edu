@@ -26,10 +26,21 @@
       <img class="imgIcon" src="@/assets/img/SURREALM/Backend/Menu/icon_student.png" />
       <label class="lblMenu">{{ $t('SURREALM.Menu.Student') }}</label>
     </div>
-    <div :class="GetMenuStyle('Files')" @click="PageFiles">
-      <img class="imgIcon" src="@/assets/img/SURREALM/Backend/Menu/icon_files.png" />
-      <label class="lblMenu">{{ $t('SURREALM.Menu.Files') }}</label>
-    </div>
+    <div :class="GetMenuBoxStyle('ClassDocs')" @click.self="PageFiles">
+      <img class="imgIcon" src="@/assets/img/SURREALM/Backend/Menu/icon_class_docs.png" @click.self="PageFiles" />
+      <label class="lblMenu" @click.self="PageLectureOwn">{{ $t('SURREALM.Menu.ClassDocs') }}</label>
+      <br />
+      <div class="pnlSubMenu">
+        <div :class="GetSubMenuStyle('Files')" @click="PageFiles">
+          <img class="imgSubMenu" src="@/assets/img/SURREALM/Backend/Menu/icon_files.png" />
+          <label class="lblSubMenu">{{ $t('SURREALM.Menu.Files') }}</label>
+        </div>
+        <div :class="GetSubMenuStyle('MaterialLib')" @click="PageMaterialLib">
+          <img class="imgSubMenu" src="@/assets/img/SURREALM/Backend/Menu/icon_material_lib.png" />
+          <label class="lblSubMenu">{{ $t('SURREALM.Menu.MaterialLib') }}</label>
+        </div>
+      </div>
+    </div>    
     <div :class="GetMenuStyle('Systems')" @click="PageSystems">
       <img class="imgIcon" src="@/assets/img/SURREALM/Backend/Menu/icon_system.png" />
       <label class="lblMenu">{{ $t('SURREALM.Menu.System') }}</label>
@@ -123,6 +134,12 @@ export default {
       if (this.nowTab != 'Files') {
         this.$router.push({ path: '/SURREALM/Backend/Files' });
         this.nowTab = 'Files';
+      }
+    },
+    PageMaterialLib() {
+      if (this.nowTab != 'MaterialLib') {
+        this.$router.push({ path: '/SURREALM/Backend/MaterialLib' });
+        this.nowTab = 'MaterialLib';
       }
     },
     PageSystems() {

@@ -141,6 +141,10 @@ body {
     background-repeat: no-repeat;
 }
 
+.iconSearch {
+    background-image: url("~@/assets/img/SURREALM/Backend/LectureManager/icon_search.png");
+}
+
 .iconEdit {
     background-image: url("~@/assets/img/SURREALM/Backend/StudentManager/icon_edit.png");
 }
@@ -2056,6 +2060,138 @@ body {
             margin-top: 15px;
             padding: 25px 0 250px 16px;
             box-sizing: border-box;
+        }
+    }
+
+    .materialLib {
+        position: relative;
+        height: calc(100vh - 90px - 23px - 90px);
+        padding-top: 13px;
+        box-sizing: border-box;
+        overflow: auto;
+
+        .toolArea {
+            margin-bottom: 10px;
+
+            &::after {
+                display: block;
+                content: " ";
+                clear: both;
+            }
+
+            .toolTitle {
+                position: relative;
+                display: inline-block;
+                font-family: $font_family;
+                font-size: 16px;
+                color: white;
+                margin-right: 23px;
+            }
+
+            .input-select {
+                display: inline-block;
+                width: 150px;
+                height: 40px;
+                line-height: 40px;
+                font-family: $font_family;
+                font-size: 15px;
+                color: white;
+                text-indent: 1em;
+                border: 1px solid $color_border;
+                border-radius: 2px;
+                box-sizing: border-box;
+                background: $color_edit_bg;
+                margin-right: 10px;
+
+                &:focus {
+                    outline: 0px;
+                }
+            }
+        }
+        .materialLibArea {
+            position: relative;
+            max-width: 1093px;
+            width: 100%;
+            margin: 22px 0 0;
+
+            .titleType,
+            .titleName,
+            .titleCategory,
+            .titleOperate {
+                position: relative;
+                float: left;
+                width: 259px;
+                height: 41px;
+                line-height: 41px;
+                text-align: center;
+                border: 1px solid $color_dialog_border;
+                font-family: $font_family;
+                font-size: 14px;
+                color: white;
+                box-sizing: border-box;
+                background: $color_lbl_bg;
+            }
+            .titleType, .titleCategory {
+                width: 200px;
+            }            
+            .titleName {
+                width: calc(100% - 400px - 240px);
+            }
+            .titleOperate {
+                width: 240px;
+            }
+
+            .scrollArea {
+                width: 100%;
+                height: calc(100vh - 390px);
+                overflow: auto;
+                background: $color_menu_bg;
+
+                /* width */
+                &::-webkit-scrollbar {
+                    width: 10px;
+                }
+
+                /* Track */
+                &::-webkit-scrollbar-track {
+                    background: $color_menu_bg;
+                    margin: 0 0;
+                }
+
+                /* Handle */
+                &::-webkit-scrollbar-thumb {
+                    background: $color_dialog_border;
+                    border: $color_dialog_border 2.5px solid;
+                }
+
+                .titleType,
+                .titleName,
+                .titleCategory,
+                .titleOperate {
+                    position: relative;
+                    float: left;
+                    width: 259px;
+                    height: 60px;
+                    line-height: 60px;
+                    text-align: center;
+                    border: 0;
+                    border-bottom: 1px solid $color_dialog_border;
+                    font-family: $font_family;
+                    font-size: 14px;
+                    color: white;
+                    background: $color_null;
+                    box-sizing: border-box;
+                }
+                .titleType, .titleCategory {
+                    width: 200px;
+                }            
+                .titleName {
+                    width: calc(100% - 400px - 240px);
+                }
+                .titleOperate {
+                    width: 240px;
+                }                
+            }
         }
     }
 

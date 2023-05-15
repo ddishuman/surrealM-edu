@@ -100,6 +100,11 @@ const routes = [
     component: () => import("@/views/SURREALM/Backend/Files.vue"),
   },
   {
+    path: "/SURREALM/Backend/MaterialLib",
+    name: "SURREALMMaterialLib",
+    component: () => import("@/views/SURREALM/Backend/MaterialLib.vue"),
+  },
+  {
     path: "/SURREALM/Backend/Systems",
     name: "SURREALMSystems",
     component: () => import("@/views/SURREALM/Backend/Systems.vue"),
