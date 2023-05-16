@@ -49,6 +49,11 @@
         </div>
       </div>
     </div>
+
+    <DialogEditMaterial
+      :show="dialogeEditMaterial.show"
+      @close-dialog="CloseEditMaterialDialog"
+    />
     <DialogMsg
       :show="dialogDelLink.show"
       :title="dialogDelLink.title"
@@ -76,6 +81,7 @@ import '@/assets/js/dateFormat.js';
 import Header from '@/components/SURREALM/Backend/Header.vue';
 import Menu from '@/components/SURREALM/Backend/Menu.vue';
 import TitleBar from '@/components/SURREALM/Backend/TitleBar.vue';
+import DialogEditMaterial from '@/components/SURREALM/Backend/DialogEditMaterial.vue';
 import DialogMsg from '@/components/SURREALM/Backend/DialogMsg.vue';
 import DialogQA from '@/components/SURREALM/Backend/DialogQA.vue';
 
@@ -121,7 +127,7 @@ export default {
   computed: {},
   methods: {
     AddMaterial() {
-      
+      this.dialogeEditMaterial.show = true;
     },
     SearchMaterial() {
       
@@ -134,7 +140,7 @@ export default {
     },
     CloseEditMaterialDialog() {
       this.dialogeEditMaterial.show = false;
-      this.LectureEdit = null;
+      this.Material = null;
     },
     ShowDelDialog(Item, Index) {
       this.DelLinkInfo.Serial = Item.serial;
@@ -174,6 +180,7 @@ export default {
     Header,
     Menu,
     TitleBar,
+    DialogEditMaterial,
     DialogMsg,
     DialogQA,
   },
