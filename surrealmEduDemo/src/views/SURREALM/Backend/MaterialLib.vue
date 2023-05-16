@@ -81,14 +81,7 @@ import DialogQA from '@/components/SURREALM/Backend/DialogQA.vue';
 
 export default {
   data() {
-    return {
-      Link: {
-        Upload: {
-          Url: '',
-          Name: '',
-        },
-        Links: [],
-      },
+    return {      
       MaterialTypes: ["圖片", "影片", "搶答題目"],
       Categories: ["圖片", "影片", "搶答題目"],
       MaterialList: [
@@ -98,6 +91,10 @@ export default {
         {serial: 3, type: "圖片", name: "測試4", category: "Test4"},
         {serial: 4, type: "圖片", name: "測試5", category: "Test5"},
       ],
+      Material: null,
+      dialogeEditMaterial: {
+        show: false,
+      },
       dialogDelLink: {
         show: false,
         title: '',
@@ -131,6 +128,13 @@ export default {
     },  
     EditMaterial() {
       
+    },
+    ShowEditMaterialDialog() {
+      this.dialogeEditMaterial.show = true;
+    },
+    CloseEditMaterialDialog() {
+      this.dialogeEditMaterial.show = false;
+      this.LectureEdit = null;
     },
     ShowDelDialog(Item, Index) {
       this.DelLinkInfo.Serial = Item.serial;
