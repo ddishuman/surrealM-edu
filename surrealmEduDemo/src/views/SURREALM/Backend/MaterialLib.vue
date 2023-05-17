@@ -16,15 +16,15 @@
         <div class="toolArea">
           <label class="toolTitle">{{ $t('SURREALM.MaterialLib.MaterialType') }}</label>
           <select class="input-select">
-            <option v-for="(type, index) in MaterialTypes" :key="index" :value="index">
-              {{ type }}
+            <option v-for="(type, index) in MaterialTypes" :key="index" :value="type.id">
+              {{ type.name }}
             </option>
           </select>
           &nbsp;&nbsp;
           <label class="toolTitle">{{ $t('SURREALM.MaterialLib.Category') }}</label>
           <select class="input-select">
-            <option v-for="(type, index) in MaterialTypes" :key="index" :value="index">
-              {{ type }}
+            <option v-for="(category, index) in Categories" :key="index" :value="category">
+              {{ category }}
             </option>
           </select>
           <button class="btnWithIcon iconSearch" @click="SearchMaterial">{{ $t('SURREALM.MaterialLib.Search') }}</button>
@@ -36,11 +36,11 @@
           <div class="titleOperate">{{ $t('SURREALM.MaterialLib.Operate') }}</div>
           <div class="scrollArea">
             <div v-for="(material, index) in MaterialList" :key="material.serial">
-              <div class="titleType">{{ material.type }}</div>
-              <div class="titleName">{{ material.name }}</div>
-              <div class="titleCategory">{{ material.category }}</div>
+              <div class="titleType">{{ getMateriaTypeName(material.Type) }}</div>
+              <div class="titleName">{{ material.Name }}</div>              
+              <div class="titleCategory">{{ material.Classification }}</div>
               <div class="titleOperate">
-                <button class="btn btnWithIcon iconEdit" @click="EditMaterial(material, index)">{{ $t('SURREALM.MaterialLib.Edit') }}</button>
+                <button class="btn btnWithIcon iconEdit" @click="EditMaterial(material)">{{ $t('SURREALM.MaterialLib.Edit') }}</button>
                 <button class="btn btnWithIcon iconDel" @click="ShowDelDialog(material, index)">{{ $t('SURREALM.MaterialLib.Delete') }}</button>
               </div>
               
@@ -52,6 +52,9 @@
 
     <DialogEditMaterial
       :show="dialogeEditMaterial.show"
+      :MaterialTypes="MaterialTypes"
+      :Categories="Categories"
+      :defaultValue="Material"
       @close-dialog="CloseEditMaterialDialog"
     />
     <DialogMsg
@@ -88,14 +91,24 @@ import DialogQA from '@/components/SURREALM/Backend/DialogQA.vue';
 export default {
   data() {
     return {      
-      MaterialTypes: ["圖片", "影片", "搶答題目"],
-      Categories: ["圖片", "影片", "搶答題目"],
+      MaterialTypes: [
+        {id:"pic", name:"圖片"},
+        {id:"video", name:"影片"},
+        {id:"quick_resp_qn", name:"搶答題目"}
+      ],
+      Categories: ["課程1", "課程2", "課程3", "課程4", "課程5", "課程6", "課程7", "課程8", "課程9", "課程10"],
       MaterialList: [
-        {serial: 0, type: "圖片", name: "測試1", category: "Test1"},
-        {serial: 1, type: "圖片", name: "測試2", category: "Test2"},
-        {serial: 2, type: "圖片", name: "測試3", category: "Test3"},
-        {serial: 3, type: "圖片", name: "測試4", category: "Test4"},
-        {serial: 4, type: "圖片", name: "測試5", category: "Test5"},
+       {serial: 0, Type:'pic',Name:'a',Classification:'課程1',Url:'123',Des:'456',Question:'1+1',Answer:'1',Option1:'2',Option2:'3',Option3:'4',Option4:'5'},
+       {serial: 1, Type:'pic',Name:'b',Classification:'課程1',Url:'123',Des:'456',Question:'1+1',Answer:'1',Option1:'2',Option2:'3',Option3:'4',Option4:'5'},
+       {serial: 2, Type:'pic',Name:'v',Classification:'課程1',Url:'123',Des:'456',Question:'1+1',Answer:'1',Option1:'2',Option2:'3',Option3:'4',Option4:'5'},
+       {serial: 3, Type:'pic',Name:'f',Classification:'課程1',Url:'123',Des:'456',Question:'1+1',Answer:'1',Option1:'2',Option2:'3',Option3:'4',Option4:'5'},
+       {serial: 4, Type:'pic',Name:'r',Classification:'課程1',Url:'123',Des:'456',Question:'1+1',Answer:'1',Option1:'2',Option2:'3',Option3:'4',Option4:'5'},
+       {serial: 5, Type:'pic',Name:'t',Classification:'課程1',Url:'123',Des:'456',Question:'1+1',Answer:'1',Option1:'2',Option2:'3',Option3:'4',Option4:'5'},
+       {serial: 6, Type:'pic',Name:'y',Classification:'課程1',Url:'123',Des:'456',Question:'1+1',Answer:'1',Option1:'2',Option2:'3',Option3:'4',Option4:'5'},
+       {serial: 7, Type:'pic',Name:'u',Classification:'課程1',Url:'123',Des:'456',Question:'1+1',Answer:'1',Option1:'2',Option2:'3',Option3:'4',Option4:'5'},
+       {serial: 8, Type:'pic',Name:'i',Classification:'課程1',Url:'123',Des:'456',Question:'1+1',Answer:'1',Option1:'2',Option2:'3',Option3:'4',Option4:'5'},
+       {serial: 9, Type:'pic',Name:'o',Classification:'課程1',Url:'123',Des:'456',Question:'1+1',Answer:'1',Option1:'2',Option2:'3',Option3:'4',Option4:'5'},
+       {serial: 10, Type:'pic',Name:'w',Classification:'課程1',Url:'123',Des:'456',Question:'1+1',Answer:'1',Option1:'2',Option2:'3',Option3:'4',Option4:'5'},
       ],
       Material: null,
       dialogeEditMaterial: {
@@ -126,14 +139,22 @@ export default {
   },
   computed: {},
   methods: {
+    getMateriaTypeName(type) {
+      var MaterialType = this.MaterialTypes.find(function(item){
+        return item.id == type;
+      });
+
+      return MaterialType.name;
+    },
     AddMaterial() {
       this.dialogeEditMaterial.show = true;
     },
     SearchMaterial() {
       
     },  
-    EditMaterial() {
-      
+    EditMaterial(material) {
+      this.Material = material;
+      this.dialogeEditMaterial.show = true;
     },
     ShowEditMaterialDialog() {
       this.dialogeEditMaterial.show = true;
