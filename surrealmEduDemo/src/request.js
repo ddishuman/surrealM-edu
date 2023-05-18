@@ -7,7 +7,7 @@ import Vue from 'vue'
 // const apiServer = "http://192.168.1.98:5600/";
 // const webServer = "http://192.168.1.98:8887/";
 
-const apiServer = "http://54.95.227.250:5600";//"https://surrealmedudemoapi.surreal.com.tw/";
+const apiServer = "http://54.95.227.250:5600/";//"https://surrealmedudemoapi.surreal.com.tw/";
 const webServer = "https://surrealmedudemo.surreal.com.tw/";
 
 // const apiServer = "https://surrealmeduapi.surreal.com.tw/";
@@ -30,7 +30,14 @@ modelRequest.interceptors.request.use((config) => {
 modelRequest.interceptors.response.use((response) => {
     return response;
 }, (error) => {
-    errorHandle(error.response.status, error);
+    let status = 400;
+    try {
+        status = error.response.Status;        
+    } catch (err) {
+        console.log(error)
+        status = 400;
+    }
+    errorHandle(status, error);
     return Promise.reject(error);
 });
 
@@ -198,6 +205,41 @@ export const apiDelLecture = (serial) => modelRequest.delete('/lecture/' + seria
         accessToken: Vue.prototype.TokenDecode(localStorage.getItem('Token'))
     },
 })
+
+//MaterialLib
+export const apiGetMaterialList = () => modelRequest.get('/materialList', {
+    headers: {
+        accessToken: Vue.prototype.TokenDecode(localStorage.getItem('Token'))
+    },
+})
+export const apiGetMaterial = (serial) => modelRequest.get('/material/' + serial, {
+    headers: {
+        accessToken: Vue.prototype.TokenDecode(localStorage.getItem('Token'))
+    },
+})
+export const apiAddMaterial = (data) => modelRequest.post('/material/add' + data, {
+    headers: {
+        accessToken: Vue.prototype.TokenDecode(localStorage.getItem('Token'))
+    },
+})
+export const apiEditMaterial = (data) => modelRequest.patch('/material/edit/' + data, {
+    headers: {
+        accessToken: Vue.prototype.TokenDecode(localStorage.getItem('Token'))
+    },
+})
+export const apiDelMaterial = (serial) => modelRequest.delete('/material/delete/' + serial, {
+    headers: {
+        accessToken: Vue.prototype.TokenDecode(localStorage.getItem('Token'))
+    },
+})
+export const apiUploadMaterialImage = () => modelRequest.post('/material/upload/s3', {
+    headers: {
+        accessToken: Vue.prototype.TokenDecode(localStorage.getItem('Token'))
+    },
+})
+
+
+
 
 export const apiGetStudentDetailByTag = (serial) => modelRequest.get('/studentdetail/' + serial, {
     headers: {

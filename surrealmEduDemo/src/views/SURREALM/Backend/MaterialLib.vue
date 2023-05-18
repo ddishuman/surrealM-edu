@@ -87,6 +87,7 @@ import TitleBar from '@/components/SURREALM/Backend/TitleBar.vue';
 import DialogEditMaterial from '@/components/SURREALM/Backend/DialogEditMaterial.vue';
 import DialogMsg from '@/components/SURREALM/Backend/DialogMsg.vue';
 import DialogQA from '@/components/SURREALM/Backend/DialogQA.vue';
+import { apiGetMaterialList, apiDelMaterial } from '@/request.js';
 
 export default {
   data() {
@@ -97,20 +98,8 @@ export default {
         {id:"quick_resp_qn", name:"搶答題目"}
       ],
       Categories: ["課程1", "課程2", "課程3", "課程4", "課程5", "課程6", "課程7", "課程8", "課程9", "課程10"],
-      MaterialList: [
-       {serial: 0, Type:'pic',Name:'a',Classification:'課程1',Url:'123',Des:'456',Question:'1+1',Answer:'1',Option1:'2',Option2:'3',Option3:'4',Option4:'5'},
-       {serial: 1, Type:'pic',Name:'b',Classification:'課程1',Url:'123',Des:'456',Question:'1+1',Answer:'1',Option1:'2',Option2:'3',Option3:'4',Option4:'5'},
-       {serial: 2, Type:'pic',Name:'v',Classification:'課程1',Url:'123',Des:'456',Question:'1+1',Answer:'1',Option1:'2',Option2:'3',Option3:'4',Option4:'5'},
-       {serial: 3, Type:'pic',Name:'f',Classification:'課程1',Url:'123',Des:'456',Question:'1+1',Answer:'1',Option1:'2',Option2:'3',Option3:'4',Option4:'5'},
-       {serial: 4, Type:'pic',Name:'r',Classification:'課程1',Url:'123',Des:'456',Question:'1+1',Answer:'1',Option1:'2',Option2:'3',Option3:'4',Option4:'5'},
-       {serial: 5, Type:'pic',Name:'t',Classification:'課程1',Url:'123',Des:'456',Question:'1+1',Answer:'1',Option1:'2',Option2:'3',Option3:'4',Option4:'5'},
-       {serial: 6, Type:'pic',Name:'y',Classification:'課程1',Url:'123',Des:'456',Question:'1+1',Answer:'1',Option1:'2',Option2:'3',Option3:'4',Option4:'5'},
-       {serial: 7, Type:'pic',Name:'u',Classification:'課程1',Url:'123',Des:'456',Question:'1+1',Answer:'1',Option1:'2',Option2:'3',Option3:'4',Option4:'5'},
-       {serial: 8, Type:'pic',Name:'i',Classification:'課程1',Url:'123',Des:'456',Question:'1+1',Answer:'1',Option1:'2',Option2:'3',Option3:'4',Option4:'5'},
-       {serial: 9, Type:'pic',Name:'o',Classification:'課程1',Url:'123',Des:'456',Question:'1+1',Answer:'1',Option1:'2',Option2:'3',Option3:'4',Option4:'5'},
-       {serial: 10, Type:'pic',Name:'w',Classification:'課程1',Url:'123',Des:'456',Question:'1+1',Answer:'1',Option1:'2',Option2:'3',Option3:'4',Option4:'5'},
-      ],
-      Material: null,
+      MaterialList:null,
+      Material: null,      
       dialogeEditMaterial: {
         show: false,
       },
@@ -128,14 +117,14 @@ export default {
         btnTxt: '',
         imgSrc: '',
       },
-      DelLinkInfo: {
+      DelMaterialInfo: {
         Serial: null,
         Index: null,
       },
     };
   },
   mounted() {
-    // this.GetLinks();
+    this.GetMaterialList();
   },
   computed: {},
   methods: {
@@ -164,8 +153,8 @@ export default {
       this.Material = null;
     },
     ShowDelDialog(Item, Index) {
-      this.DelLinkInfo.Serial = Item.serial;
-      this.DelLinkInfo.Index = Index;
+      this.DelMaterialInfo.Serial = Item.serial;
+      this.DelMaterialInfo.Index = Index;
       this.dialogDelLink.title = this.$t('SURREALM.Files.Warning');
       this.dialogDelLink.msg = this.$t('SURREALM.Files.DelMsg');
       this.dialogDelLink.isLeftBtnShow = true;
@@ -174,18 +163,15 @@ export default {
       this.dialogDelLink.show = true;
     },
     CloseDelDialog() {
-      this.DelLinkInfo.Serial = null;
-      this.DelLinkInfo.Index = null;
+      this.DelMaterialInfo.Serial = null;
+      this.DelMaterialInfo.Index = null;
       this.dialogDelLink.title = '';
       this.dialogDelLink.msg = '';
       this.dialogDelLink.isLeftBtnShow = true;
       this.dialogDelLink.txtLeftBtn = '';
       this.dialogDelLink.txtRightBtn = '';
       this.dialogDelLink.show = false;
-    },
-    DelMaterial() {
-      
-    },
+    },    
     ShowQA() {
       this.dialogHint.isShow = true;
       var tmpMsg = this.$t('SURREALM.QA.QAFile');
@@ -195,6 +181,35 @@ export default {
     },
     CloseQA() {
       this.dialogHint.isShow = false;
+    },
+    GetMaterialList() {      
+      apiGetMaterialList().then((res) => {
+        
+        if (res.data.Status == 'ok') {          
+          this.MaterialList = res.data.Materials;          
+        } else {
+          this.$toasted.show(this.$t('SURREALM.ApiErr') + res.data.Code, {
+            icon: 'warning',
+            position: 'bottom-center',
+            duration: 3500,
+          });
+        }
+      });
+    },
+    DelMaterial() {
+      apiDelMaterial(this.DelMaterialInfo.Serial).then((res) => {
+        if (res.data.Status == 'ok') {
+          var Index = this.Lectures.findIndex((obj) => obj.Serial == this.DelMaterialInfo.Serial);
+          this.MaterialList.splice(Index, 1);
+          this.CloseDelDialog();
+        } else {
+          this.$toasted.show(this.$t('SURREALM.ApiErr') + res.data.Code, {
+            icon: 'warning',
+            position: 'bottom-center',
+            duration: 3500,
+          });
+        }
+      });
     },
   },
   components: {

@@ -102,9 +102,7 @@
 // import Loading from 'vue-loading-overlay';
 import 'vue-loading-overlay/dist/vue-loading.css';
 import "@/assets/scss/component.scss"
-import {
-  
-} from '@/request.js';
+// import {apiAddMaterial, apiEditMaterial, apiUploadMaterialImage} from '@/request.js';
 
 export default {
   name: 'DialogEditMaterial',
