@@ -312,6 +312,7 @@ module.exports = {
       Edit:"編輯",
       Delete:"刪除",
       Warning: "警告",
+      DelMsg: "素材為上課時使用，刪除的素材將無法復原，確定要刪除嗎？",
       EditDialogTitle: "請編輯您要上傳的內容",
       Picture: "圖片",
       Movie: "影片",
@@ -328,9 +329,9 @@ module.exports = {
       CorrectAnswer: "正確解答",
       Options: "選項",
       Upload: "上傳",
-      DelMsg: "上課資料為跨課程使用，刪除的連結將無法復原，確定要刪除嗎？",
       DelLeftBtn: "取消",
       DelRightBtn: "刪除",
+      Required:"必填",
   },
     Systems: {
       PageName: "系統公告",

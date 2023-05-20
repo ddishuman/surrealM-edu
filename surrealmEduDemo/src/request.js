@@ -212,17 +212,22 @@ export const apiGetMaterialList = () => modelRequest.get('/materialList', {
         accessToken: Vue.prototype.TokenDecode(localStorage.getItem('Token'))
     },
 })
+export const apiSearchMaterialList = (type, category) => modelRequest.get('/materialList/' + type + "/" + category, {
+    headers: {
+        accessToken: Vue.prototype.TokenDecode(localStorage.getItem('Token'))
+    },
+})
 export const apiGetMaterial = (serial) => modelRequest.get('/material/' + serial, {
     headers: {
         accessToken: Vue.prototype.TokenDecode(localStorage.getItem('Token'))
     },
 })
-export const apiAddMaterial = (data) => modelRequest.post('/material/add' + data, {
+export const apiAddMaterial = (data) => modelRequest.post('/material/add', data, {
     headers: {
         accessToken: Vue.prototype.TokenDecode(localStorage.getItem('Token'))
     },
 })
-export const apiEditMaterial = (data) => modelRequest.patch('/material/edit/' + data, {
+export const apiUpdateMaterial = (serial, data) => modelRequest.patch('/material/edit/' + serial, data, {
     headers: {
         accessToken: Vue.prototype.TokenDecode(localStorage.getItem('Token'))
     },
@@ -234,6 +239,7 @@ export const apiDelMaterial = (serial) => modelRequest.delete('/material/delete/
 })
 export const apiUploadMaterialImage = () => modelRequest.post('/material/upload/s3', {
     headers: {
+        "Content-Type": "multipart/form-data",
         accessToken: Vue.prototype.TokenDecode(localStorage.getItem('Token'))
     },
 })

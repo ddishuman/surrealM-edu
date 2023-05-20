@@ -15,19 +15,19 @@
       <div class="materialLib">
         <div class="toolArea">
           <label class="toolTitle">{{ $t('SURREALM.MaterialLib.MaterialType') }}</label>
-          <select class="input-select">
+          <select class="input-select" v-model="SearchType">
             <option v-for="(type, index) in MaterialTypes" :key="index" :value="type.id">
               {{ type.name }}
             </option>
           </select>
           &nbsp;&nbsp;
           <label class="toolTitle">{{ $t('SURREALM.MaterialLib.Category') }}</label>
-          <select class="input-select">
+          <select class="input-select" v-model="SearchCategory">
             <option v-for="(category, index) in Categories" :key="index" :value="category">
               {{ category }}
             </option>
           </select>
-          <button class="btnWithIcon iconSearch" @click="SearchMaterial">{{ $t('SURREALM.MaterialLib.Search') }}</button>
+          <button class="btnWithIcon iconSearch" @click="SearchMaterialList">{{ $t('SURREALM.MaterialLib.Search') }}</button>
         </div>
         <div class="materialLibArea">
         <div class="titleType">{{ $t('SURREALM.MaterialLib.MaterialType') }}</div>
@@ -87,7 +87,7 @@ import TitleBar from '@/components/SURREALM/Backend/TitleBar.vue';
 import DialogEditMaterial from '@/components/SURREALM/Backend/DialogEditMaterial.vue';
 import DialogMsg from '@/components/SURREALM/Backend/DialogMsg.vue';
 import DialogQA from '@/components/SURREALM/Backend/DialogQA.vue';
-import { apiGetMaterialList, apiDelMaterial } from '@/request.js';
+import { apiGetMaterialList, apiDelMaterial, apiSearchMaterialList } from '@/request.js';
 
 export default {
   data() {
@@ -99,7 +99,9 @@ export default {
       ],
       Categories: ["課程1", "課程2", "課程3", "課程4", "課程5", "課程6", "課程7", "課程8", "課程9", "課程10"],
       MaterialList:null,
-      Material: null,      
+      Material: null,   
+      SearchType: "pic", 
+      SearchCategory: "課程1",    
       dialogeEditMaterial: {
         show: false,
       },
@@ -129,18 +131,17 @@ export default {
   computed: {},
   methods: {
     getMateriaTypeName(type) {
-      var MaterialType = this.MaterialTypes.find(function(item){
+      var MaterialType = this.MaterialTypes.find(function(item){        
         return item.id == type;
-      });
-
+      });      
+      if (MaterialType == null) {
+        MaterialType = this.MaterialTypes[0];
+      }
       return MaterialType.name;
     },
     AddMaterial() {
       this.dialogeEditMaterial.show = true;
-    },
-    SearchMaterial() {
-      
-    },  
+    },    
     EditMaterial(material) {
       this.Material = material;
       this.dialogeEditMaterial.show = true;
@@ -151,18 +152,20 @@ export default {
     CloseEditMaterialDialog() {
       this.dialogeEditMaterial.show = false;
       this.Material = null;
+      this.GetMaterialList();
     },
     ShowDelDialog(Item, Index) {
-      this.DelMaterialInfo.Serial = Item.serial;
+      this.DelMaterialInfo.Serial = Item.Serial;
       this.DelMaterialInfo.Index = Index;
-      this.dialogDelLink.title = this.$t('SURREALM.Files.Warning');
-      this.dialogDelLink.msg = this.$t('SURREALM.Files.DelMsg');
+      this.dialogDelLink.title = this.$t('SURREALM.MaterialLib.Warning');
+      this.dialogDelLink.msg = this.$t('SURREALM.MaterialLib.DelMsg');
       this.dialogDelLink.isLeftBtnShow = true;
-      this.dialogDelLink.txtLeftBtn = this.$t('SURREALM.Files.DelLeftBtn');
-      this.dialogDelLink.txtRightBtn = this.$t('SURREALM.Files.DelRightBtn');
+      this.dialogDelLink.txtLeftBtn = this.$t('SURREALM.MaterialLib.DelLeftBtn');
+      this.dialogDelLink.txtRightBtn = this.$t('SURREALM.MaterialLib.DelRightBtn');
       this.dialogDelLink.show = true;
     },
     CloseDelDialog() {
+      console.log("2----"+this.DelMaterialInfo.Index+"----"+this.DelMaterialInfo.Serial );  
       this.DelMaterialInfo.Serial = null;
       this.DelMaterialInfo.Index = null;
       this.dialogDelLink.title = '';
@@ -196,10 +199,27 @@ export default {
         }
       });
     },
+    SearchMaterialList() {   
+      // console.log("----"+this.SearchType+"----"+this.SearchCategory );   
+      apiSearchMaterialList(this.SearchType, this.SearchCategory).then((res) => {        
+        if (res.data.Status == 'ok') {     
+               
+          this.MaterialList = res.data.Materials;          
+        } else {
+          this.$toasted.show(this.$t('SURREALM.ApiErr') + res.data.Code, {
+            icon: 'warning',
+            position: 'bottom-center',
+            duration: 3500,
+          });
+        }
+      });
+    },
     DelMaterial() {
+      console.log("----"+this.DelMaterialInfo.Serial);   
       apiDelMaterial(this.DelMaterialInfo.Serial).then((res) => {
         if (res.data.Status == 'ok') {
-          var Index = this.Lectures.findIndex((obj) => obj.Serial == this.DelMaterialInfo.Serial);
+          var Index = this.MaterialList.findIndex((obj) => obj.Serial == this.DelMaterialInfo.Serial);
+          console.log("Index----"+Index);   
           this.MaterialList.splice(Index, 1);
           this.CloseDelDialog();
         } else {
