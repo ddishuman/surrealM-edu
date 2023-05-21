@@ -30,8 +30,8 @@
                         </div>
                         <div v-show="Material.Type == 'pic'">
                             <div class="keyinTitle">*{{ $t('SURREALM.MaterialLib.MaterialFile') }}</div>
-                            <div class="keyinContent elementFormRight">
-                                <input class="display_none" id="fileUploader" @change="handleFileUpload(this.files)" type="file">
+                            <div class="keyinContent elementFormRight">                            
+                                <input class="display_none" id="fileUploader" onchange="handleFiles(this.files)" type="file">
                                 <div class="upload_zone" id="upload_zone">
                                     <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAALEgAACxIB0t1+/AAAABx0RVh0U29mdHdhcmUAQWRvYmUgRmlyZXdvcmtzIENTNui8sowAAAHoSURBVGiB7ZmvT8NAFMe/b5AhZoZELxgShp9hDuQkErk/YQIFBsP/gEDgQE5uggQJBoVAkOBISCDZIPBFdAvkeuva6113u/STNEteu9f32V7vxyYkEQKVRRdgi1LEN4IRWdUFRcTaDUiuA6iJyLPFnLGYaIN2RS4B1EVk32JOfVA9LN7wgH90LeaN1+xKhOQGydd/Iu8kG5ZyFypyzTg3JHMPMIWJKC2l0lsKEU1LqYzztlhRIv0ECSst5lyEZDeFxBTjFnMqQrLBaGRKy5hk0ysRkpVJu2TlnmTVJ5GegcSUUy9ESDYZtYkp3yRbCxUhWWXUHnl5JFnLI5J3lj0GYPTAKjQAnOXKYPqNkGxN2sIme6Y1Gy3jGY00D4g+SZu8ANgUkY8594/FtBurFGwBuEg4fwRgZca5HwAnCe/dBnCbtSAnGyuSIwBrM05/iUjmuUPJH4sFs2cvRXyjFPEN7fBLcleNicjQfTmxOuoAdpTwG4A73cW6I0bGAkYJs/dnhjxtzfsHupqDaa1SxDdM11rz6CB5rWUdJyIi0neRN4lgWqsU8Y3UzwjJK+hmVLd00l6o3VgB8PnP9yGAthoMprWCFyl8pZuBgS446xmpAzicvPrEk4ica38wybhC95bgn5GloxTxjV+7v7eq7SSNfgAAAABJRU5ErkJggg=="> 請拖曳圖檔至此或點擊瀏覽資料夾 <span>檔案限制1MB，類型為jpg、png</span>
                                 </div>
@@ -143,7 +143,7 @@ export default {
         Option3:'',
         Option4:'',
       },
-      File:null,
+      File:null
     };
   },
   mounted() {    
@@ -246,7 +246,7 @@ export default {
         }
     },  
     handleFileUpload() {
-        this.File = this.$refs.file.files[0];
+        this.file = this.$refs.file.files[0];
     },
   },
   components: {    

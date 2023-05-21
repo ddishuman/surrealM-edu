@@ -6,10 +6,11 @@
         <div class="pnlTitle">
           <label v-show="CurrentStep == 1">{{ $t('SURREALM.LectureOwn.AddDialogTitle1') }}</label>
           <label v-show="CurrentStep == 2">{{ $t('SURREALM.LectureOwn.AddDialogTitle2') }}</label>
-          <label v-show="CurrentStep == 3">{{ $t('SURREALM.LectureOwn.AddDialogTitle3') }}</label>
-          <label v-show="CurrentStep == 4">{{ $t('SURREALM.LectureOwn.AddDialogTitle4') }}</label>
-          <label v-show="CurrentStep == 5">{{ $t('SURREALM.LectureOwn.AddDialogTitle5') }}</label>
-          <label v-show="CurrentStep == 6">{{ $t('SURREALM.LectureOwn.AddDialogTitle6') }}</label>
+          <label v-show="CurrentStep == 3">{{ $t('SURREALM.LectureOwn.AddDialogTitle2_2') }}</label>
+          <label v-show="CurrentStep == 4">{{ $t('SURREALM.LectureOwn.AddDialogTitle3') }}</label>
+          <label v-show="CurrentStep == 5">{{ $t('SURREALM.LectureOwn.AddDialogTitle4') }}</label>
+          <label v-show="CurrentStep == 6">{{ $t('SURREALM.LectureOwn.AddDialogTitle5') }}</label>
+          <label v-show="CurrentStep == 7">{{ $t('SURREALM.LectureOwn.AddDialogTitle6') }}</label>
           <img class="btnDialogXX" src="@/assets/img/SURREALM/Backend/btn_close.png" @click="CloseDialog" />
         </div>
         <div class="pnlContent">
@@ -118,7 +119,52 @@
               <div style="clear: both"></div>
             </div>
           </div>
-          <div class="step2" v-show="CurrentStep == 3">
+          <div ref="stepheader" class="step1_3" v-show="CurrentStep == 3">            
+            <div class="space-img">
+              <img src="@/assets/img/SURREALM/Backend/LectureManager/exploration_space_1F.jpg">
+              <img src="@/assets/img/SURREALM/Backend/LectureManager/exploration_space_2F.jpg">
+            </div>
+            <div class="total-score-title">{{ $t('SURREALM.LectureOwn.TotalScore') }}80{{ $t('SURREALM.LectureOwn.ScoreUtil') }}</div>
+            <div class="picture-frame" v-for="index in 16" :key="index">
+              <div class="frame-title">{{ $t('SURREALM.LectureOwn.PictureFrame') }}{{ index }}</div>
+              <div class="keyinTitle">{{ $t('SURREALM.LectureOwn.SelectMaterial') }}</div>
+              <div class="keyinContent">
+                  <input type="radio" :name="'material_select_'+index" id="material" value="material" checked />
+                  <label for="material"><span></span>{{ $t('SURREALM.LectureOwn.Material') }}</label>
+                  <input type="radio" :name="'material_select_'+index" id="default" value="default" />
+                  <label for="default"><span></span>{{ $t('SURREALM.LectureOwn.Default') }}</label>
+              </div>
+              <div class="input-container">                            
+                <select class="tableSelect">
+                    <option>{{ $t('SURREALM.MaterialLib.MaterialType') }}</option>
+                    <option v-for="(type, index) in MaterialTypes" :key="index" :value="type.id">
+                      {{ type.name }}
+                    </option>
+                </select>
+                <select class="tableSelect">
+                  <option>{{ $t('SURREALM.MaterialLib.Category') }}</option>
+                  <option v-for="(category, index) in Categories" :key="index" :value="category">
+                    {{ category }}
+                  </option>
+                </select>
+                <div class="calculate-score">                 
+                  <label>{{ $t('SURREALM.LectureOwn.CalculateScore') }}</label>
+                  <input class="lectureName" type="text" />
+                </div>
+              </div>
+              <div class="input-container">      
+                <select class="tableSelect2">
+                  <option>{{ $t('SURREALM.MaterialLib.MaterialName') }}</option>
+                  <option v-for="(category, index) in Categories" :key="index" :value="category">
+                    {{ category }}
+                  </option>
+                </select>
+              </div>
+              <hr class="line-space"/>        
+            </div>
+            <div class="foolder-dec">{{ $t('SURREALM.LectureOwn.SelectMaterialDec') }}</div>
+          </div>
+          <div class="step2" v-show="CurrentStep == 4">
             <div class="keyinTitle">{{ $t('SURREALM.LectureOwn.TagFilter') }}</div>
             <select v-model="Student.Tag" class="studentTag" @change="GetStudent(Student.Tag)">
               <option v-for="option in TagOptions" :key="option.Serial" :value="option.Serial">
@@ -172,7 +218,7 @@
               </div>
             </div>
           </div>
-          <div class="step3" v-show="CurrentStep == 4">
+          <div class="step3" v-show="CurrentStep == 5">
             <div class="uploadArea">
               <label class="stepHint">{{ $t('SURREALM.LectureOwn.UpLinkStep1') }}</label>
               <label class="stepLine"></label>
@@ -206,10 +252,10 @@
               </div>
             </div>
           </div>
-          <div class="step4" v-show="CurrentStep == 5">
+          <div class="step4" v-show="CurrentStep == 6">
             <CropperView :defaultImage="DefaultImage" @set-image="SetImage" />
           </div>
-          <div class="step5" v-show="CurrentStep == 6">
+          <div class="step5" v-show="CurrentStep == 7">
             <label class="title">{{ $t('SURREALM.LectureOwn.LastStepTitle') }}</label>
             <img :src="Lecture.Image" />
             <div class="lectureArea">
@@ -236,7 +282,7 @@
             {{ $t('SURREALM.LectureOwn.PreStep') }}
           </button>
           <button class="btnNextStep" @click="NextStep">
-            {{ CurrentStep == 6 ? $t('SURREALM.LectureOwn.Release') : $t('SURREALM.LectureOwn.NextStep') }}
+            {{ CurrentStep == 7 ? $t('SURREALM.LectureOwn.Release') : $t('SURREALM.LectureOwn.NextStep') }}
           </button>
         </div>
       </div>
@@ -357,7 +403,17 @@ export default {
       Serial: null,
       LectureCode: '',
       TagOptions: [],
-      TypeOptions: null,
+      TypeOptions: [
+        {Type:"100", Text:" 一般教室 "},
+        {Type:"1004", Text:"專科教室－知識探索空間"},
+        {Type:"200", Text:"專科教室－教具酷"},
+      ],
+      MaterialTypes: [
+        {id:"pic", name:"圖片"},
+        {id:"video", name:"影片"},
+        {id:"quick_resp_qn", name:"搶答題目"}
+      ],
+      Categories: ["課程1", "課程2", "課程3", "課程4", "課程5", "課程6", "課程7", "課程8", "課程9", "課程10"],
       DelLinkInfo: {
         Serial: null,
         Index: null,
@@ -370,7 +426,7 @@ export default {
     this.GetTags();
     this.GetModels();
     this.GetLectureType();
-    this.StreamingAuth = localStorage.getItem('StreamingAuth') == 'T' ? true : false;
+    this.StreamingAuth = localStorage.getItem('StreamingAuth') == 'T' ? true : false;    
   },
   computed: {
     SchoolCurrentPeople: function () {
@@ -427,6 +483,7 @@ export default {
   },
   methods: {
     CloseDialog() {
+      this.scrollToTop();
       this.CurrentStep = 1;
       this.DefaultImage = null;
       this.$emit('close-dialog');
@@ -452,10 +509,14 @@ export default {
     },
     PreStep() {
       if (this.CurrentStep > 1) {
-        if (this.CurrentStep == 3 && this.Lecture.Type != '200') {
+        if ((this.CurrentStep == 4 && this.Lecture.Type != '200' && this.Lecture.Type != '1004') ||
+             this.CurrentStep == 3 && this.Lecture.Type == '1004') {
+          this.scrollToTop();
           this.CurrentStep = 1;
+        } else if (this.CurrentStep == 4 && this.Lecture.Type == '200') {
+          this.CurrentStep = this.CurrentStep - 2;
         } else {
-          if (this.CurrentStep == 4) {
+          if (this.CurrentStep == 5) {
             this.GeMaxUsingNo();
           }
           this.CurrentStep--;
@@ -469,8 +530,10 @@ export default {
           this.GeMaxUsingNo();
           if (this.Lecture.Type == '200') {
             this.CurrentStep++;
-          } else {
+          } else if (this.Lecture.Type == '1004') {            
             this.CurrentStep = this.CurrentStep + 2;
+          } else {
+            this.CurrentStep = this.CurrentStep + 3;
             this.Lecture.Models = [];
             this.GetStudent(this.Student.Tag);
           }
@@ -481,8 +544,21 @@ export default {
             duration: 3500,
           });
         }
-      } else if (this.CurrentStep == 2) {
+      } else if (this.CurrentStep == 2) {        
         let errMsg = this.CheckStep2Info();
+        if (errMsg == '') {
+          this.CurrentStep = this.CurrentStep + 2;
+          this.GetStudent(this.Student.Tag);
+        } else {
+          this.$toasted.show(errMsg, {
+            icon: 'warning',
+            position: 'bottom-center',
+            duration: 3500,
+          });
+        }
+      } else if (this.CurrentStep == 3) {
+        this.scrollToTop();
+        let errMsg = this.CheckStep1_2Info();
         if (errMsg == '') {
           this.CurrentStep++;
           this.GetStudent(this.Student.Tag);
@@ -493,7 +569,7 @@ export default {
             duration: 3500,
           });
         }
-      } else if (this.CurrentStep == 3) {
+      } else if (this.CurrentStep == 4) {
         let errMsg = this.CheckStep3Info();
         if (errMsg == '') {
           this.CurrentStep++;
@@ -504,14 +580,14 @@ export default {
             duration: 3500,
           });
         }
-      } else if (this.CurrentStep == 4) {
+      } else if (this.CurrentStep == 5) {
         if (this.Lecture.Image == '') {
           this.GetDefaultImage(this.GetDefaultImageCallback);
         } else {
           this.DefaultImage = this.Lecture.Image;
         }
         this.CurrentStep++;
-      } else if (this.CurrentStep == 5) {
+      } else if (this.CurrentStep == 6) {
         let errMsg = this.CheckStep5Info();
         if (errMsg == '') {
           this.CurrentStep++;
@@ -522,7 +598,7 @@ export default {
             duration: 3500,
           });
         }
-      } else if (this.CurrentStep == 6) {
+      } else if (this.CurrentStep == 7) {
         let data = {
           Student: this.Student.Select,
           Lecture: this.Lecture,
@@ -574,6 +650,10 @@ export default {
           });
         }
       }
+    },
+    scrollToTop() {
+        const container = this.$refs.stepheader;
+        container.scrollTop = 0;
     },
     GeMaxUsingNo() {
       let CalcSerial = this.defaultValue == null ? 0 : this.Serial;
@@ -642,6 +722,13 @@ export default {
       if (this.Lecture.Models.length == 0) {
         errMsg = this.$t('SURREALM.LectureOwn.Err.PlzSelectModel');
       }
+      return errMsg;
+    },
+    CheckStep1_2Info() {
+      let errMsg = '';
+      // if (this.Lecture.Models.length == 0) {
+      //   errMsg = this.$t('SURREALM.LectureOwn.Err.PlzSelectModel');
+      // }
       return errMsg;
     },
     CheckStep3Info() {

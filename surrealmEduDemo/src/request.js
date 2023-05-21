@@ -32,17 +32,21 @@ modelRequest.interceptors.response.use((response) => {
 }, (error) => {
     let status = 400;
     try {
-        status = error.response.Status;        
+        status = error.response.Status;    
+        if (status == null || status == undefined) {
+            status = 404;
+        }    
     } catch (err) {
         console.log(error)
         status = 400;
     }
+    console.log("1--status =" + status + " , msg = " + error);
     errorHandle(status, error);
     return Promise.reject(error);
 });
 
 const errorHandle = (status, msg) => {
-    console.log("status =" + status + " , msg = " + msg);
+    console.log("2--status =" + status + " , msg = " + msg);
     let currentUrl;
     let currentPage;
     let type;

@@ -102,6 +102,30 @@ body {
     margin: 0px;
 }
 
+input[type="radio"] {
+	display: none;
+}        
+input[type="radio"] + label {
+	color: #f2f2f2;
+	font-family: Arial, sans-serif;
+	margin-right: 30px;
+}        
+input[type="radio"] + label span {
+	display: inline-block;
+	width: 20px;
+	height: 20px;
+	margin: -2px 10px 0 0;
+	vertical-align: middle;
+	background-image: url("~@/assets/img/SURREALM/Backend/MaterialLib/icon_radio_off.png");
+	background-position: center center;
+	background-size: 20px 20px;
+	background-repeat: no-repeat;
+	cursor: pointer;
+}        
+input[type="radio"]:checked + label span {
+	background-image: url("~@/assets/img/SURREALM/Backend/MaterialLib/icon_radio_on.png");
+}
+
 .clear-both {
     clear: both;
 }
@@ -2406,8 +2430,8 @@ body {
                 border: 1px $color_dialog_border solid;
                 border-top: 0;
                 padding: 17px 15px;
-                box-sizing: border-box;
-
+                box-sizing: border-box;                
+                
                 .step1 {
                     padding-left: 84px;
                     padding-right: 127px;
@@ -2718,6 +2742,144 @@ body {
                             }
                         }
                     }
+                }
+
+                .step1_3 {
+                    position: relative;                    
+                    width: 100%;
+                    height: 390px;
+                    overflow: auto;
+                    
+                    .space-img {
+                        display: flex;
+                        img {                        
+                            width: 50%;
+                        }
+                    }
+                    .total-score-title {
+                        font-family: $font_family;
+                        font-size: 18px;
+                        color: white;
+                        margin: 12px;
+                    } 
+                    .foolder-dec {
+                        font-family: $font_family;
+                        font-size: 14px;
+                        color: white;
+                        text-align: center;
+                        margin: 16px;
+                    }              
+                    .keyinTitle,
+                    .keyinSubTitle {
+                        position: relative;
+                        float: left;
+                        width: 110px;
+                        height: 36px;
+                        line-height: 36px;
+                        font-family: $font_family;
+                        font-size: 14px;
+                        color: white;
+                        text-align: center;
+                        margin-bottom: 12px;
+                    }
+                    .keyinContent,
+                    .keyinSubContent {
+                        display: flex;
+                        position: relative;
+                        float: left;
+                        width: 388px;
+                        height: 36px;
+                        align-items: center;
+                        margin-bottom: 12px;
+                        .MaterialType {
+                            margin-top: 12px;
+                            line-height: 25px;                    
+                        }
+                    }
+
+                    .keyinSubContent {
+                        width: 139px;
+                    }
+
+                    .picture-frame {
+                        margin-top: 16px;
+                        margin-bottom: 16px;
+
+                        .frame-title {
+                            font-family: $font_family;
+                            font-size: 18px;
+                            color: white;
+                            text-align: center;
+                            margin: 12px;
+                        }   
+                        .input-container {
+                            margin-bottom: 10px;
+                            .tableSelect {
+                                display: inline;
+                                width: 30%;
+                                height: 36px;
+                                line-height: 38px;
+                                font-family: $font_family;
+                                font-size: 14px;
+                                color: white;
+                                border: 0;
+                                border-radius: 2px;
+                                box-sizing: border-box;
+                                background: $color_edit_bg;
+                                text-indent: 1em;
+                                margin-right: 10px;
+                            }
+                            .tableSelect2 {
+                                display: inline;
+                                width: 94%;
+                                height: 36px;
+                                line-height: 38px;
+                                font-family: $font_family;
+                                font-size: 14px;
+                                color: white;
+                                border: 0;
+                                border-radius: 2px;
+                                box-sizing: border-box;
+                                background: $color_edit_bg;
+                                text-indent: 1em;
+                                margin-right: 10px;
+                            }
+                            .calculate-score {
+                                display: inline;
+                                width: 30%;
+                                height: 36px;
+                                line-height: 38px;
+                                font-family: $font_family;
+                                font-size: 14px;
+                                color: white;
+                                margin-left: 10px;
+                                label {
+                                    width: 50px;                            
+                                }
+                                input {
+                                    height: 36px;
+                                    line-height: 36px;
+                                    margin-left: 10px;
+                                    border: 0;
+                                    text-align: center;
+                                    color: $color_border;
+                                    background: $color_edit_bg;
+                                    font-family: $font_family;
+                                    font-size: 16px;
+                                    color: white;
+                                    &:focus {
+                                        outline: 0px;
+                                    }
+                                }
+                                
+                            }
+                        }
+                        .line-space {
+                            margin-top: 24px;
+                            margin-bottom: 24px;
+                        }
+                    }
+                    
                 }
 
                 .step2 {
@@ -3183,8 +3345,8 @@ body {
         .pnlDialogEditMaterial {
             position: relative;
             width: 741px;
-            height: 800px;
-            margin: calc(36vh - 275px) auto 0;
+            height: 550px;
+            margin: calc(50vh - 275px) auto 0;
             display: block;
             background: $color_btn_bg;            
 
@@ -3224,7 +3386,7 @@ body {
             .pnlContent {
                 position: relative;
                 width: 100%;
-                height: 730px;
+                height: 479px;
                 background: $color_dialog_bg;
                 border: 1px $color_dialog_border solid;
                 border-top: 0;
@@ -3237,29 +3399,7 @@ body {
                     margin-top: 12px;
                     line-height: 25px;                    
                 }
-                input[type="radio"] {
-                    display: none;
-                }        
-                input[type="radio"] + label {
-                    color: #f2f2f2;
-                    font-family: Arial, sans-serif;
-                    margin-right: 30px;
-                }        
-                input[type="radio"] + label span {
-                    display: inline-block;
-                    width: 20px;
-                    height: 20px;
-                    margin: -2px 10px 0 0;
-                    vertical-align: middle;
-                    background-image: url("~@/assets/img/SURREALM/Backend/MaterialLib/icon_radio_off.png");
-                    background-position: center center;
-                    background-size: 20px 20px;
-                    background-repeat: no-repeat;
-                    cursor: pointer;
-                }        
-                input[type="radio"]:checked + label span {
-                    background-image: url("~@/assets/img/SURREALM/Backend/MaterialLib/icon_radio_on.png");
-                }
+                
                 .container {
                     padding-left: 84px;
                     padding-right: 105px;
