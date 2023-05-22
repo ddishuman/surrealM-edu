@@ -216,10 +216,14 @@ export const apiGetMaterialList = () => modelRequest.get('/materialList', {
         accessToken: Vue.prototype.TokenDecode(localStorage.getItem('Token'))
     },
 })
-export const apiSearchMaterialList = (type, category) => modelRequest.get('/materialList/' + type + "/" + category, {
+export const apiSearchMaterialList = (type, category) => modelRequest.get('/materialList', {
     headers: {
         accessToken: Vue.prototype.TokenDecode(localStorage.getItem('Token'))
     },
+    params: {
+        type: type,
+        course: category
+    }
 })
 export const apiGetMaterial = (serial) => modelRequest.get('/material/' + serial, {
     headers: {
