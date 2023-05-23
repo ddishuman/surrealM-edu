@@ -30,12 +30,16 @@
                         </div>
                         <div v-show="Material.Type == 'pic'">
                             <div class="keyinTitle">*{{ $t('SURREALM.MaterialLib.MaterialFile') }}</div>
-                            <div class="keyinContent elementFormRight">                            
-                                <input class="display_none" id="fileUploader" onchange="handleFiles(this.files)" type="file">
-                                <div class="upload_zone" id="upload_zone">
+                            <div class="keyinContent elementFormRight" id="upload_file_zone" @drop="drop($event)" @dragover.prevent @dragenter.prevent>                            
+                                <input class="display_none" id="file_upload" ref="file" @change="handleFileUpload" type="file" accept="image/*">
+                                <div id="preview" v-if="Material.Url != null">                                    
+                                    <img :src="Material.Url" style="width:100%;">
+                                    <button class="btn btnWithIcon iconDel" style="position: absolute; bottom: 0px; right: 0px; background-color:gray;" @click="Material.Url = null">{{ $t('SURREALM.MaterialLib.Delete') }}</button>
+                                </div>
+                                <div class="upload_zone" @click.prevent="selectUploadImage" v-else>
                                     <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAALEgAACxIB0t1+/AAAABx0RVh0U29mdHdhcmUAQWRvYmUgRmlyZXdvcmtzIENTNui8sowAAAHoSURBVGiB7ZmvT8NAFMe/b5AhZoZELxgShp9hDuQkErk/YQIFBsP/gEDgQE5uggQJBoVAkOBISCDZIPBFdAvkeuva6113u/STNEteu9f32V7vxyYkEQKVRRdgi1LEN4IRWdUFRcTaDUiuA6iJyLPFnLGYaIN2RS4B1EVk32JOfVA9LN7wgH90LeaN1+xKhOQGydd/Iu8kG5ZyFypyzTg3JHMPMIWJKC2l0lsKEU1LqYzztlhRIv0ECSst5lyEZDeFxBTjFnMqQrLBaGRKy5hk0ysRkpVJu2TlnmTVJ5GegcSUUy9ESDYZtYkp3yRbCxUhWWXUHnl5JFnLI5J3lj0GYPTAKjQAnOXKYPqNkGxN2sIme6Y1Gy3jGY00D4g+SZu8ANgUkY8594/FtBurFGwBuEg4fwRgZca5HwAnCe/dBnCbtSAnGyuSIwBrM05/iUjmuUPJH4sFs2cvRXyjFPEN7fBLcleNicjQfTmxOuoAdpTwG4A73cW6I0bGAkYJs/dnhjxtzfsHupqDaa1SxDdM11rz6CB5rWUdJyIi0neRN4lgWqsU8Y3UzwjJK+hmVLd00l6o3VgB8PnP9yGAthoMprWCFyl8pZuBgS446xmpAzicvPrEk4ica38wybhC95bgn5GloxTxjV+7v7eq7SSNfgAAAABJRU5ErkJggg=="> 請拖曳圖檔至此或點擊瀏覽資料夾 <span>檔案限制1MB，類型為jpg、png</span>
                                 </div>
-                                <div id="preview"></div>
+                                
                             </div>
                         </div>
                         <div v-show="Material.Type == 'video'">
@@ -103,7 +107,7 @@
 // import Loading from 'vue-loading-overlay';
 import 'vue-loading-overlay/dist/vue-loading.css';
 import "@/assets/scss/component.scss"
-import {apiAddMaterial, apiUpdateMaterial} from '@/request.js';//apiUploadMaterialImage
+import {apiAddMaterial, apiUpdateMaterial, apiUploadMaterialImage} from '@/request.js';
 
 export default {
   name: 'DialogEditMaterial',
@@ -143,7 +147,8 @@ export default {
         Option3:'',
         Option4:'',
       },
-      File:null
+      File:null,
+      isDragging: false,
     };
   },
   mounted() {    
@@ -245,8 +250,54 @@ export default {
             });
         }
     },  
-    handleFileUpload() {
-        this.file = this.$refs.file.files[0];
+    selectUploadImage() {   
+        document.getElementById("file_upload").click();        
+    },
+    handleFileUpload(event) {        
+        this.File = event.target.files[0];
+        this.imageUpload();        
+    },
+    dragover(e) {
+        console.log("dragover");
+        e.preventDefault();
+        this.isDragging = true;
+    },
+    dragleave() {
+        console.log("dragleave");
+        this.isDragging = false;
+    },
+    drop(e) {
+        console.log(e.dataTransfer.files);
+        e.preventDefault();
+        this.File = e.dataTransfer.files[0];        
+        this.isDragging = false;
+        this.imageUpload();
+    },
+    imageUpload() {
+        var fileSize = 1024000; //1M
+        console.log(this.File.size);
+        if (this.File == null) {
+            alert('尚未選取檔案');
+            return false;
+        } else if (this.File.size > fileSize) {
+            alert('上傳圖檔超過1M');
+            return false;
+        }
+
+        let formData = new FormData();
+        formData.append('image', this.File); //required
+
+        apiUploadMaterialImage(formData).then((res) => {        
+            if (res.data.Status == 'ok') {          
+                this.Material.Url = res.data.MaterialS3Path;
+                console.log(this.Material.Url);
+            } else {
+                this.$toasted.show(this.$t('SURREALM.ApiErr') + res.data.Code, {
+                icon: 'warning',
+                position: 'bottom-center',
+                duration: 3500,
+                });
+            }});     
     },
   },
   components: {    

@@ -245,7 +245,7 @@ export const apiDelMaterial = (serial) => modelRequest.delete('/material/delete/
         accessToken: Vue.prototype.TokenDecode(localStorage.getItem('Token'))
     },
 })
-export const apiUploadMaterialImage = () => modelRequest.post('/material/upload/s3', {
+export const apiUploadMaterialImage = (data) => modelRequest.post('/material/upload/s3', data, {
     headers: {
         "Content-Type": "multipart/form-data",
         accessToken: Vue.prototype.TokenDecode(localStorage.getItem('Token'))
