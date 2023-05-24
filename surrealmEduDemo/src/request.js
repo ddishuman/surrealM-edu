@@ -247,12 +247,13 @@ export const apiDelMaterial = (serial) => modelRequest.delete('/material/delete/
 })
 export const apiUploadMaterialImage = (data) => modelRequest.post('/material/upload/s3', data, {
     headers: {
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': '*',
+        'Access-Control-Allow-Credentials': true,
         "Content-Type": "multipart/form-data",
         accessToken: Vue.prototype.TokenDecode(localStorage.getItem('Token'))
     },
 })
-
-
 
 
 export const apiGetStudentDetailByTag = (serial) => modelRequest.get('/studentdetail/' + serial, {

@@ -32,20 +32,19 @@
                             <div class="keyinTitle">*{{ $t('SURREALM.MaterialLib.MaterialFile') }}</div>
                             <div class="keyinContent elementFormRight" id="upload_file_zone" @drop="drop($event)" @dragover.prevent @dragenter.prevent>                            
                                 <input class="display_none" id="file_upload" ref="file" @change="handleFileUpload" type="file" accept="image/*">
-                                <div id="preview" v-if="Material.Url != null">                                    
-                                    <img :src="Material.Url" style="width:100%;">
-                                    <button class="btn btnWithIcon iconDel" style="position: absolute; bottom: 0px; right: 0px; background-color:gray;" @click="Material.Url = null">{{ $t('SURREALM.MaterialLib.Delete') }}</button>
-                                </div>
-                                <div class="upload_zone" @click.prevent="selectUploadImage" v-else>
+                                <div v-if="Material.PicUrl == null || Material.PicUrl.length == 0" class="upload_zone" @click.prevent="selectUploadImage" >
                                     <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAALEgAACxIB0t1+/AAAABx0RVh0U29mdHdhcmUAQWRvYmUgRmlyZXdvcmtzIENTNui8sowAAAHoSURBVGiB7ZmvT8NAFMe/b5AhZoZELxgShp9hDuQkErk/YQIFBsP/gEDgQE5uggQJBoVAkOBISCDZIPBFdAvkeuva6113u/STNEteu9f32V7vxyYkEQKVRRdgi1LEN4IRWdUFRcTaDUiuA6iJyLPFnLGYaIN2RS4B1EVk32JOfVA9LN7wgH90LeaN1+xKhOQGydd/Iu8kG5ZyFypyzTg3JHMPMIWJKC2l0lsKEU1LqYzztlhRIv0ECSst5lyEZDeFxBTjFnMqQrLBaGRKy5hk0ysRkpVJu2TlnmTVJ5GegcSUUy9ESDYZtYkp3yRbCxUhWWXUHnl5JFnLI5J3lj0GYPTAKjQAnOXKYPqNkGxN2sIme6Y1Gy3jGY00D4g+SZu8ANgUkY8594/FtBurFGwBuEg4fwRgZca5HwAnCe/dBnCbtSAnGyuSIwBrM05/iUjmuUPJH4sFs2cvRXyjFPEN7fBLcleNicjQfTmxOuoAdpTwG4A73cW6I0bGAkYJs/dnhjxtzfsHupqDaa1SxDdM11rz6CB5rWUdJyIi0neRN4lgWqsU8Y3UzwjJK+hmVLd00l6o3VgB8PnP9yGAthoMprWCFyl8pZuBgS446xmpAzicvPrEk4ica38wybhC95bgn5GloxTxjV+7v7eq7SSNfgAAAABJRU5ErkJggg=="> 請拖曳圖檔至此或點擊瀏覽資料夾 <span>檔案限制1MB，類型為jpg、png</span>
                                 </div>
-                                
+                                <div id="preview" v-else>                                    
+                                    <img :src="Material.PicUrl" style="width:100%;">
+                                    <button class="btn btnWithIcon iconDel" style="position: absolute; bottom: 0px; right: 0px; background-color:gray;" @click="Material.PicUrl = null">{{ $t('SURREALM.MaterialLib.Delete') }}</button>
+                                </div>
                             </div>
                         </div>
                         <div v-show="Material.Type == 'video'">
                             <div class="keyinTitle">*{{ $t('SURREALM.MaterialLib.MaterialLink') }}</div>
                             <div class="keyinContent">
-                                <input class="tableInput" type="text" :placeholder="$t('SURREALM.MaterialLib.Placeholder.VideoLink')" v-model.trim="Material.Url"/>
+                                <input class="tableInput" type="text" :placeholder="$t('SURREALM.MaterialLib.Placeholder.VideoLink')" v-model.trim="Material.VideoUrl"/>
                             </div>
                         </div>
                         <div v-show="Material.Type == 'pic'|| Material.Type == 'video'">
@@ -138,7 +137,8 @@ export default {
         Type:'pic',
         Name:'',
         Classification:'課程1',
-        Url:'',
+        PicUrl:'',
+        VideoUrl:'',
         Des:'',
         Question:'',
         Answer:1,
@@ -170,10 +170,11 @@ export default {
             Type:'pic',
             Name:'',
             Classification:'課程1',
-            Url:'',
+            PicUrl:'',
+            VideoUrl:'',
             Description:'',
             Question:'',
-            Answer:'1',
+            Answer:1,
             Option1:'',
             Option2:'',
             Option3:'',
@@ -190,7 +191,9 @@ export default {
         let errMsg = '';
         if (this.Material.Name == '' || this.Material.Name == null) {
             errMsg = this.$t('SURREALM.MaterialLib.MaterialName') + this.$t('SURREALM.MaterialLib.Required');
-        } else if ((this.Material.Type == "pic" || this.Material.Type == "video") && (this.Material.Url == "" || this.Material.Url == null)) {
+        } else if (this.Material.Type == "pic" && (this.Material.PicUrl == "" || this.Material.PicUrl == null)) {
+            errMsg = this.$t('SURREALM.MaterialLib.MaterialFile') + this.$t('SURREALM.MaterialLib.Required');
+        } else if (this.Material.Type == "video" && (this.Material.VideoUrl == "" || this.Material.VideoUrl == null)) {
             errMsg = this.$t('SURREALM.MaterialLib.MaterialLink') + this.$t('SURREALM.MaterialLib.Required');
         } else if (this.Material.Question == '' || this.Material.Question == null) {
             errMsg = this.$t('SURREALM.MaterialLib.Topic') + this.$t('SURREALM.MaterialLib.Required');
@@ -205,6 +208,7 @@ export default {
     AddMaterial() {
         let ErrMsg = this.ValidateMaterial();
         if (ErrMsg == '') {
+            this.Material.Answer = parseInt(this.Material.Answer);//string轉成int
             let data = JSON.stringify(this.Material);
             apiAddMaterial(data).then((res) => {        
                 if (res.data.Status == 'ok') {          
@@ -277,10 +281,10 @@ export default {
         var fileSize = 1024000; //1M
         console.log(this.File.size);
         if (this.File == null) {
-            alert('尚未選取檔案');
+            alert(this.$t('SURREALM.MaterialLib.NoFileSelected'));
             return false;
         } else if (this.File.size > fileSize) {
-            alert('上傳圖檔超過1M');
+            alert(this.$t('SURREALM.MaterialLib.UploadFileIsTooLarge'));
             return false;
         }
 
@@ -289,8 +293,8 @@ export default {
 
         apiUploadMaterialImage(formData).then((res) => {        
             if (res.data.Status == 'ok') {          
-                this.Material.Url = res.data.MaterialS3Path;
-                console.log(this.Material.Url);
+                this.Material.PicUrl = res.data.MaterialS3Path;
+                console.log(this.Material.PicUrl);
             } else {
                 this.$toasted.show(this.$t('SURREALM.ApiErr') + res.data.Code, {
                 icon: 'warning',
