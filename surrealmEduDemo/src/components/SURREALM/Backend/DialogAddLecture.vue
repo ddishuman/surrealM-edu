@@ -121,11 +121,10 @@
           </div>
           <div ref="stepheader" class="step1_3" v-show="CurrentStep == 3">            
             <div class="space-img">
-              <img src="@/assets/img/SURREALM/Backend/LectureManager/exploration_space_1F.jpg">
-              <img src="@/assets/img/SURREALM/Backend/LectureManager/exploration_space_2F.jpg">
+              <img src="@/assets/img/SURREALM/Backend/LectureManager/exploration_space.jpg">
             </div>
             <div class="total-score-title">{{ $t('SURREALM.LectureOwn.TotalScore') }}80{{ $t('SURREALM.LectureOwn.ScoreUtil') }}</div>
-            <div class="picture-frame" v-for="index in 16" :key="index">
+            <div class="picture-frame" v-for="index in 20" :key="index">
               <div class="frame-title">{{ $t('SURREALM.LectureOwn.PictureFrame') }}{{ index }}</div>
               <div class="keyinTitle">{{ $t('SURREALM.LectureOwn.SelectMaterial') }}</div>
               <div class="keyinContent">
@@ -659,8 +658,8 @@ export default {
       let CalcSerial = this.defaultValue == null ? 0 : this.Serial;
       apiGeMaxUsingNo(this.Lecture.Date, this.Lecture.Time[0], this.Lecture.Time[1], CalcSerial).then((res) => {
         if (res.data.Status == 'ok') {
-          this.Edu.MaxNumber = res.data.MaxNumber;
-          this.Edu.CurrentNumber = res.data.CurrentNumber;
+            this.Edu.MaxNumber = res.data.MaxNumber;
+            this.Edu.CurrentNumber = res.data.CurrentNumber;
         } else {
           this.$toasted.show(this.$t('SURREALM.ApiErr') + res.data.Code, {
             icon: 'warning',

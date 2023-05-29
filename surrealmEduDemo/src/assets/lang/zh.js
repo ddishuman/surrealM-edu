@@ -341,6 +341,8 @@ module.exports = {
       DelLeftBtn: "取消",
       DelRightBtn: "刪除",
       Required:"必填",
+      NoFileSelected: "尚未選取檔案",
+      UploadFileIsTooLarge: "上傳圖檔超過1M",
   },
     Systems: {
       PageName: "系統公告",
