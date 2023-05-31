@@ -7,7 +7,7 @@ import Vue from 'vue'
 // const apiServer = "http://192.168.1.98:5600/";
 // const webServer = "http://192.168.1.98:8887/";
 
-const apiServer = "http://54.95.227.250:5600/";//"https://surrealmedudemoapi.surreal.com.tw/";
+const apiServer = "https://d09f-118-163-107-175.jp.ngrok.io";
 const webServer = "https://surrealmedudemo.surreal.com.tw/";
 
 // const apiServer = "https://surrealmeduapi.surreal.com.tw/";
