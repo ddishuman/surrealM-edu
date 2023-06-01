@@ -128,34 +128,34 @@
               <div class="frame-title">{{ $t('SURREALM.LectureOwn.PictureFrame') }}{{ index }}</div>
               <div class="keyinTitle">{{ $t('SURREALM.LectureOwn.SelectMaterial') }}</div>
               <div class="keyinContent">
-                  <input type="radio" :name="'material_select_'+index" id="material" value="material" checked />
-                  <label for="material"><span></span>{{ $t('SURREALM.LectureOwn.Material') }}</label>
-                  <input type="radio" :name="'material_select_'+index" id="default" value="default" />
-                  <label for="default"><span></span>{{ $t('SURREALM.LectureOwn.Default') }}</label>
+                  <input type="radio" :name="'material_select['+index+']'" :id="'material['+index+']'" value="1" v-model="CourseFrames[index - 1].Type" @change="onChangeCourseFrame()"/>
+                  <label :for="'material['+index+']'"><span></span>{{ $t('SURREALM.LectureOwn.Material') }}</label>
+                  <input type="radio" :name="'material_select['+index+']'" :id="'default['+index+']'" value="0" v-model="CourseFrames[index - 1].Type" @change="onChangeCourseFrame()"/>
+                  <label :for="'default['+index+']'"><span></span>{{ $t('SURREALM.LectureOwn.Default') }}</label>
               </div>
               <div class="input-container">                            
-                <select class="tableSelect">
-                    <option>{{ $t('SURREALM.MaterialLib.MaterialType') }}</option>
+                <select class="tableSelect" v-model="CourseFrames[index - 1].MaterialType" :disabled="CourseFrames[index - 1].Type == '0'" @change="SearchMaterialList(index - 1, CourseFrames[index - 1].MaterialType, CourseFrames[index - 1].MaterialCategory)">
+                    <option value="">{{ $t('SURREALM.MaterialLib.MaterialType') }}</option>
                     <option v-for="(type, index) in MaterialTypes" :key="index" :value="type.id">
                       {{ type.name }}
                     </option>
                 </select>
-                <select class="tableSelect">
-                  <option>{{ $t('SURREALM.MaterialLib.Category') }}</option>
+                <select class="tableSelect" v-model="CourseFrames[index - 1].MaterialCategory" :disabled="CourseFrames[index - 1].Type == '0'" @change="SearchMaterialList(index - 1, CourseFrames[index - 1].MaterialType, CourseFrames[index - 1].MaterialCategory)">
+                  <option value="">{{ $t('SURREALM.MaterialLib.Category') }}</option>
                   <option v-for="(category, index) in Categories" :key="index" :value="category">
                     {{ category }}
                   </option>
                 </select>
                 <div class="calculate-score">                 
                   <label>{{ $t('SURREALM.LectureOwn.CalculateScore') }}</label>
-                  <input class="lectureName" type="text" />
+                  <input class="lectureName" type="text" v-model="CourseFrames[index - 1].Score" v-bind:disabled="CourseFrames[index - 1].Type == '0'"/>
                 </div>
               </div>
               <div class="input-container">      
-                <select class="tableSelect2">
+                <select class="tableSelect2" v-bind:disabled="CourseFrames[index - 1].Type == '0'">
                   <option>{{ $t('SURREALM.MaterialLib.MaterialName') }}</option>
-                  <option v-for="(category, index) in Categories" :key="index" :value="category">
-                    {{ category }}
+                  <option v-for="(material, index) in CourseFrames[index - 1].MaterialList" :key="index" :value="material.Serial">
+                    {{ material.Name }}
                   </option>
                 </select>
               </div>
@@ -336,6 +336,8 @@ import {
   apiGetLectureType,
   apiGeMaxUsingNo,
   apiGetTeachingCool,
+  apiGetCourseFrame,
+  apiSearchMaterialList
 } from '@/request.js';
 
 export default {
@@ -413,6 +415,7 @@ export default {
         {id:"quick_resp_qn", name:"搶答題目"}
       ],
       Categories: ["課程1", "課程2", "課程3", "課程4", "課程5", "課程6", "課程7", "課程8", "課程9", "課程10"],
+      CourseFrames: [],
       DelLinkInfo: {
         Serial: null,
         Index: null,
@@ -421,6 +424,7 @@ export default {
     };
   },
   mounted() {
+    this.GetDefaultCourseFrame();
     this.GetLinks();
     this.GetTags();
     this.GetModels();
@@ -776,6 +780,76 @@ export default {
           });
         }
       });
+    },
+    SearchMaterialList(index, type, category) {      
+      if (type != null && category != null && type != "" && category != "") {
+        apiSearchMaterialList(type, category).then((res) => {        
+          if (res.data.Status == 'ok') {   
+            // console.log(res.data.Materials);  
+            this.CourseFrames[index].MaterialList = res.data.Materials;
+            this.onChangeCourseFrame();
+          } else {
+            this.$toasted.show(this.$t('SURREALM.ApiErr') + res.data.Code, {
+              icon: 'warning',
+              position: 'bottom-center',
+              duration: 3500,
+            });
+          }
+        });
+      }
+    },
+    onChangeCourseFrame() {
+      let tmp = this.CourseFrames;
+      this.CourseFrames = [];
+      this.CourseFrames = tmp;
+    },
+    GetDefaultCourseFrame() {
+        for(var i = 0; i < 20; i ++) {
+          var CourseFrame = {
+            "Type": '1',
+            "Owner": null,
+            "Course": null,
+            "LectureSerial": null,
+            "LectureCode": null,
+            "FrameSerial": i,
+            "MaterialSerial": null,
+            "Score": 0,
+            "MaterialType": "",
+            "MaterialCategory": "",
+            "MaterialList": []
+          }
+          Object.keys(CourseFrame).forEach((key) => {
+            let internalValue = CourseFrame[key];
+            Object.defineProperty(CourseFrame, key, {
+              get() {
+                // console.log(`Get ${key}: ${internalValue}`);
+                return internalValue;
+              },
+
+              set(newValue) {
+                // console.log(`Set ${key} from ${internalValue} to ${newValue}`);
+                internalValue = newValue;
+              },
+            });
+          });
+          this.CourseFrames[i] = CourseFrame;
+        }        
+        //console.log(this.CourseFrames);
+    },
+    GetCourseFrame() {
+      if (this.Serial != null) {
+        apiGetCourseFrame().then((res) => {
+          if (res.data.Status == 'ok') {
+            this.CourseFrames = res.data.CourseFrame;
+          } else {
+            this.$toasted.show(this.$t('SURREALM.ApiErr') + res.data.Code, {
+              icon: 'warning',
+              position: 'bottom-center',
+              duration: 3500,
+            });
+          }
+        });
+      }
     },
     GetModels() {
       apiGetTeachingCool().then((res) => {

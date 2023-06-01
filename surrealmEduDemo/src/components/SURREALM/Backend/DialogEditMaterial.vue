@@ -195,13 +195,15 @@ export default {
             errMsg = this.$t('SURREALM.MaterialLib.MaterialFile') + this.$t('SURREALM.MaterialLib.Required');
         } else if (this.Material.Type == "video" && (this.Material.VideoUrl == "" || this.Material.VideoUrl == null)) {
             errMsg = this.$t('SURREALM.MaterialLib.MaterialLink') + this.$t('SURREALM.MaterialLib.Required');
-        } else if (this.Material.Question == '' || this.Material.Question == null) {
-            errMsg = this.$t('SURREALM.MaterialLib.Topic') + this.$t('SURREALM.MaterialLib.Required');
-        } else if (this.Material.Option1 == '' || this.Material.Option1 == null ||
-        this.Material.Option2 == '' || this.Material.Option2 == null ||
-        this.Material.Option3 == '' || this.Material.Option3 == null ||
-        this.Material.Option4 == '' || this.Material.Option4 == null) {
-            errMsg = this.$t('SURREALM.MaterialLib.Options') + this.$t('SURREALM.MaterialLib.Required');
+        } else if (this.Material.Type == "quick_resp_qn") {
+            if (this.Material.Question == '' || this.Material.Question == null) {
+                errMsg = this.$t('SURREALM.MaterialLib.Topic') + this.$t('SURREALM.MaterialLib.Required');
+            } else if (this.Material.Option1 == '' || this.Material.Option1 == null ||
+            this.Material.Option2 == '' || this.Material.Option2 == null ||
+            this.Material.Option3 == '' || this.Material.Option3 == null ||
+            this.Material.Option4 == '' || this.Material.Option4 == null) {
+                errMsg = this.$t('SURREALM.MaterialLib.Options') + this.$t('SURREALM.MaterialLib.Required');
+            }
         }
         return errMsg;
     }, 
