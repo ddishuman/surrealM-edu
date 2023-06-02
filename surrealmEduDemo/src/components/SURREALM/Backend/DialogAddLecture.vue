@@ -338,6 +338,7 @@ import {
   apiGetTeachingCool,
   apiGetCourseFrame,
   apiEditCourseFrame,
+  apiGetMaterialList,
   apiSearchMaterialList
 } from '@/request.js';
 
@@ -415,6 +416,7 @@ export default {
         {id:"video", name:"影片"},
         {id:"quick_resp_qn", name:"搶答題目"}
       ],
+      MaterialList:null,
       Categories: ["課程1", "課程2", "課程3", "課程4", "課程5", "課程6", "課程7", "課程8", "課程9", "課程10"],
       CourseFrames: [],
       DelLinkInfo: {
@@ -424,8 +426,8 @@ export default {
       StreamingAuth: false,
     };
   },
-  mounted() {
-    this.GetDefaultCourseFrame();
+  mounted() {    
+    this.GetMaterialList();
     this.GetLinks();
     this.GetTags();
     this.GetModels();
@@ -783,6 +785,20 @@ export default {
         }
       });
     },
+    GetMaterialList() {      
+      apiGetMaterialList().then((res) => {        
+        if (res.data.Status == 'ok') {          
+          this.MaterialList = res.data.Materials;   
+          this.GetDefaultCourseFrame();       
+        } else {
+          this.$toasted.show(this.$t('SURREALM.ApiErr') + res.data.Code, {
+            icon: 'warning',
+            position: 'bottom-center',
+            duration: 3500,
+          });
+        }
+      });
+    },
     SearchMaterialList(index, type, category) {      
       if (type != null && category != null && type != "" && category != "") {
         apiSearchMaterialList(type, category).then((res) => {        
@@ -827,8 +843,23 @@ export default {
             "Score": "",
             "MaterialType": "",
             "MaterialCategory": "",
-            "MaterialList": [],
-            "Material": null,
+            "MaterialList": this.MaterialList,
+            "Material": {
+                "Serial": "",
+                "Owner": null,
+                "Type": null,
+                "Name": null,
+                "Classification":null,
+                "PicUrl": "",
+                "VideoUrl": "",
+                "Description": "",
+                "Question": "test1",
+                "Answer": null,
+                "Option1": null,
+                "Option2": null,
+                "Option3": null,
+                "Option4": null
+            },
           }
           Object.keys(CourseFrame).forEach((key) => {
             let internalValue = CourseFrame[key];
@@ -846,15 +877,37 @@ export default {
           });
           this.CourseFrames[i] = CourseFrame;
         }        
-        //console.log(this.CourseFrames);
+        this.onChangeCourseFrame();
     },
     GetCourseFrame() {
-      if (this.Serial != null) {
-        console.log("this.Serial-->"+this.Serial);
+      if (this.Serial != null) {        
         apiGetCourseFrame(this.Serial).then((res) => {
-          if (res.data.Status == 'ok') {
-            console.log(res.data.Frames);
-            this.CourseFrames = res.data.Frames;
+          if (res.data.Status == 'ok') {            
+            let list = res.data.Frames;
+            list.forEach(frame => {
+              let index = frame.FrameSerial;
+              let CourseFrame = {
+                "Type": '1',
+                "Serial": frame.Serial,
+                "Owner": frame.Owner,
+                "Course": frame.Course,
+                "LectureSerial": frame.LectureSerial,
+                "LectureCode": frame.Code,
+                "FrameSerial": frame.FrameSerial,
+                "MaterialSeria": frame.MaterialSerial,
+                "Score": frame.Score,
+                "MaterialType": "",
+                "MaterialCategory": "",
+                "MaterialList": this.MaterialList,
+              }              
+              if (this.MaterialList.length > 0) {                
+                const item = this.MaterialList.find(it => it.Serial == frame.MaterialSerial);
+                CourseFrame.Material = item;
+              }
+              this.CourseFrames[index - 1] = CourseFrame;
+            });
+            this.onChangeCourseFrame();
+            console.log(this.CourseFrames);
           } else {
             this.$toasted.show(this.$t('SURREALM.ApiErr') + res.data.Code, {
               icon: 'warning',
@@ -865,9 +918,7 @@ export default {
         });
       }
     },
-    EditCourseFrame(action, data) {
-      console.log(localStorage.getItem('Name'));  
-      console.log(data);      
+    EditCourseFrame(action, data) {         
       var MaterialList = this.CourseFrames.filter(function(value) {
         return value.Type == 1;
       });
