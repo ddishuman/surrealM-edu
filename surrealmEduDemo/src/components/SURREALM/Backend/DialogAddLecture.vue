@@ -148,12 +148,12 @@
                 </select>
                 <div class="calculate-score">                 
                   <label>{{ $t('SURREALM.LectureOwn.CalculateScore') }}</label>
-                  <input class="lectureName" type="text" v-model="CourseFrames[index - 1].Score" v-bind:disabled="CourseFrames[index - 1].Type == '0'"/>
+                  <input class="lectureName" type="text" v-model="CourseFrames[index - 1].Score" :disabled="CourseFrames[index - 1].Type == '0' || CourseFrames[index - 1].Material == null || CourseFrames[index - 1].Material.Question.length == 0"/>
                 </div>
               </div>
               <div class="input-container">      
-                <select class="tableSelect2" v-bind:disabled="CourseFrames[index - 1].Type == '0'">
-                  <option>{{ $t('SURREALM.MaterialLib.MaterialName') }}</option>
+                <select class="tableSelect2" v-model="CourseFrames[index - 1].MaterialSerial" :disabled="CourseFrames[index - 1].Type == '0'" @change="onChangeMaterial($event, index - 1)">
+                  <option value="">{{ $t('SURREALM.MaterialLib.MaterialName') }}</option>
                   <option v-for="(material, index) in CourseFrames[index - 1].MaterialList" :key="index" :value="material.Serial">
                     {{ material.Name }}
                   </option>
@@ -337,6 +337,7 @@ import {
   apiGeMaxUsingNo,
   apiGetTeachingCool,
   apiGetCourseFrame,
+  apiEditCourseFrame,
   apiSearchMaterialList
 } from '@/request.js';
 
@@ -535,6 +536,9 @@ export default {
             this.CurrentStep++;
           } else if (this.Lecture.Type == '1004') {            
             this.CurrentStep = this.CurrentStep + 2;
+            if(this.Serial != null) {
+              this.GetCourseFrame();
+            }            
           } else {
             this.CurrentStep = this.CurrentStep + 3;
             this.Lecture.Models = [];
@@ -621,9 +625,8 @@ export default {
               if (data.Lecture.Image == '') {
                 data.Lecture.Image = tmpImage;
               }
-              this.$emit('edit', data);
-              this.Image.ChangePhoto = false;
-              this.CloseDialog();
+
+              this.EditCourseFrame('edit', data);              
             } else {
               this.$toasted.show(res.data.Error, {
                 icon: 'warning',
@@ -639,9 +642,8 @@ export default {
             if (res.data.Status == 'ok') {
               data.Serial = res.data.Serial;
               data.LectureCode = res.data.LectureCode;
-              this.$emit('add', data);
-              this.Image.ChangePhoto = false;
-              this.CloseDialog();
+              
+              this.EditCourseFrame('add', data);              
             } else {
               this.$toasted.show(res.data.Error, {
                 icon: 'warning',
@@ -787,6 +789,9 @@ export default {
           if (res.data.Status == 'ok') {   
             // console.log(res.data.Materials);  
             this.CourseFrames[index].MaterialList = res.data.Materials;
+            if (this.CourseFrames[index].MaterialList == null || this.CourseFrames[index].MaterialList.length == 0) {
+              this.CourseFrames[index].Material = null;
+            }
             this.onChangeCourseFrame();
           } else {
             this.$toasted.show(this.$t('SURREALM.ApiErr') + res.data.Code, {
@@ -797,6 +802,12 @@ export default {
           }
         });
       }
+    },    
+    onChangeMaterial(event, index) {
+      //console.log(event.target.value)
+      const item = this.CourseFrames[index].MaterialList.find(it => it.Serial == event.target.value);
+      this.CourseFrames[index].Material = item;
+      this.onChangeCourseFrame();
     },
     onChangeCourseFrame() {
       let tmp = this.CourseFrames;
@@ -806,17 +817,18 @@ export default {
     GetDefaultCourseFrame() {
         for(var i = 0; i < 20; i ++) {
           var CourseFrame = {
-            "Type": '1',
+            "Type": '0',
             "Owner": null,
             "Course": null,
             "LectureSerial": null,
             "LectureCode": null,
-            "FrameSerial": i,
+            "FrameSerial": i + 1,
             "MaterialSerial": null,
-            "Score": 0,
+            "Score": "",
             "MaterialType": "",
             "MaterialCategory": "",
-            "MaterialList": []
+            "MaterialList": [],
+            "Material": null,
           }
           Object.keys(CourseFrame).forEach((key) => {
             let internalValue = CourseFrame[key];
@@ -838,9 +850,11 @@ export default {
     },
     GetCourseFrame() {
       if (this.Serial != null) {
-        apiGetCourseFrame().then((res) => {
+        console.log("this.Serial-->"+this.Serial);
+        apiGetCourseFrame(this.Serial).then((res) => {
           if (res.data.Status == 'ok') {
-            this.CourseFrames = res.data.CourseFrame;
+            console.log(res.data.Frames);
+            this.CourseFrames = res.data.Frames;
           } else {
             this.$toasted.show(this.$t('SURREALM.ApiErr') + res.data.Code, {
               icon: 'warning',
@@ -850,6 +864,40 @@ export default {
           }
         });
       }
+    },
+    EditCourseFrame(action, data) {
+      console.log(localStorage.getItem('Name'));  
+      console.log(data);      
+      var MaterialList = this.CourseFrames.filter(function(value) {
+        return value.Type == 1;
+      });
+      MaterialList = MaterialList.map(function (material) {
+        var CourseFrame = {            
+          "Owner": localStorage.getItem('Name'),
+          "Course": data.Lecture.Name,
+          "LectureSerial": data.Serial,
+          "LectureCode": data.LectureCode,
+          "FrameSerial": material.FrameSerial,
+          "MaterialSerial": material.MaterialSerial,
+          "Score": material.Score
+        }
+        return CourseFrame;
+      });
+      let jsonData = JSON.stringify({"CourseFrame": MaterialList});
+      console.log(jsonData);
+      apiEditCourseFrame(data.Serial, jsonData).then((res) => {
+        if (res.data.Status == 'ok') {
+          this.$emit(action, data);
+            this.Image.ChangePhoto = false;
+            this.CloseDialog();
+        } else {
+          this.$toasted.show(this.$t('SURREALM.ApiErr') + res.data.Code, {
+            icon: 'warning',
+            position: 'bottom-center',
+            duration: 3500,
+          });
+        }
+      });      
     },
     GetModels() {
       apiGetTeachingCool().then((res) => {
