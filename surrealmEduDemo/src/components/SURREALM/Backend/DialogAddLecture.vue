@@ -152,7 +152,7 @@
                 </div>
               </div>
               <div class="input-container">      
-                <select class="tableSelect2" v-model="CourseFrames[index - 1].MaterialSerial" :disabled="CourseFrames[index - 1].Type == '0'" @change="onChangeMaterial($event, index - 1)">
+                <select class="tableSelect2" v-model="CourseFrames[index - 1].Material.Serial" :disabled="CourseFrames[index - 1].Type == '0'" @change="onChangeMaterial($event, index - 1)">
                   <option value="">{{ $t('SURREALM.MaterialLib.MaterialName') }}</option>
                   <option v-for="(material, index) in CourseFrames[index - 1].MaterialList" :key="index" :value="material.Serial">
                     {{ material.Name }}
@@ -833,32 +833,32 @@ export default {
     GetDefaultCourseFrame() {
         for(var i = 0; i < 20; i ++) {
           var CourseFrame = {
-            "Type": '0',
-            "Owner": null,
-            "Course": null,
-            "LectureSerial": null,
-            "LectureCode": null,
-            "FrameSerial": i + 1,
-            "MaterialSerial": null,
-            "Score": "",
-            "MaterialType": "",
-            "MaterialCategory": "",
-            "MaterialList": this.MaterialList,
-            "Material": {
-                "Serial": "",
-                "Owner": null,
-                "Type": null,
-                "Name": null,
-                "Classification":null,
-                "PicUrl": "",
-                "VideoUrl": "",
-                "Description": "",
-                "Question": "test1",
-                "Answer": null,
-                "Option1": null,
-                "Option2": null,
-                "Option3": null,
-                "Option4": null
+            Type: '0',
+            Owner: null,
+            Course: null,
+            LectureSerial: null,
+            LectureCode: null,
+            FrameSerial: i + 1,
+            MaterialSerial: null,
+            Score: 0,
+            MaterialType: '',
+            MaterialCategory: '',
+            MaterialList: this.MaterialList,
+            Material: {
+                Serial: '',
+                Owner: null,
+                Type: null,
+                Name: null,
+                Classification:null,
+                PicUrl: '',
+                VideoUrl: '',
+                Description: '',
+                Question: null,
+                Answer: null,
+                Option1: null,
+                Option2: null,
+                Option3: null,
+                Option4: null
             },
           }
           Object.keys(CourseFrame).forEach((key) => {
@@ -887,18 +887,18 @@ export default {
             list.forEach(frame => {
               let index = frame.FrameSerial;
               let CourseFrame = {
-                "Type": '1',
-                "Serial": frame.Serial,
-                "Owner": frame.Owner,
-                "Course": frame.Course,
-                "LectureSerial": frame.LectureSerial,
-                "LectureCode": frame.Code,
-                "FrameSerial": frame.FrameSerial,
-                "MaterialSeria": frame.MaterialSerial,
-                "Score": frame.Score,
-                "MaterialType": "",
-                "MaterialCategory": "",
-                "MaterialList": this.MaterialList,
+                Type: '1',
+                Serial: frame.Serial,
+                Owner: frame.Owner,
+                Course: frame.Course,
+                LectureSerial: frame.LectureSerial,
+                LectureCode: frame.Code,
+                FrameSerial: frame.FrameSerial,
+                MaterialSeria: frame.MaterialSerial,
+                Score: frame.Score,
+                MaterialType: '',
+                MaterialCategory: '',
+                MaterialList: this.MaterialList,
               }              
               if (this.MaterialList.length > 0) {                
                 const item = this.MaterialList.find(it => it.Serial == frame.MaterialSerial);
@@ -907,7 +907,7 @@ export default {
               this.CourseFrames[index - 1] = CourseFrame;
             });
             this.onChangeCourseFrame();
-            console.log(this.CourseFrames);
+            // console.log(this.CourseFrames);
           } else {
             this.$toasted.show(this.$t('SURREALM.ApiErr') + res.data.Code, {
               icon: 'warning',
@@ -924,17 +924,17 @@ export default {
       });
       MaterialList = MaterialList.map(function (material) {
         var CourseFrame = {            
-          "Owner": localStorage.getItem('Name'),
-          "Course": data.Lecture.Name,
-          "LectureSerial": data.Serial,
-          "LectureCode": data.LectureCode,
-          "FrameSerial": material.FrameSerial,
-          "MaterialSerial": material.MaterialSerial,
-          "Score": material.Score
+          Owner: localStorage.getItem('Name'),
+          Course: data.Lecture.Name,
+          LectureSerial: data.Serial,
+          LectureCode: data.LectureCode,
+          FrameSerial: material.FrameSerial,
+          MaterialSerial: material.MaterialSerial,
+          Score: material.Score
         }
         return CourseFrame;
       });
-      let jsonData = JSON.stringify({"CourseFrame": MaterialList});
+      let jsonData = JSON.stringify({CourseFrame: MaterialList});
       console.log(jsonData);
       apiEditCourseFrame(data.Serial, jsonData).then((res) => {
         if (res.data.Status == 'ok') {
