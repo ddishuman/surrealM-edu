@@ -210,6 +210,18 @@ export const apiDelLecture = (serial) => modelRequest.delete('/lecture/' + seria
     },
 })
 
+export const apiGetCourseFrame = (serial) => modelRequest.get('/frames/course/' + serial, {
+    headers: {
+        accessToken: Vue.prototype.TokenDecode(localStorage.getItem('Token'))
+    },
+})
+
+export const apiEditCourseFrame = (serial, data) => modelRequest.put('/frame/course/' + serial + "/edit", data, {
+    headers: {
+        accessToken: Vue.prototype.TokenDecode(localStorage.getItem('Token'))
+    },
+})
+
 //MaterialLib
 export const apiGetMaterialList = () => modelRequest.get('/materialList', {
     headers: {

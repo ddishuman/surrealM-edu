@@ -128,34 +128,34 @@
               <div class="frame-title">{{ $t('SURREALM.LectureOwn.PictureFrame') }}{{ index }}</div>
               <div class="keyinTitle">{{ $t('SURREALM.LectureOwn.SelectMaterial') }}</div>
               <div class="keyinContent">
-                  <input type="radio" :name="'material_select_'+index" id="material" value="material" checked />
-                  <label for="material"><span></span>{{ $t('SURREALM.LectureOwn.Material') }}</label>
-                  <input type="radio" :name="'material_select_'+index" id="default" value="default" />
-                  <label for="default"><span></span>{{ $t('SURREALM.LectureOwn.Default') }}</label>
+                  <input type="radio" :name="'material_select['+index+']'" :id="'material['+index+']'" value="1" v-model="CourseFrames[index - 1].Type" @change="onChangeCourseFrame()"/>
+                  <label :for="'material['+index+']'"><span></span>{{ $t('SURREALM.LectureOwn.Material') }}</label>
+                  <input type="radio" :name="'material_select['+index+']'" :id="'default['+index+']'" value="0" v-model="CourseFrames[index - 1].Type" @change="onChangeCourseFrame()"/>
+                  <label :for="'default['+index+']'"><span></span>{{ $t('SURREALM.LectureOwn.Default') }}</label>
               </div>
               <div class="input-container">                            
-                <select class="tableSelect">
-                    <option>{{ $t('SURREALM.MaterialLib.MaterialType') }}</option>
+                <select class="tableSelect" v-model="CourseFrames[index - 1].MaterialType" :disabled="CourseFrames[index - 1].Type == '0'" @change="SearchMaterialList(index - 1, CourseFrames[index - 1].MaterialType, CourseFrames[index - 1].MaterialCategory)">
+                    <option value="">{{ $t('SURREALM.MaterialLib.MaterialType') }}</option>
                     <option v-for="(type, index) in MaterialTypes" :key="index" :value="type.id">
                       {{ type.name }}
                     </option>
                 </select>
-                <select class="tableSelect">
-                  <option>{{ $t('SURREALM.MaterialLib.Category') }}</option>
+                <select class="tableSelect" v-model="CourseFrames[index - 1].MaterialCategory" :disabled="CourseFrames[index - 1].Type == '0'" @change="SearchMaterialList(index - 1, CourseFrames[index - 1].MaterialType, CourseFrames[index - 1].MaterialCategory)">
+                  <option value="">{{ $t('SURREALM.MaterialLib.Category') }}</option>
                   <option v-for="(category, index) in Categories" :key="index" :value="category">
                     {{ category }}
                   </option>
                 </select>
                 <div class="calculate-score">                 
                   <label>{{ $t('SURREALM.LectureOwn.CalculateScore') }}</label>
-                  <input class="lectureName" type="text" />
+                  <input class="lectureName" type="text" v-model="CourseFrames[index - 1].Score" :disabled="CourseFrames[index - 1].Type == '0' || CourseFrames[index - 1].Material == null || CourseFrames[index - 1].Material.Question.length == 0"/>
                 </div>
               </div>
               <div class="input-container">      
-                <select class="tableSelect2">
-                  <option>{{ $t('SURREALM.MaterialLib.MaterialName') }}</option>
-                  <option v-for="(category, index) in Categories" :key="index" :value="category">
-                    {{ category }}
+                <select class="tableSelect2" v-model="CourseFrames[index - 1].Material.Serial" :disabled="CourseFrames[index - 1].Type == '0'" @change="onChangeMaterial($event, index - 1)">
+                  <option value="">{{ $t('SURREALM.MaterialLib.MaterialName') }}</option>
+                  <option v-for="(material, index) in CourseFrames[index - 1].MaterialList" :key="index" :value="material.Serial">
+                    {{ material.Name }}
                   </option>
                 </select>
               </div>
@@ -336,6 +336,10 @@ import {
   apiGetLectureType,
   apiGeMaxUsingNo,
   apiGetTeachingCool,
+  apiGetCourseFrame,
+  apiEditCourseFrame,
+  apiGetMaterialList,
+  apiSearchMaterialList
 } from '@/request.js';
 
 export default {
@@ -412,7 +416,9 @@ export default {
         {id:"video", name:"影片"},
         {id:"quick_resp_qn", name:"搶答題目"}
       ],
+      MaterialList:null,
       Categories: ["課程1", "課程2", "課程3", "課程4", "課程5", "課程6", "課程7", "課程8", "課程9", "課程10"],
+      CourseFrames: [],
       DelLinkInfo: {
         Serial: null,
         Index: null,
@@ -420,7 +426,8 @@ export default {
       StreamingAuth: false,
     };
   },
-  mounted() {
+  mounted() {    
+    this.GetMaterialList();
     this.GetLinks();
     this.GetTags();
     this.GetModels();
@@ -531,6 +538,9 @@ export default {
             this.CurrentStep++;
           } else if (this.Lecture.Type == '1004') {            
             this.CurrentStep = this.CurrentStep + 2;
+            if(this.Serial != null) {
+              this.GetCourseFrame();
+            }            
           } else {
             this.CurrentStep = this.CurrentStep + 3;
             this.Lecture.Models = [];
@@ -617,9 +627,8 @@ export default {
               if (data.Lecture.Image == '') {
                 data.Lecture.Image = tmpImage;
               }
-              this.$emit('edit', data);
-              this.Image.ChangePhoto = false;
-              this.CloseDialog();
+
+              this.EditCourseFrame('edit', data);              
             } else {
               this.$toasted.show(res.data.Error, {
                 icon: 'warning',
@@ -635,9 +644,8 @@ export default {
             if (res.data.Status == 'ok') {
               data.Serial = res.data.Serial;
               data.LectureCode = res.data.LectureCode;
-              this.$emit('add', data);
-              this.Image.ChangePhoto = false;
-              this.CloseDialog();
+              
+              this.EditCourseFrame('add', data);              
             } else {
               this.$toasted.show(res.data.Error, {
                 icon: 'warning',
@@ -776,6 +784,171 @@ export default {
           });
         }
       });
+    },
+    GetMaterialList() {      
+      apiGetMaterialList().then((res) => {        
+        if (res.data.Status == 'ok') {          
+          this.MaterialList = res.data.Materials;   
+          this.GetDefaultCourseFrame();       
+        } else {
+          this.$toasted.show(this.$t('SURREALM.ApiErr') + res.data.Code, {
+            icon: 'warning',
+            position: 'bottom-center',
+            duration: 3500,
+          });
+        }
+      });
+    },
+    SearchMaterialList(index, type, category) {      
+      if (type != null && category != null && type != "" && category != "") {
+        apiSearchMaterialList(type, category).then((res) => {        
+          if (res.data.Status == 'ok') {   
+            // console.log(res.data.Materials);  
+            this.CourseFrames[index].MaterialList = res.data.Materials;
+            if (this.CourseFrames[index].MaterialList == null || this.CourseFrames[index].MaterialList.length == 0) {
+              this.CourseFrames[index].Material = null;
+            }
+            this.onChangeCourseFrame();
+          } else {
+            this.$toasted.show(this.$t('SURREALM.ApiErr') + res.data.Code, {
+              icon: 'warning',
+              position: 'bottom-center',
+              duration: 3500,
+            });
+          }
+        });
+      }
+    },    
+    onChangeMaterial(event, index) {
+      //console.log(event.target.value)
+      const item = this.CourseFrames[index].MaterialList.find(it => it.Serial == event.target.value);
+      this.CourseFrames[index].Material = item;
+      this.onChangeCourseFrame();
+    },
+    onChangeCourseFrame() {
+      let tmp = this.CourseFrames;
+      this.CourseFrames = [];
+      this.CourseFrames = tmp;
+    },
+    GetDefaultCourseFrame() {
+        for(var i = 0; i < 20; i ++) {
+          var CourseFrame = {
+            Type: '0',
+            Owner: null,
+            Course: null,
+            LectureSerial: null,
+            LectureCode: null,
+            FrameSerial: i + 1,
+            MaterialSerial: null,
+            Score: 0,
+            MaterialType: '',
+            MaterialCategory: '',
+            MaterialList: this.MaterialList,
+            Material: {
+                Serial: '',
+                Owner: null,
+                Type: null,
+                Name: null,
+                Classification:null,
+                PicUrl: '',
+                VideoUrl: '',
+                Description: '',
+                Question: null,
+                Answer: null,
+                Option1: null,
+                Option2: null,
+                Option3: null,
+                Option4: null
+            },
+          }
+          Object.keys(CourseFrame).forEach((key) => {
+            let internalValue = CourseFrame[key];
+            Object.defineProperty(CourseFrame, key, {
+              get() {
+                // console.log(`Get ${key}: ${internalValue}`);
+                return internalValue;
+              },
+
+              set(newValue) {
+                // console.log(`Set ${key} from ${internalValue} to ${newValue}`);
+                internalValue = newValue;
+              },
+            });
+          });
+          this.CourseFrames[i] = CourseFrame;
+        }        
+        this.onChangeCourseFrame();
+    },
+    GetCourseFrame() {
+      if (this.Serial != null) {        
+        apiGetCourseFrame(this.Serial).then((res) => {
+          if (res.data.Status == 'ok') {            
+            let list = res.data.Frames;
+            list.forEach(frame => {
+              let index = frame.FrameSerial;
+              let CourseFrame = {
+                Type: '1',
+                Serial: frame.Serial,
+                Owner: frame.Owner,
+                Course: frame.Course,
+                LectureSerial: frame.LectureSerial,
+                LectureCode: frame.Code,
+                FrameSerial: frame.FrameSerial,
+                MaterialSeria: frame.MaterialSerial,
+                Score: frame.Score,
+                MaterialType: '',
+                MaterialCategory: '',
+                MaterialList: this.MaterialList,
+              }              
+              if (this.MaterialList.length > 0) {                
+                const item = this.MaterialList.find(it => it.Serial == frame.MaterialSerial);
+                CourseFrame.Material = item;
+              }
+              this.CourseFrames[index - 1] = CourseFrame;
+            });
+            this.onChangeCourseFrame();
+            // console.log(this.CourseFrames);
+          } else {
+            this.$toasted.show(this.$t('SURREALM.ApiErr') + res.data.Code, {
+              icon: 'warning',
+              position: 'bottom-center',
+              duration: 3500,
+            });
+          }
+        });
+      }
+    },
+    EditCourseFrame(action, data) {         
+      var MaterialList = this.CourseFrames.filter(function(value) {
+        return value.Type == 1;
+      });
+      MaterialList = MaterialList.map(function (material) {
+        var CourseFrame = {            
+          Owner: localStorage.getItem('Name'),
+          Course: data.Lecture.Name,
+          LectureSerial: data.Serial,
+          LectureCode: data.LectureCode,
+          FrameSerial: material.FrameSerial,
+          MaterialSerial: material.MaterialSerial,
+          Score: material.Score
+        }
+        return CourseFrame;
+      });
+      let jsonData = JSON.stringify({CourseFrame: MaterialList});
+      console.log(jsonData);
+      apiEditCourseFrame(data.Serial, jsonData).then((res) => {
+        if (res.data.Status == 'ok') {
+          this.$emit(action, data);
+            this.Image.ChangePhoto = false;
+            this.CloseDialog();
+        } else {
+          this.$toasted.show(this.$t('SURREALM.ApiErr') + res.data.Code, {
+            icon: 'warning',
+            position: 'bottom-center',
+            duration: 3500,
+          });
+        }
+      });      
     },
     GetModels() {
       apiGetTeachingCool().then((res) => {
