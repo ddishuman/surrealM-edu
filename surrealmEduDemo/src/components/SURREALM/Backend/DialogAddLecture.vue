@@ -148,7 +148,7 @@
                 </select>
                 <div class="calculate-score">                 
                   <label>{{ $t('SURREALM.LectureOwn.CalculateScore') }}</label>
-                  <input class="lectureName" type="text" v-model="CourseFrames[index - 1].Score" :disabled="CourseFrames[index - 1].Type == '0' || CourseFrames[index - 1].Material == null || CourseFrames[index - 1].Material.Question.length == 0"/>
+                  <input class="lectureName" type="text" v-model="CourseFrames[index - 1].Score" :disabled="CourseFrames[index - 1].Type == '0' || CourseFrames[index - 1].Material == null || CourseFrames[index - 1].Material.Question == null || CourseFrames[index - 1].Material.Question.label == 0"/>
                 </div>
               </div>
               <div class="input-container">      
@@ -416,7 +416,7 @@ export default {
         {id:"video", name:"影片"},
         {id:"quick_resp_qn", name:"搶答題目"}
       ],
-      MaterialList:null,
+      MaterialList:[],
       Categories: ["課程1", "課程2", "課程3", "課程4", "課程5", "課程6", "課程7", "課程8", "課程9", "課程10"],
       CourseFrames: [],
       DelLinkInfo: {
@@ -427,6 +427,7 @@ export default {
     };
   },
   mounted() {    
+    this.GetDefaultCourseFrame();
     this.GetMaterialList();
     this.GetLinks();
     this.GetTags();
@@ -493,6 +494,7 @@ export default {
       this.CurrentStep = 1;
       this.DefaultImage = null;
       this.$emit('close-dialog');
+      this.GetDefaultCourseFrame();
     },
     DisableBeforeToday(date) {
       const today = new Date();
@@ -806,7 +808,22 @@ export default {
             // console.log(res.data.Materials);  
             this.CourseFrames[index].MaterialList = res.data.Materials;
             if (this.CourseFrames[index].MaterialList == null || this.CourseFrames[index].MaterialList.length == 0) {
-              this.CourseFrames[index].Material = null;
+              this.CourseFrames[index].Material = {
+                  Serial: '',
+                  Owner: null,
+                  Type: null,
+                  Name: null,
+                  Classification:null,
+                  PicUrl: '',
+                  VideoUrl: '',
+                  Description: '',
+                  Question: null,
+                  Answer: null,
+                  Option1: null,
+                  Option2: null,
+                  Option3: null,
+                  Option4: null
+              };
             }
             this.onChangeCourseFrame();
           } else {
@@ -833,7 +850,7 @@ export default {
     GetDefaultCourseFrame() {
         for(var i = 0; i < 20; i ++) {
           var CourseFrame = {
-            Type: '0',
+            Type: '1',
             Owner: null,
             Course: null,
             LectureSerial: null,
@@ -878,9 +895,10 @@ export default {
           this.CourseFrames[i] = CourseFrame;
         }        
         this.onChangeCourseFrame();
+        // console.log(this.CourseFrames);
     },
     GetCourseFrame() {
-      if (this.Serial != null) {        
+      if (this.Serial != null) {       
         apiGetCourseFrame(this.Serial).then((res) => {
           if (res.data.Status == 'ok') {            
             let list = res.data.Frames;
