@@ -840,6 +840,7 @@ export default {
       //console.log(event.target.value)
       const item = this.CourseFrames[index].MaterialList.find(it => it.Serial == event.target.value);
       this.CourseFrames[index].Material = item;
+      this.CourseFrames[index].MaterialSerial = item.Serial;
       this.onChangeCourseFrame();
     },
     onChangeCourseFrame() {
@@ -850,6 +851,7 @@ export default {
     GetDefaultCourseFrame() {
         for(var i = 0; i < 20; i ++) {
           var CourseFrame = {
+            Serial: '',
             Type: '1',
             Owner: null,
             Course: null,
@@ -912,7 +914,7 @@ export default {
                 LectureSerial: frame.LectureSerial,
                 LectureCode: frame.Code,
                 FrameSerial: frame.FrameSerial,
-                MaterialSeria: frame.MaterialSerial,
+                MaterialSerial: frame.MaterialSerial,
                 Score: frame.Score,
                 MaterialType: '',
                 MaterialCategory: '',
@@ -922,10 +924,28 @@ export default {
                 const item = this.MaterialList.find(it => it.Serial == frame.MaterialSerial);
                 CourseFrame.Material = item;
               }
+              if(CourseFrame.Material == null) {
+                CourseFrame.Material = {
+                    Serial: '',
+                    Owner: null,
+                    Type: null,
+                    Name: null,
+                    Classification:null,
+                    PicUrl: '',
+                    VideoUrl: '',
+                    Description: '',
+                    Question: null,
+                    Answer: null,
+                    Option1: null,
+                    Option2: null,
+                    Option3: null,
+                    Option4: null
+                }
+              }
               this.CourseFrames[index - 1] = CourseFrame;
             });
             this.onChangeCourseFrame();
-            // console.log(this.CourseFrames);
+            console.log(this.CourseFrames);
           } else {
             this.$toasted.show(this.$t('SURREALM.ApiErr') + res.data.Code, {
               icon: 'warning',
@@ -950,6 +970,7 @@ export default {
           MaterialSerial: material.MaterialSerial,
           Score: material.Score
         }
+        console.log(CourseFrame);
         return CourseFrame;
       });
       let jsonData = JSON.stringify({CourseFrame: MaterialList});
