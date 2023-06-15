@@ -212,7 +212,9 @@ export default {
         if (ErrMsg == '') {
             this.Material.Answer = parseInt(this.Material.Answer);//string轉成int
             let data = JSON.stringify(this.Material);
-            apiAddMaterial(data).then((res) => {        
+            //console.log(data);
+            apiAddMaterial(data)
+            .then((res) => {        
                 if (res.data.Status == 'ok') {          
                     this.CloseDialog();    
                 } else {
@@ -222,7 +224,8 @@ export default {
                     duration: 3500,
                     });
                 }
-        });
+            })
+            .catch((error) => console.log(error));
         } else {
             this.$toasted.show(ErrMsg, {
             icon: 'warning',
@@ -247,7 +250,7 @@ export default {
                     duration: 3500,
                     });
                 }
-        });
+            });
         } else {
             this.$toasted.show(ErrMsg, {
             icon: 'warning',

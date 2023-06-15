@@ -123,7 +123,7 @@
             <div class="space-img">
               <img src="@/assets/img/SURREALM/Backend/LectureManager/exploration_space.jpg">
             </div>
-            <div class="total-score-title">{{ $t('SURREALM.LectureOwn.TotalScore') }}80{{ $t('SURREALM.LectureOwn.ScoreUtil') }}</div>
+            <div class="total-score-title">{{ $t('SURREALM.LectureOwn.TotalScore') }}{{ Scope }}{{ $t('SURREALM.LectureOwn.ScoreUtil') }}</div>
             <div class="picture-frame" v-for="index in 20" :key="index">
               <div class="frame-title">{{ $t('SURREALM.LectureOwn.PictureFrame') }}{{ index }}</div>
               <div class="keyinTitle">{{ $t('SURREALM.LectureOwn.SelectMaterial') }}</div>
@@ -148,7 +148,7 @@
                 </select>
                 <div class="calculate-score">                 
                   <label>{{ $t('SURREALM.LectureOwn.CalculateScore') }}</label>
-                  <input class="lectureName" type="text" v-model="CourseFrames[index - 1].Score" :disabled="CourseFrames[index - 1].Type == '0' || CourseFrames[index - 1].Material == null || CourseFrames[index - 1].Material.Question == null || CourseFrames[index - 1].Material.Question.label == 0"/>
+                  <input class="lectureName" type="text" v-model="CourseFrames[index - 1].Score" :disabled="CourseFrames[index - 1].Type == '0' || CourseFrames[index - 1].Material == null || CourseFrames[index - 1].Material.Question == null || CourseFrames[index - 1].Material.Question.label == 0" @change="Sum()"/>
                 </div>
               </div>
               <div class="input-container">      
@@ -424,6 +424,7 @@ export default {
         Index: null,
       },
       StreamingAuth: false,
+      Scope: 0
     };
   },
   mounted() {    
@@ -457,7 +458,7 @@ export default {
     },
     CalcSelectModelNum: function () {
       return this.Lecture.Models == null ? this.ModelMaxNum : this.ModelMaxNum - this.Lecture.Models.length;
-    },
+    },    
   },
   watch: {
     defaultValue(obj) {
@@ -916,12 +917,16 @@ export default {
                 FrameSerial: frame.FrameSerial,
                 MaterialSerial: frame.MaterialSerial,
                 Score: frame.Score,
-                MaterialType: '',
-                MaterialCategory: '',
+                MaterialType: frame.Type,
+                MaterialCategory: frame.Classification,
                 MaterialList: this.MaterialList,
               }              
-              if (this.MaterialList.length > 0) {                
-                const item = this.MaterialList.find(it => it.Serial == frame.MaterialSerial);
+              if (this.MaterialList.length > 0) {
+                if (frame.Type != null && frame.Classification != null) {                  
+                  let list = this.MaterialList.filter(it => it.Type == frame.Type && it.Classification == frame.Classification);
+                  CourseFrame.MaterialList = list;                  
+                }             
+                const item = CourseFrame.MaterialList.find(it => it.Serial == frame.MaterialSerial);
                 CourseFrame.Material = item;
               }
               if(CourseFrame.Material == null) {
@@ -943,9 +948,10 @@ export default {
                 }
               }
               this.CourseFrames[index - 1] = CourseFrame;
+              this.Sum();
             });
             this.onChangeCourseFrame();
-            console.log(this.CourseFrames);
+            // console.log(this.CourseFrames);
           } else {
             this.$toasted.show(this.$t('SURREALM.ApiErr') + res.data.Code, {
               icon: 'warning',
@@ -968,7 +974,7 @@ export default {
           LectureCode: data.LectureCode,
           FrameSerial: material.FrameSerial,
           MaterialSerial: material.MaterialSerial,
-          Score: material.Score
+          Score: parseInt(material.Score)
         }
         console.log(CourseFrame);
         return CourseFrame;
@@ -988,6 +994,13 @@ export default {
           });
         }
       });      
+    },
+    Sum () { 
+      var total = 0;
+      this.CourseFrames.forEach(function(el) {
+        total += parseInt(el.Score);
+      });  
+      this.Scope = total;    
     },
     GetModels() {
       apiGetTeachingCool().then((res) => {
