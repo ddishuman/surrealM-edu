@@ -133,33 +133,33 @@
                   <input type="radio" :name="'material_select['+index+']'" :id="'default['+index+']'" value="0" v-model="CourseFrames[index - 1].Type" @change="onChangeCourseFrame()"/>
                   <label :for="'default['+index+']'"><span></span>{{ $t('SURREALM.LectureOwn.Default') }}</label>
               </div>
-              <div class="input-container">                            
-                <select class="tableSelect" v-model="CourseFrames[index - 1].MaterialType" :disabled="CourseFrames[index - 1].Type == '0'" @change="SearchMaterialList(index - 1, CourseFrames[index - 1].MaterialType, CourseFrames[index - 1].MaterialCategory)">
+              <div class="input-container" v-show="CourseFrames[index - 1].Type == '1'">                            
+                <select class="tableSelect" v-model="CourseFrames[index - 1].MaterialType" @change="SearchMaterialList(index - 1, CourseFrames[index - 1].MaterialType, CourseFrames[index - 1].MaterialCategory)">
                     <option value="">{{ $t('SURREALM.MaterialLib.MaterialType') }}</option>
                     <option v-for="(type, index) in MaterialTypes" :key="index" :value="type.id">
                       {{ type.name }}
                     </option>
                 </select>
-                <select class="tableSelect" v-model="CourseFrames[index - 1].MaterialCategory" :disabled="CourseFrames[index - 1].Type == '0'" @change="SearchMaterialList(index - 1, CourseFrames[index - 1].MaterialType, CourseFrames[index - 1].MaterialCategory)">
+                <select class="tableSelect" v-model="CourseFrames[index - 1].MaterialCategory" @change="SearchMaterialList(index - 1, CourseFrames[index - 1].MaterialType, CourseFrames[index - 1].MaterialCategory)">
                   <option value="">{{ $t('SURREALM.MaterialLib.Category') }}</option>
                   <option v-for="(category, index) in Categories" :key="index" :value="category">
                     {{ category }}
                   </option>
                 </select>
-                <div class="calculate-score">                 
+                <div class="calculate-score" v-show="CourseFrames[index - 1].Material != null && CourseFrames[index - 1].Material.Question != null && CourseFrames[index - 1].Material.Question.length != 0">                 
                   <label>{{ $t('SURREALM.LectureOwn.CalculateScore') }}</label>
-                  <input class="lectureName" type="text" v-model="CourseFrames[index - 1].Score" :disabled="CourseFrames[index - 1].Type == '0' || CourseFrames[index - 1].Material == null || CourseFrames[index - 1].Material.Question == null || CourseFrames[index - 1].Material.Question.label == 0" @change="Sum()"/>
+                  <input class="lectureName" type="text" v-model="CourseFrames[index - 1].Score" @change="Sum()"/>
                 </div>
               </div>
-              <div class="input-container">      
-                <select class="tableSelect2" v-model="CourseFrames[index - 1].Material.Serial" :disabled="CourseFrames[index - 1].Type == '0'" @change="onChangeMaterial($event, index - 1)">
+              <div class="input-container" v-show="CourseFrames[index - 1].Type == '1'">      
+                <select class="tableSelect2" v-model="CourseFrames[index - 1].Material.Serial" @change="onChangeMaterial($event, index - 1)">
                   <option value="">{{ $t('SURREALM.MaterialLib.MaterialName') }}</option>
                   <option v-for="(material, index) in CourseFrames[index - 1].MaterialList" :key="index" :value="material.Serial">
                     {{ material.Name }}
                   </option>
                 </select>
               </div>
-              <hr class="line-space"/>        
+              <hr class="line-space" width="100%"/>        
             </div>
             <div class="foolder-dec">{{ $t('SURREALM.LectureOwn.SelectMaterialDec') }}</div>
           </div>
@@ -848,6 +848,7 @@ export default {
       let tmp = this.CourseFrames;
       this.CourseFrames = [];
       this.CourseFrames = tmp;
+      this.Sum();
     },
     GetDefaultCourseFrame() {
         for(var i = 0; i < 20; i ++) {
@@ -998,7 +999,9 @@ export default {
     Sum () { 
       var total = 0;
       this.CourseFrames.forEach(function(el) {
-        total += parseInt(el.Score);
+        if (el.Type == "1") {
+          total += parseInt(el.Score);
+        }
       });  
       this.Scope = total;    
     },
